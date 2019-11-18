@@ -1,11 +1,12 @@
 <template lang="pug">
-
+    
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 
-export default class Home extends Vue {
+@Component
+export default class Archives extends Vue {
 }
 </script>
 

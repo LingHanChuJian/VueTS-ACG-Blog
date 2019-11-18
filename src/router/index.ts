@@ -1,29 +1,41 @@
-import Vue from 'vue';
-import VueRouter from 'vue-router';
-import Home from '../views/Home.vue';
+import Vue from 'vue'
+import nprogress from 'nprogress'
+import VueRouter, { Route, RouteConfig } from 'vue-router'
 
-Vue.use(VueRouter);
+Vue.use(VueRouter)
 
-const routes = [
+const routes: RouteConfig[] = [
   {
     path: '/',
-    name: 'home',
-    component: Home,
+    component: () => import('@/views/Index.vue'),
+    children: [
+      {
+        path: '/',
+        name: 'home',
+        component: () => import('@/views/Home.vue'),
+      },
+      {
+        path: '/archives',
+        name: 'archives',
+        component: () => import('@/views/Archives.vue'),
+      },
+    ],
   },
-  {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
-  },
-];
+]
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes,
-});
+})
 
-export default router;
+router.beforeEach((to: Route, from: Route, next) => {
+  nprogress.start()
+  next()
+})
+
+router.afterEach((to: Route, from: Route) => {
+  nprogress.done()
+})
+
+export default router

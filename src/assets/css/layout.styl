@@ -1,0 +1,47 @@
+.layout
+    display flex
+    flex-direction column
+    flex-grow 1
+
+.layout-has-drawer
+    flex-direction row
+
+.layout-drawer
+    transition all .2s ease-in-out
+    position relative
+    min-width 0
+
+.layout-drawer-children
+    height 100%
+    transition all .2s ease-in-out
+
+.layout-drawer-children-collapsed
+    display none
+
+.layout-header
+    height 75px
+    line-height 75px
+
+.layout-header-small
+    height 50px
+    line-height 50px
+
+.layout-content
+    flex auto
+    animation content 1s
+
+.layout-footer
+    position relative
+
+.layout-header
+.layout-footer
+    flex 0 0 auto
+
+@keyframes content
+    0%
+        opacity 0
+        transform translateY(50px)
+    
+    100%
+        opacity 1
+        transform translateX(0)

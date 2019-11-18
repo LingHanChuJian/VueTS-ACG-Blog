@@ -1,11 +1,12 @@
 <template lang="pug">
-
+    div
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 
-export default class Home extends Vue {
+@Component
+export default class NavDrawer extends Vue {
 }
 </script>
 
