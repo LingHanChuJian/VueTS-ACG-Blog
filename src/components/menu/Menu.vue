@@ -18,7 +18,7 @@ export default class Menu extends Vue {
             return oneOf(value, ['vertical', 'horizontal'])
         },
     })
-    private mode!: string
+    public mode!: string
 
     @Prop({ default: 250, type: [Number, String] })
     private width!: number | string
@@ -27,6 +27,10 @@ export default class Menu extends Vue {
     private activeName?: number | string
 
     private prefixCls: string = 'menu'
+
+    private currentActiveName: string | number | undefined = this.activeName
+
+    private openedNames: string[] = []
 
     private get classes(): Array<string | WrapClasses> {
         return [

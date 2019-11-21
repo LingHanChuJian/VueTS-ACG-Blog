@@ -5,11 +5,11 @@
 
 <script lang="ts">
 import { WrapClasses } from '@/types/components'
-import Adaptive from '@/components/mixins/adaptive'
+import AdaptiveMixins from '@/components/mixins/adaptive'
 import { Component, Mixins, Vue } from 'vue-property-decorator'
 
 @Component
-export default class Header extends Mixins(Adaptive) {
+export default class Header extends Mixins(AdaptiveMixins) {
     private prefixCls: string = 'layout-header'
 
     private get wrapClasses(): Array<string | WrapClasses> {

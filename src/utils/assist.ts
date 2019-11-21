@@ -48,30 +48,25 @@ export const deepCopy = (data: any): any => {
 }
 
 /**
- * 向下查询组件
+ * 向下查询组件 返回组件数组
  * @param context 组件对象
- * @param componentName 组件名称
- * @param ignoreComponentNames 忽略组件名称集合
+ * @param componentName 待查询组件名称
+ * @param ignoreComponentNames 需要忽略组件名称集合
  */
 export const findComponentsDownward = (context: Vue, componentName: string, ignoreComponentNames: string | string[] = []): Vue[] => {
     if (!Array.isArray(ignoreComponentNames)) {
         ignoreComponentNames = [ignoreComponentNames]
     }
-    return context.$children.reduce((components: any[], child: Vue) => {
+    return context.$children.reduce((components: Vue[], child: Vue) => {
         if (child.$options.name === componentName) { components.push(child) }
-        if (ignoreComponentNames.indexOf((child.$options.name as string)) < 0) {
-            const foundChilds: Vue[] = findComponentsDownward(child, componentName);
-            return components.concat(foundChilds)
-        } else {
-            return components
-        }
+        return ignoreComponentNames.indexOf((child.$options.name as string)) === -1 ? components.concat(findComponentsDownward(child, componentName)) : components
     }, [])
 }
 
 /**
- * 向上查询组件
+ * 向上查询组件 返回组件数组
  * @param context 组件对象
- * @param componentName 组件名称
+ * @param componentName 待查询组件名称
  */
 export const findComponentsUpward = (context: Vue, componentName: string): Vue[] => {
     const parents: Vue[] = []
@@ -82,4 +77,49 @@ export const findComponentsUpward = (context: Vue, componentName: string): Vue[]
     } else {
         return []
     }
+}
+
+/**
+ * 向上查询组件 返回组件
+ * @param context 组件对象
+ * @param componentName 待查询组件名称 或者 组件名称数组
+ */
+export const findComponentUpward = (context: Vue, componentName: string | string[]): Vue => {
+    const componentNames: string[] = typeof componentName === 'string' ? [componentName] : componentName
+    let parent: Vue = context.$parent
+    let name: string | undefined = parent.$options.name
+
+    while (parent && (!name || componentNames.indexOf(name) === -1)) {
+        parent = parent.$parent
+        if (parent) {
+            name = parent.$options.name
+        }
+    }
+
+    return parent
+}
+
+/**
+ * 想下查询组件 返回组件
+ * @param context 组件对象
+ * @param componentName 待查询组件名称
+ */
+export const findComponentDownward = (context: Vue, componentName: string): Vue | undefined => {
+    const childrens: Vue[] = context.$children
+    let children: Vue | undefined
+
+    if (childrens.length) {
+        for (const child of childrens) {
+            const name: string | undefined = child.$options.name
+            if (name === componentName) {
+                children = child
+                break
+            } else {
+                children = findComponentDownward(child, componentName)
+                if (children) { break }
+            }
+        }
+    }
+
+    return children
 }
