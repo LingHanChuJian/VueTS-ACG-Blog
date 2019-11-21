@@ -8,7 +8,6 @@ import { oneOf } from '@/utils'
 import { WrapClasses, CSSStyles } from '@/types/components'
 import { Component, Prop, Vue } from 'vue-property-decorator'
 
-
 @Component
 export default class Menu extends Vue {
     @Prop({
@@ -26,7 +25,14 @@ export default class Menu extends Vue {
     @Prop({ type: [Number, String] })
     private activeName?: number | string
 
+    @Prop({ default: [], type: Array })
+    private openNames!: any[]
+
     private prefixCls: string = 'menu'
+
+    private currentActiveName?: number | string = this.activeName
+
+    private openedNames: any[] = []
 
     private get classes(): Array<string | WrapClasses> {
         return [
@@ -44,7 +50,3 @@ export default class Menu extends Vue {
     }
 }
 </script>
-
-<style lang="stylus" scoped>
-
-</style>
