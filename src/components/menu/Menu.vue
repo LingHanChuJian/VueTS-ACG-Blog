@@ -5,11 +5,12 @@
 
 <script lang="ts">
 import { oneOf } from '@/utils'
+import EmitterMixins from '@/components/mixins/emitter'
 import { WrapClasses, CSSStyles } from '@/types/components'
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Component, Prop, Mixins, Vue } from 'vue-property-decorator'
 
 @Component
-export default class Menu extends Vue {
+export default class Menu extends Mixins(EmitterMixins) {
     @Prop({
         default: 'vertical',
         type: String,
@@ -26,13 +27,17 @@ export default class Menu extends Vue {
     private activeName?: number | string
 
     @Prop({ default: [], type: Array })
-    private openNames!: any[]
+    private openNames!: Array<number | string>
 
     private prefixCls: string = 'menu'
 
     private currentActiveName?: number | string = this.activeName
 
-    private openedNames: string[] = []
+    private openedNames: Array<number | string> = []
+
+    private handleEmitSelectEvent(name: string) {
+        this.$emit('on-select', name)
+    }
 
     private get classes(): Array<string | WrapClasses> {
         return [

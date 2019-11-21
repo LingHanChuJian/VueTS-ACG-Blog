@@ -22,7 +22,7 @@ export default class Icon extends Vue {
 
     private get wrapClasses(): Array<string | WrapClasses> {
         return [
-            `${this.prefixCls}`,
+            this.prefixCls,
             {
                 [`${this.prefixCls}-${this.type}`]: this.type !== '',
             },

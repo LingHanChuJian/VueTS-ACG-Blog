@@ -15,7 +15,7 @@ export default class Layout extends Vue {
 
     private get wrapClasses(): Array<string | WrapClasses> {
         return [
-            `${this.prefixCls}`,
+            this.prefixCls,
             {
                 [`${this.prefixCls}-has-drawer`] : this.hasFindDrawer,
             },

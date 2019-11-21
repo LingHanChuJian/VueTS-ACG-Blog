@@ -14,7 +14,7 @@ export default class Header extends Mixins(AdaptiveMixins) {
 
     private get wrapClasses(): Array<string | WrapClasses> {
         return [
-            `${this.prefixCls}`,
+            this.prefixCls,
             {
                 [`${this.prefixCls}-small`]: this.isMediaMatched,
             },

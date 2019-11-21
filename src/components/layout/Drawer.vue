@@ -37,7 +37,7 @@ export default class Drawer extends Mixins(AdaptiveMixins) {
 
     private get wrapClasses(): Array<string | WrapClasses> {
         return [
-            `${this.prefixCls}`,
+            this.prefixCls,
         ]
     }
 

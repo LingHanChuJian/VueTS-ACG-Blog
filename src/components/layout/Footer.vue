@@ -13,7 +13,7 @@ export default class Footer extends Vue {
 
     private get wrapClasses(): Array<string | WrapClasses> {
         return [
-            `${this.prefixCls}`,
+            this.prefixCls,
         ]
     }
 }

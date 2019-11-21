@@ -6,10 +6,10 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
 @Component
 export default class LinkMixins extends Vue {
     @Prop({ type: [Object, String] })
-    private to?: RawLocation
+    public to?: RawLocation
 
     @Prop({ default: false, type: Boolean })
-    private replace!: boolean
+    public replace!: boolean
 
     @Prop({
         default: 'self',
@@ -18,14 +18,14 @@ export default class LinkMixins extends Vue {
             return oneOf(value, ['_blank', '_self', '_parent', '_top'])
         },
     })
-    private target!: string
+    public target!: string
 
     @Prop({ default: false, type: Boolean, required: false })
-    private append!: boolean
+    public append!: boolean
 
-    public handleClick(newWindow: boolean = false): void {
+    public handleClick(isNewWindow: boolean = false): void {
         const router: VueRouter = this.$router
-        if (newWindow) {
+        if (isNewWindow) {
             let to = this.to
             if (router) {
                 const current: Route = this.$route
@@ -42,13 +42,13 @@ export default class LinkMixins extends Vue {
         }
     }
 
-    public handleCheckClick(event: Event, newWindow: boolean = false): boolean | void {
+    public handleCheckClick(event: Event, isNewWindow: boolean = false): boolean | void {
         if (this.to) {
             if (this.target === '_blank') {
                 return false
             } else {
                 event.preventDefault()
-                this.handleClick(newWindow)
+                this.handleClick(isNewWindow)
             }
         }
     }

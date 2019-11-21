@@ -13,7 +13,7 @@ export default class Content extends Vue {
 
     private get wrapClasses(): Array<string | WrapClasses> {
         return [
-            `${this.prefixCls}`,
+            this.prefixCls,
         ]
     }
 }
