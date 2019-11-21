@@ -1,5 +1,13 @@
 import { addEvent, removeEvent } from '@/utils/dom'
-import { oneOf, typeOf, deepCopy } from '@/utils/assist'
+import {
+    oneOf,
+    typeOf,
+    deepCopy,
+    findComponentsDownward,
+    findComponentsUpward,
+    findComponentUpward,
+    findComponentDownward,
+} from '@/utils/assist'
 
 export {
     addEvent,
@@ -7,4 +15,8 @@ export {
     oneOf,
     typeOf,
     deepCopy,
+    findComponentsDownward,
+    findComponentsUpward,
+    findComponentUpward,
+    findComponentDownward,
 }

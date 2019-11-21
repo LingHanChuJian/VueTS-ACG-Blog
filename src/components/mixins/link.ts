@@ -4,7 +4,7 @@ import VueRouter, { RawLocation, Route } from 'vue-router'
 import { Component, Prop, Vue } from 'vue-property-decorator'
 
 @Component
-export default class Link extends Vue {
+export default class LinkMixins extends Vue {
     @Prop({ type: [Object, String] })
     private to?: RawLocation
 

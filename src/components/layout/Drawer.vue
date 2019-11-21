@@ -10,12 +10,12 @@
 
 <script lang="ts">
 import { addEvent, removeEvent } from '@/utils'
-import Adaptive from '@/components/mixins/adaptive'
+import AdaptiveMixins from '@/components/mixins/adaptive'
 import { CSSStyles, WrapClasses } from '@/types/components'
 import { Component, Prop, Mixins, Watch, Vue } from 'vue-property-decorator'
 
 @Component
-export default class Drawer extends Mixins(Adaptive) {
+export default class Drawer extends Mixins(AdaptiveMixins) {
     @Prop({ default: false, type: Boolean })
     private value!: boolean
 
