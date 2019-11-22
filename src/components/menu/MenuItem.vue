@@ -65,7 +65,7 @@ export default class MenuItem extends Mixins(EmitterMixins, LinkMixins, MenuMixi
     }
 
     private get itemStyle(): CSSStyles<CSSStyleDeclaration> {
-        return this.hasParentSubmenu && this.mode !== 'horizontal' ? { paddingLeft: 43 + (this.parentSubmenuNum - 1) * 24 + 'px' } : {}
+        return this.hasParentSubMenu && this.mode !== 'horizontal' ? { paddingLeft: 43 + (this.parentSubMenuNum - 1) * 24 + 'px' } : {}
     }
 }
 </script>

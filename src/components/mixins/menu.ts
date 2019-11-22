@@ -5,11 +5,11 @@ import { findComponentUpward, findComponentsUpward } from '@/utils'
 export default class MenuMixins extends Vue {
     private menu: Vue = findComponentUpward(this, 'Menu')
 
-    public get hasParentSubmenu(): boolean {
+    public get hasParentSubMenu(): boolean {
         return !!findComponentUpward(this, 'SubMenu')
     }
 
-    public get parentSubmenuNum(): number {
+    public get parentSubMenuNum(): number {
         return findComponentsUpward(this, 'SubMenu').length
     }
 
