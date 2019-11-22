@@ -9,6 +9,14 @@
         @click.ctrl="handleClickItem(event, true)"
         @click.meta="handleClickItem(event, true)"
     )
+        slot
+    li(
+        v-else
+        :class="classes"
+        :style="itemStyle"
+        @click.stop="handleClickItem"
+    )
+        slot
 </template>
 
 <script lang="ts">
@@ -66,6 +74,17 @@ export default class MenuItem extends Mixins(EmitterMixins, LinkMixins, MenuMixi
 
     private get itemStyle(): CSSStyles<CSSStyleDeclaration> {
         return this.hasParentSubMenu && this.mode !== 'horizontal' ? { paddingLeft: 43 + (this.parentSubMenuNum - 1) * 24 + 'px' } : {}
+    }
+
+    private mounted() {
+        this.$on('on-update-active-name', (name: string) => {
+            if (this.name === name) {
+                this.isActive = true
+                this.dispatch('SubMenu', 'on-update-active-name', name)
+            } else {
+                this.isActive = false
+            }
+        })
     }
 }
 </script>
