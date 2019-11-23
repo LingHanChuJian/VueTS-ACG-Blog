@@ -10,7 +10,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
 @Component
 export default class Icon extends Vue {
     @Prop({ type: String })
-    private type!: string
+    private type?: string
 
     @Prop({ type: [Number, String] })
     private size!: number | string
@@ -18,13 +18,17 @@ export default class Icon extends Vue {
     @Prop({ type: String })
     private color!: string
 
+    @Prop({ type: String })
+    private custom?: string
+
     private prefixCls: string = 'icon'
 
     private get wrapClasses(): Array<string | WrapClasses> {
         return [
             this.prefixCls,
+            this.custom ? this.custom : '',
             {
-                [`${this.prefixCls}-${this.type}`]: this.type !== '',
+                [`${this.prefixCls}-${this.type}`]: !!this.type,
             },
         ]
     }

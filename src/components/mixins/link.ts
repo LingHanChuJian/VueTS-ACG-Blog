@@ -68,4 +68,5 @@ export default class LinkMixins extends Vue {
         }
         return this.to
     }
+
 }
