@@ -11,11 +11,18 @@
         div(:class="[prefixCls + '-title']" ref="reference" @click.stop="handleClick" :style="liStyle")
             slot(name="title")
             Icon(v-if="mode === 'vertical'")
+            ul
+                slot
     li(
         v-else
         :class="classes"
         @click.stop="handleClickItem"
     )
+        div(:class="[prefixCls + '-title']" ref="reference" @click.stop="handleClick" :style="liStyle")
+            slot(name="title")
+            Icon(v-if="mode === 'vertical'")
+            ul
+                slot
 </template>
 
 <script lang="ts">
@@ -36,6 +43,10 @@ export default class SubMenu extends Mixins(MenuMixins) {
         return [
             this.prefixCls,
         ]
+    }
+
+    private handleClick(): void {
+        console.log('handleClick')
     }
 }
 </script>
