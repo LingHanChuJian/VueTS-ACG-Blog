@@ -35,19 +35,13 @@ export default class MenuMixins extends Mixins(LinkMixins, EmitterMixins) {
 
         if (isNewWindow || this.target === '_blank') {
             this.handleCheckClick(event, isNewWindow)
-
             const parentMenu = findComponentUpward(this, 'Menu')
             if (parentMenu) {
                 (parentMenu as Vue & { handleEmitSelectEvent: (name?: number | string) => void }).handleEmitSelectEvent(this.name)
             }
         } else {
             const parent = findComponentUpward(this, 'SubMenu')
-            if (parent) {
-                this.dispatch('SubMenu', 'on-menu-item-select', this.name)
-            } else {
-                this.dispatch('Menu', 'on-menu-item-select', this.name)
-            }
-
+            parent ? this.dispatch('SubMenu', 'on-menu-item-select', this.name) : this.dispatch('Menu', 'on-menu-item-select', this.name)
             this.handleCheckClick(event, isNewWindow)
         }
     }

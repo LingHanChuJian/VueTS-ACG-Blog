@@ -4,23 +4,27 @@
         :href="linkUrl"
         :target="target"
         :class="classes"
-        @click.exact="handleClickItem(event, false)"
+        @click.exact="handleClickItem(event, false), handleTitleClick()"
         @click.ctrl="handleClickItem(event, true)"
         @click.meta="handleClickItem(event, true)"
+        @mouseenter="handleMouseenter"
+        @mouseleave="handleMouseleave"
     )
-        div(:class="[prefixCls + '-title']" ref="reference" @click.stop="handleClick" :style="liStyle")
+        div(:class="[prefixCls + '-title']" ref="reference" :style="liStyle")
             slot(name="title")
-            Icon(v-if="mode === 'vertical'")
+            Icon(v-if="mode === 'vertical'" @click.stop="submenuIconClick")
             ul
                 slot
     li(
         v-else
         :class="classes"
-        @click.stop="handleClickItem"
+        @click.stop="handleClickItem(), handleTitleClick()"
+        @mouseenter="handleMouseenter"
+        @mouseleave="handleMouseleave"
     )
-        div(:class="[prefixCls + '-title']" ref="reference" @click.stop="handleClick" :style="liStyle")
+        div(:class="[prefixCls + '-title']" ref="reference" :style="liStyle")
             slot(name="title")
-            Icon(v-if="mode === 'vertical'")
+            Icon(v-if="mode === 'vertical'" @click.stop="submenuIconClick")
             ul
                 slot
 </template>
@@ -37,7 +41,26 @@ import { Component, Mixins, Vue } from 'vue-property-decorator'
     },
 })
 export default class SubMenu extends Mixins(MenuMixins) {
-    private prefixCls: string = 'sub-menu'
+    private prefixCls: string = 'submenu'
+    private timeout?: number
+
+    private handleMouseenter(): void {
+        if (this.disabled || this.mode === 'vertical') { return }
+        if (!!this.timeout) { clearTimeout(this.timeout) }
+    }
+
+    private handleMouseleave(): void {
+        if (this.disabled || this.mode === 'vertical') { return }
+        if (!!this.timeout) { clearTimeout(this.timeout) }
+    }
+
+    private handleTitleClick(): void {
+        console.log('handleTitleClick')
+    }
+
+    private submenuIconClick(): void {
+        console.log('submenuIconClick')
+    }
 
     private get classes(): Array<string | WrapClasses> {
         return [
@@ -45,8 +68,5 @@ export default class SubMenu extends Mixins(MenuMixins) {
         ]
     }
 
-    private handleClick(): void {
-        console.log('handleClick')
-    }
 }
 </script>
