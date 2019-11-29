@@ -1,4 +1,4 @@
-import { ObjectType } from '@/types/utils'
+import { ObjectBase } from '@/types/utils'
 import { Vue } from 'vue-property-decorator'
 
 // 判断元素是否在数组中
@@ -9,7 +9,7 @@ export const oneOf = (value: any, validList: any[]): boolean => {
 // 判断对象类型
 export const typeOf = (value: any): string => {
     const toString: () => string = Object.prototype.toString
-    const map: ObjectType = {
+    const map: ObjectBase = {
         '[object Boolean]'  : 'boolean',
         '[object Number]'   : 'number',
         '[object String]'   : 'string',
@@ -36,10 +36,10 @@ export const deepCopy = (data: any): any => {
             }
             return array
         case 'object':
-            const objects: ObjectType = {}
-            const objectsName: string[] = Object.keys(data as ObjectType)
+            const objects: ObjectBase = {}
+            const objectsName: string[] = Object.keys(data as ObjectBase)
             for (let n = 0, nLen = objectsName.length; n < nLen; n++) {
-                objects[objectsName[n]] = deepCopy((data as ObjectType).objectsName[n])
+                objects[objectsName[n]] = deepCopy((data as ObjectBase).objectsName[n])
             }
             return objects
         default:
