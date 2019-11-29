@@ -3,8 +3,7 @@
 </template>
 
 <script lang="ts">
-import { Styles } from '@/types/icon'
-import { WrapClasses } from '@/types/components'
+import { WrapClasses, IconStyles } from '@/types/components'
 import { Component, Prop, Vue } from 'vue-property-decorator'
 
 @Component
@@ -33,8 +32,8 @@ export default class Icon extends Vue {
         ]
     }
 
-    private get styles(): Styles {
-        const style: Styles = {}
+    private get styles(): IconStyles {
+        const style: IconStyles = {}
 
         if (this.size) {
             style['font-size'] = `${this.size}px`

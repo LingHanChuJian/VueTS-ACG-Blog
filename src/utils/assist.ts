@@ -123,3 +123,28 @@ export const findComponentDownward = (context: Vue, componentName: string): Vue 
 
     return children
 }
+
+/**
+ * 查找兄弟组件, 返回组件数组
+ * @param context 组件对象
+ * @param componentName 组件名称
+ * @param exceptMe 排除自身
+ */
+export const findBrothersComponents = (context: Vue, componentName: string, exceptMe: boolean = true): Vue[] => {
+    const res: Vue[] = context.$parent.$children.filter((item) => item.$options.name === componentName)
+    const index: number = res.findIndex((item) => (item as Vue & { _uid: string})._uid === (context as Vue & { _uid: string })._uid)
+    if (exceptMe) { res.splice(index, 1) }
+    return res
+}
+
+export const hasClass = (el: Element, cls: string): boolean => {
+    return el.classList.contains(cls)
+}
+
+export const addClass = (el: Element, cls: string): void  => {
+    if (!hasClass(el, cls)) { el.classList.add(cls) }
+}
+
+export const removeClass = (el: Element, cls: string): void => {
+    if (hasClass(el, cls)) { el.classList.remove(cls) }
+}

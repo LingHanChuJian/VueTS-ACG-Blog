@@ -1,5 +1,6 @@
 <template lang="pug">
     div(:class="classes" :style="styles")
+        slot
 </template>
 
 <script lang="ts">
@@ -11,7 +12,7 @@ export default class DropDown extends Vue {
     @Prop({ type: String })
     private className?: string
 
-    private prefixCls: string = 'drop-down'
+    private prefixCls: string = 'dropdown'
 
     private get classes(): Array<string | WrapClasses> {
         return [

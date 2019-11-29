@@ -1,4 +1,5 @@
 import { CSSStyles } from '@/types/layout'
+import { IconStyles } from '@/types/icon'
 
 interface WrapClasses {
     [key: string]: boolean
@@ -6,5 +7,6 @@ interface WrapClasses {
 
 export {
     CSSStyles,
+    IconStyles,
     WrapClasses,
 }
