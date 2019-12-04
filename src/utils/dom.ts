@@ -11,3 +11,15 @@ export const removeEvent = (element: Document | HTMLElement | Window, event: K, 
         element.removeEventListener(event, handler, false)
     }
 }
+
+export const hasClass = (el: HTMLElement, cls: string): boolean => {
+    return el.classList.contains(cls)
+}
+
+export const addClass = (el: HTMLElement, cls: string): void  => {
+    if (!hasClass(el, cls)) { el.classList.add(cls) }
+}
+
+export const removeClass = (el: HTMLElement, cls: string): void => {
+    if (hasClass(el, cls)) { el.classList.remove(cls) }
+}

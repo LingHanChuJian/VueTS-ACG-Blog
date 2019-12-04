@@ -1,12 +1,7 @@
-import { CSSStyles } from '@/types/layout'
-import { IconStyles } from '@/types/icon'
+export * from '@/types/layout'
+export * from '@/types/icon'
+export * from '@/types/menu'
 
-interface WrapClasses {
+export interface WrapClasses {
     [key: string]: boolean
-}
-
-export {
-    CSSStyles,
-    IconStyles,
-    WrapClasses,
 }

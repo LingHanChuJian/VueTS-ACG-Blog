@@ -136,15 +136,3 @@ export const findBrothersComponents = (context: Vue, componentName: string, exce
     if (exceptMe) { res.splice(index, 1) }
     return res
 }
-
-export const hasClass = (el: Element, cls: string): boolean => {
-    return el.classList.contains(cls)
-}
-
-export const addClass = (el: Element, cls: string): void  => {
-    if (!hasClass(el, cls)) { el.classList.add(cls) }
-}
-
-export const removeClass = (el: Element, cls: string): void => {
-    if (hasClass(el, cls)) { el.classList.remove(cls) }
-}

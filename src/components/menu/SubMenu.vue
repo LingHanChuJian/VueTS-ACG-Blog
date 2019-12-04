@@ -13,8 +13,11 @@
         div(:class="[prefixCls + '-title']" ref="reference" :style="liStyle")
             slot(name="title")
             Icon(v-if="mode === 'vertical'" @click.stop="submenuIconClick")
+        CollapseTransition(v-if="mode === 'vertical'")
             ul
                 slot
+        transition(name="slide-up" v-else)
+            DropDown
     li(
         v-else
         :class="classes"
@@ -25,19 +28,27 @@
         div(:class="[prefixCls + '-title']" ref="reference" :style="liStyle")
             slot(name="title")
             Icon(v-if="mode === 'vertical'" @click.stop="submenuIconClick")
+        CollapseTransition(v-if="mode === 'vertical'")
             ul
+                slot
+        transition(name="slide-up" v-else)
+            DropDown
                 slot
 </template>
 
 <script lang="ts">
 import Icon from '@/components/icon/Icon.vue'
 import MenuMixins from '@/components/mixins/menu'
+import DropDown from '@/components/menu/DropDown.vue'
 import { WrapClasses, CSSStyles } from '@/types/components'
 import { Component, Mixins, Vue } from 'vue-property-decorator'
+import CollapseTransition from '@/components/menu/CollapseTransition'
 
 @Component({
     components: {
         Icon,
+        CollapseTransition,
+        DropDown,
     },
 })
 export default class SubMenu extends Mixins(MenuMixins) {
