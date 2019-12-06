@@ -18,6 +18,7 @@
                 slot
         transition(name="slide-up" v-else)
             DropDown
+                solt
     li(
         v-else
         :class="classes"

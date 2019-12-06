@@ -4,6 +4,7 @@
 </template>
 
 <script lang="ts">
+import Popper from 'popper.js'
 import { WrapClasses, CSSStyles } from '@/types/components'
 import { Component, Prop, Vue, Provide } from 'vue-property-decorator'
 
