@@ -1,4 +1,4 @@
-import { Data } from '@/types/components'
+import { MarkData } from '@/types/components'
 import { addClass, removeClass } from '@/utils'
 import { CreateElement, RenderContext, VNode } from 'vue'
 import { Component, Prop, Vue } from 'vue-property-decorator'
@@ -11,46 +11,46 @@ export default class CollapseTransition extends Vue {
     private render(h: CreateElement, hack: RenderContext<Record<string, any>>): VNode {
         return h('transition', {
             on: {
-                beforeEnter(el: HTMLElement & { data: Data }) {
+                beforeEnter(el: HTMLElement & { markData: MarkData }) {
                     addClass(el, 'collapse-transition')
                     if (!el.dataset) {
-                        el.data = { oldOverflow: '', oldPaddingTop: null, oldPaddingBottom: null }
+                        el.markData = { oldOverflow: '', oldPaddingTop: null, oldPaddingBottom: null }
                     }
-                    el.data.oldPaddingTop = el.style.paddingTop
-                    el.data.oldPaddingBottom = el.style.paddingBottom
+                    el.markData.oldPaddingTop = el.style.paddingTop
+                    el.markData.oldPaddingBottom = el.style.paddingBottom
 
                     el.style.height = '0'
                     el.style.paddingTop = '0'
                     el.style.paddingBottom = '0'
                 },
-                enter(el: HTMLElement & { data: Data }) {
-                    el.data.oldOverflow = el.style.overflow
+                enter(el: HTMLElement & { markData: MarkData }) {
+                    el.markData.oldOverflow = el.style.overflow
                     if (el.scrollHeight !== 0) {
                         el.style.height = `${el.scrollHeight}px`
                     } else {
                         el.style.height = ''
                     }
-                    el.style.paddingTop = el.data.oldPaddingTop
-                    el.style.paddingBottom = el.data.oldPaddingBottom
+                    el.style.paddingTop = el.markData.oldPaddingTop
+                    el.style.paddingBottom = el.markData.oldPaddingBottom
                     el.style.overflow = 'hidden'
                 },
-                afterEnter(el: HTMLElement & { data: Data }) {
+                afterEnter(el: HTMLElement & { markData: MarkData }) {
                     removeClass(el, 'collapse-transition')
                     el.style.height = ''
-                    el.style.overflow = el.data.oldOverflow
+                    el.style.overflow = el.markData.oldOverflow
                 },
-                beforeLeave(el: HTMLElement & { data: Data }) {
+                beforeLeave(el: HTMLElement & { markData: MarkData }) {
                     if (!el.dataset) {
-                        el.data = { oldOverflow: '', oldPaddingTop: null, oldPaddingBottom: null }
+                        el.markData = { oldOverflow: '', oldPaddingTop: null, oldPaddingBottom: null }
                     }
-                    el.data.oldOverflow = el.style.overflow
-                    el.data.oldPaddingTop = el.style.paddingTop
-                    el.data.oldPaddingBottom = el.style.paddingBottom
+                    el.markData.oldOverflow = el.style.overflow
+                    el.markData.oldPaddingTop = el.style.paddingTop
+                    el.markData.oldPaddingBottom = el.style.paddingBottom
 
                     el.style.height = `${el.scrollHeight}px`
                     el.style.overflow = 'hidden'
                 },
-                leave(el: HTMLElement & { data: Data }) {
+                leave(el: HTMLElement & { markData: MarkData }) {
                     if (el.scrollHeight !== 0) {
                         addClass(el, 'collapse-transition')
                         el.style.height = '0'
@@ -58,12 +58,12 @@ export default class CollapseTransition extends Vue {
                         el.style.paddingBottom = '0'
                     }
                 },
-                afterLeave(el: HTMLElement & { data: Data }) {
+                afterLeave(el: HTMLElement & { markData: MarkData }) {
                     removeClass(el, 'collapse-transition')
                     el.style.height = ''
-                    el.style.overflow = el.data.oldOverflow
-                    el.style.paddingTop = el.data.oldPaddingTop
-                    el.style.paddingBottom = el.data.oldPaddingBottom
+                    el.style.overflow = el.markData.oldOverflow
+                    el.style.paddingTop = el.markData.oldPaddingTop
+                    el.style.paddingBottom = el.markData.oldPaddingBottom
                 },
             },
             props: hack.props,
