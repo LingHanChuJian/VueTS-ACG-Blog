@@ -14,11 +14,12 @@
             slot(name="title")
             Icon(v-if="mode === 'vertical'" @click.stop="submenuIconClick")
         CollapseTransition(v-if="mode === 'vertical'")
-            ul
+            ul(:class="[parentPrefixCls]")
                 slot
         transition(name="slide-up" v-else)
             DropDown
-                solt
+                ul(:class="[parentPrefixCls + '-drop-list']")
+                    solt
     li(
         v-else
         :class="classes"
@@ -30,11 +31,12 @@
             slot(name="title")
             Icon(v-if="mode === 'vertical'" @click.stop="submenuIconClick")
         CollapseTransition(v-if="mode === 'vertical'")
-            ul
+            ul(:class="[parentPrefixCls]")
                 slot
         transition(name="slide-up" v-else)
             DropDown
-                slot
+                ul(:class="[parentPrefixCls + '-drop-list']")
+                    slot
 </template>
 
 <script lang="ts">
@@ -53,7 +55,10 @@ import CollapseTransition from '@/components/menu/CollapseTransition'
     },
 })
 export default class SubMenu extends Mixins(MenuMixins) {
+    private parentPrefixCls: string = 'menu'
+
     private prefixCls: string = 'submenu'
+
     private timeout?: number
 
     private handleMouseenter(): void {

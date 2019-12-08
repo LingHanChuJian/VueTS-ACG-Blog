@@ -136,8 +136,3 @@ export const findBrothersComponents = (context: Vue, componentName: string, exce
     if (exceptMe) { res.splice(index, 1) }
     return res
 }
-
-export const getStyle = (element: HTMLElement, styleName: string): any | null => {
-    //  获取style
-    return null
-}

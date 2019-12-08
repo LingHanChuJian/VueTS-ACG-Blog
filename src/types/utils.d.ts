@@ -12,3 +12,7 @@ export interface Details {
 export interface Modules {
     [key: string]: StoreOptions<Details>
 }
+
+export type K = keyof DocumentEventMap
+
+export type S = keyof CSSStyleDeclaration
