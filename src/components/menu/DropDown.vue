@@ -4,6 +4,7 @@
 </template>
 
 <script lang="ts">
+import { getStyle } from '@/utils'
 import Popper, { PopperOptions } from 'popper.js'
 import { WrapClasses, CSSStyles } from '@/types/components'
 import { Component, Prop, Vue, Provide } from 'vue-property-decorator'
@@ -55,17 +56,28 @@ export default class DropDown extends Vue {
                         },
                     },
                     onCreate: () => {
+                        this.resetTransformOrigin()
                         this.$nextTick(() => (this.popper as Popper).update())
                     },
                     onUpdate: () => {
-                        console.log('onUpdate')
+                        this.resetTransformOrigin()
                     },
                 })
             })
         }
 
         if (this.$parent.$options.name === 'SubMenu') {
-            // this.minWidth =
+            this.minWidth = getStyle((this.$parent.$el as HTMLElement), 'width')
+        }
+    }
+
+    private resetTransformOrigin(): void {
+        if (!this.popper) { return }
+        const xPlacement: string | null = this.popper.popper.getAttribute('x-placement')
+        const placementStart: string = xPlacement ? xPlacement.split('-')[0] : ''
+        const placementEnd: string = xPlacement ? xPlacement.split('-')[1] : ''
+        if (xPlacement === 'left' || xPlacement === 'right') {
+            (this.popper.popper as HTMLElement).style.transformOrigin = placementStart === 'bottom' || ( placementStart !== 'top' && placementEnd === 'start') ? 'center top' : 'center bottom'
         }
     }
 

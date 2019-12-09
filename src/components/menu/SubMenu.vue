@@ -17,7 +17,7 @@
             ul(:class="[parentPrefixCls]")
                 slot
         transition(name="slide-up" v-else)
-            DropDown
+            DropDown(placement="bottom")
                 ul(:class="[parentPrefixCls + '-drop-list']")
                     solt
     li(
@@ -44,7 +44,7 @@ import Icon from '@/components/icon/Icon.vue'
 import MenuMixins from '@/components/mixins/menu'
 import DropDown from '@/components/menu/DropDown.vue'
 import { WrapClasses, CSSStyles } from '@/types/components'
-import { Component, Mixins, Vue } from 'vue-property-decorator'
+import { Component, Mixins, Prop, Vue } from 'vue-property-decorator'
 import CollapseTransition from '@/components/menu/CollapseTransition'
 
 @Component({
@@ -60,6 +60,8 @@ export default class SubMenu extends Mixins(MenuMixins) {
     private prefixCls: string = 'submenu'
 
     private timeout?: number
+
+    private opened: boolean = false
 
     private handleMouseenter(): void {
         if (this.disabled || this.mode === 'vertical') { return }
