@@ -26,7 +26,7 @@ export default class Menu extends Mixins(EmitterMixins) {
     @Prop({ type: [Number, String] })
     private activeName?: number | string
 
-    @Prop({ default: [], type: Array })
+    @Prop({ default() { return [] }, type: Array })
     private openNames!: Array<number | string>
 
     private prefixCls: string = 'menu'
@@ -49,6 +49,15 @@ export default class Menu extends Mixins(EmitterMixins) {
         this.$emit('on-select', name)
     }
 
+    private updateActiveName(): void {
+        if (this.currentActiveName === undefined) {
+            this.currentActiveName = -1
+        }
+
+        this.broadcast('SubMenu', 'on-update-active-name', false)
+        this.broadcast('MenuItem', 'on-update-active-name', this.currentActiveName)
+    }
+
     private get classes(): Array<string | WrapClasses> {
         return [
             `${this.prefixCls}`,
@@ -62,6 +71,13 @@ export default class Menu extends Mixins(EmitterMixins) {
             style.width =  `${this.width}px`
         }
         return style
+    }
+
+    private mounted() {
+        this.$on('on-menu-item-select', (name: number | string) => {
+            this.currentActiveName = name
+            this.$emit('on-select', name)
+        })
     }
 }
 </script>

@@ -42,7 +42,7 @@ export default class MenuItem extends Mixins(MenuMixins) {
     }
 
     private mounted() {
-        this.$on('on-update-active-name', (name: string) => {
+        this.$on('on-update-active-name', (name: number | string) => {
             if (this.name === name) {
                 this.isActive = true
                 this.dispatch('SubMenu', 'on-update-active-name', name)

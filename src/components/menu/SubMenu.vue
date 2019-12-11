@@ -40,13 +40,14 @@
 </template>
 
 <script lang="ts">
+import { findComponentUpward } from '@/utils'
 import Menu from '@/components/menu/Menu.vue'
 import Icon from '@/components/icon/Icon.vue'
 import MenuMixins from '@/components/mixins/menu'
 import DropDown from '@/components/menu/DropDown.vue'
 import { WrapClasses, CSSStyles } from '@/types/components'
-import { Component, Mixins, Prop, Vue } from 'vue-property-decorator'
 import CollapseTransition from '@/components/menu/CollapseTransition'
+import { Component, Mixins, Watch, Prop, Vue } from 'vue-property-decorator'
 
 @Component({
     components: {
@@ -87,7 +88,12 @@ export default class SubMenu extends Mixins(MenuMixins) {
     }
 
     private submenuIconClick(e: Event): boolean {
-        console.log('submenuIconClick')
+        if (this.disabled || this.mode === 'horizontal') { return false }
+        if (!!this.timeout) { clearTimeout(this.timeout) }
+
+        (this.menu as Menu).updateOpenKeys(this.name)
+        this.opened = !this.opened
+
         e.preventDefault()
         return false
     }
@@ -101,6 +107,25 @@ export default class SubMenu extends Mixins(MenuMixins) {
                 [`${this.prefixCls}-disabled`]: this.disabled,
             },
         ]
+    }
+
+    @Watch('opened')
+    private onOpenedChange(newValue: boolean) {
+        if (this.mode === 'vertical') { return }
+        newValue ? (this.$refs.drop as DropDown).update() : (this.$refs.drop as DropDown).destroy()
+    }
+
+    @Watch('mode')
+    private onModeChange(newValue: string) {
+        if (newValue === 'horizontal') { (this.$refs.drop as DropDown).update() }
+    }
+
+    private mounted() {
+        this.$on('on-menu-item-select', (name: number | string) => {
+            if (this.mode === 'horizontal') { this.opened = false }
+            this.dispatch('Menu', 'on-menu-item-select', name)
+            return true
+        })
     }
 
 }

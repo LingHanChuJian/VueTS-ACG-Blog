@@ -11,8 +11,8 @@
 <script lang="ts">
 import NavBar from '@/components/NavBar.vue'
 import NavDrawer from '@/components/NavDrawer.vue'
-import { Layout, Header, Content, Footer, Drawer } from '@/components/layout'
 import { Component, Vue } from 'vue-property-decorator'
+import { Layout, Header, Content, Footer, Drawer } from '@/components/layout'
 
 @Component({
     components: {

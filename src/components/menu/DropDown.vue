@@ -42,7 +42,7 @@ export default class DropDown extends Vue {
         return style
     }
 
-    private update() {
+    public update() {
         if (this.popper) {
             this.popper.update()
             this.popperStatus = true
@@ -71,17 +71,7 @@ export default class DropDown extends Vue {
         }
     }
 
-    private resetTransformOrigin(): void {
-        if (!this.popper) { return }
-        const xPlacement: string | null = this.popper.popper.getAttribute('x-placement')
-        const placementStart: string = xPlacement ? xPlacement.split('-')[0] : ''
-        const placementEnd: string = xPlacement ? xPlacement.split('-')[1] : ''
-        if (xPlacement === 'left' || xPlacement === 'right') {
-            (this.popper.popper as HTMLElement).style.transformOrigin = placementStart === 'bottom' || ( placementStart !== 'top' && placementEnd === 'start') ? 'center top' : 'center bottom'
-        }
-    }
-
-    private destroy() {
+    public destroy() {
         if (this.popper) {
             setTimeout(() => {
                 if (this.popper && !this.popperStatus) {
@@ -90,6 +80,16 @@ export default class DropDown extends Vue {
                 }
                 this.popperStatus = false
             }, 300)
+        }
+    }
+
+    private resetTransformOrigin(): void {
+        if (!this.popper) { return }
+        const xPlacement: string | null = this.popper.popper.getAttribute('x-placement')
+        const placementStart: string = xPlacement ? xPlacement.split('-')[0] : ''
+        const placementEnd: string = xPlacement ? xPlacement.split('-')[1] : ''
+        if (xPlacement === 'left' || xPlacement === 'right') {
+            (this.popper.popper as HTMLElement).style.transformOrigin = placementStart === 'bottom' || ( placementStart !== 'top' && placementEnd === 'start') ? 'center top' : 'center bottom'
         }
     }
 
