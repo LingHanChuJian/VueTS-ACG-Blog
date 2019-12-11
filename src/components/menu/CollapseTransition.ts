@@ -13,7 +13,7 @@ export default class CollapseTransition extends Vue {
             on: {
                 beforeEnter(el: HTMLElement & { markData: MarkData }) {
                     addClass(el, 'collapse-transition')
-                    if (!el.dataset) {
+                    if (!el.markData) {
                         el.markData = { oldOverflow: '', oldPaddingTop: null, oldPaddingBottom: null }
                     }
                     el.markData.oldPaddingTop = el.style.paddingTop
@@ -40,7 +40,7 @@ export default class CollapseTransition extends Vue {
                     el.style.overflow = el.markData.oldOverflow
                 },
                 beforeLeave(el: HTMLElement & { markData: MarkData }) {
-                    if (!el.dataset) {
+                    if (!el.markData) {
                         el.markData = { oldOverflow: '', oldPaddingTop: null, oldPaddingBottom: null }
                     }
                     el.markData.oldOverflow = el.style.overflow

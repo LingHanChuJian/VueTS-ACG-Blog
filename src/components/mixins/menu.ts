@@ -10,9 +10,9 @@ export default class MenuMixins extends Mixins(LinkMixins, EmitterMixins) {
     public disabled!: boolean
 
     @Prop({ required: true, type: [Number, String] })
-    public name?: number | string
+    public name!: number | string
 
-    private menu: Vue = findComponentUpward(this, 'Menu')
+    public menu: Vue = findComponentUpward(this, 'Menu')
 
     public get hasParentSubMenu(): boolean {
         return !!findComponentUpward(this, 'SubMenu')

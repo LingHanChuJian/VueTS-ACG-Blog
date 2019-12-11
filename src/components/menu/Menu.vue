@@ -4,7 +4,7 @@
 </template>
 
 <script lang="ts">
-import { oneOf } from '@/utils'
+import { oneOf, findComponentsDownward } from '@/utils'
 import EmitterMixins from '@/components/mixins/emitter'
 import { WrapClasses, CSSStyles } from '@/types/components'
 import { Component, Prop, Mixins, Vue } from 'vue-property-decorator'
@@ -34,6 +34,16 @@ export default class Menu extends Mixins(EmitterMixins) {
     private currentActiveName?: number | string = this.activeName
 
     private openedNames: Array<number | string> = []
+
+    public updateOpenKeys(name: number | string): void {
+        const names: Array<number | string> = [...this.openedNames]
+        findComponentsDownward(this, 'SubMenu').forEach((item) => {
+            if ((item as Vue & { name: number | string }).name === name) { (item as Vue & { opened: boolean }).opened = names.indexOf(name) > -1 ? false : true }
+        })
+        const openedNames: Array<number | string> = findComponentsDownward(this, 'SubMenu').filter((item) => (item as Vue & { opened: boolean }).opened).map((item) => (item as Vue & { name: number | string }).name)
+        this.openedNames = [...openedNames]
+        this.$emit('on-open-change', openedNames)
+    }
 
     private handleEmitSelectEvent(name: string) {
         this.$emit('on-select', name)
