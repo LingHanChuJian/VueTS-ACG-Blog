@@ -12,7 +12,7 @@
     )
         div(:class="[prefixCls + '-title']" ref="reference" :style="liStyle")
             slot(name="title")
-            Icon(v-if="mode === 'vertical'" @click="submenuIconClick")
+            Icon(v-if="mode === 'vertical'" :type="iconPrefixType" :style="iconStyles" @click="submenuIconClick")
         CollapseTransition(v-if="mode === 'vertical'")
             ul(v-show="opened" :class="[parentPrefixCls]")
                 slot
@@ -29,7 +29,7 @@
     )
         div(:class="[prefixCls + '-title']" ref="reference" :style="liStyle")
             slot(name="title")
-            Icon(v-if="mode === 'vertical'" @click="submenuIconClick")
+            Icon(v-if="mode === 'vertical'" :type="iconPrefixType" :style="iconStyles" @click="submenuIconClick")
         CollapseTransition(v-if="mode === 'vertical'")
             ul(v-show="opened" :class="[parentPrefixCls]")
                 slot
@@ -40,12 +40,12 @@
 </template>
 
 <script lang="ts">
-import { findComponentUpward } from '@/utils'
 import Menu from '@/components/menu/Menu.vue'
 import Icon from '@/components/icon/Icon.vue'
 import MenuMixins from '@/components/mixins/menu'
 import DropDown from '@/components/menu/DropDown.vue'
 import { WrapClasses, CSSStyles } from '@/types/components'
+import { findComponentUpward, findComponentsDownward } from '@/utils'
 import CollapseTransition from '@/components/menu/CollapseTransition'
 import { Component, Mixins, Watch, Prop, Vue } from 'vue-property-decorator'
 
@@ -57,15 +57,17 @@ import { Component, Mixins, Watch, Prop, Vue } from 'vue-property-decorator'
     },
 })
 export default class SubMenu extends Mixins(MenuMixins) {
+    public active: boolean = false
+
     private parentPrefixCls: string = 'menu'
 
     private prefixCls: string = 'submenu'
 
+    private iconPrefixType: string = 'ios-arrow-down'
+
     private timeout?: number
 
     private opened: boolean = false
-
-    private active: boolean = false
 
     private handleMouseenter(): void {
         if (this.disabled || this.mode === 'vertical') { return }
@@ -109,6 +111,12 @@ export default class SubMenu extends Mixins(MenuMixins) {
         ]
     }
 
+    private get iconStyles(): CSSStyles<CSSStyleDeclaration> {
+        const styles: CSSStyles<CSSStyleDeclaration> = {}
+        styles.transform = this.opened ? 'rotate(180deg)' : ''
+        return styles
+    }
+
     @Watch('opened')
     private onOpenedChange(newValue: boolean) {
         if (this.mode === 'vertical') { return }
@@ -125,6 +133,12 @@ export default class SubMenu extends Mixins(MenuMixins) {
             if (this.mode === 'horizontal') { this.opened = false }
             this.dispatch('Menu', 'on-menu-item-select', name)
             return true
+        })
+
+        this.$on('on-update-active-name', (status: boolean) => {
+            if (findComponentUpward(this, 'SubMenu')) { this.dispatch('SubMenu', 'on-update-active-name', status) }
+            if (findComponentsDownward(this, 'SubMenu')) { findComponentsDownward(this, 'SubMenu').forEach((item) => { (item as SubMenu).active = false }) }
+            this.active = status
         })
     }
 
