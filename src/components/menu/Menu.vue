@@ -4,10 +4,11 @@
 </template>
 
 <script lang="ts">
+import SubMenu from '@/components/menu/SubMenu.vue'
 import { oneOf, findComponentsDownward } from '@/utils'
 import EmitterMixins from '@/components/mixins/emitter'
 import { WrapClasses, CSSStyles } from '@/types/components'
-import { Component, Prop, Mixins, Vue } from 'vue-property-decorator'
+import { Component, Prop, Mixins, Watch, Vue } from 'vue-property-decorator'
 
 @Component
 export default class Menu extends Mixins(EmitterMixins) {
@@ -45,10 +46,6 @@ export default class Menu extends Mixins(EmitterMixins) {
         this.$emit('on-open-change', openedNames)
     }
 
-    private handleEmitSelectEvent(name: string) {
-        this.$emit('on-select', name)
-    }
-
     private updateActiveName(): void {
         if (this.currentActiveName === undefined) {
             this.currentActiveName = -1
@@ -56,6 +53,14 @@ export default class Menu extends Mixins(EmitterMixins) {
 
         this.broadcast('SubMenu', 'on-update-active-name', false)
         this.broadcast('MenuItem', 'on-update-active-name', this.currentActiveName)
+    }
+
+    private handleEmitSelectEvent(name: string) {
+        this.$emit('on-select', name)
+    }
+
+    private updateOpened() {
+        (findComponentsDownward(this, 'SubMenu') as SubMenu[]).forEach((item) => { item.opened = this.openedNames.indexOf(item.name) > -1 ? true : false })
     }
 
     private get classes(): Array<string | WrapClasses> {
@@ -73,7 +78,25 @@ export default class Menu extends Mixins(EmitterMixins) {
         return style
     }
 
+    @Watch('openNames')
+    private onOpenNamesChange(newValue: Array<number | string>) {
+        this.openNames = newValue
+    }
+
+    @Watch('activeName')
+    private onActiveNameChange(newValue: number | string) {
+        this.currentActiveName = newValue
+    }
+
+    @Watch('currentActiveName')
+    private onCurrentActiveNameChange() {
+        this.updateActiveName()
+    }
+
     private mounted() {
+        this.openedNames = [...this.openNames]
+        this.updateOpened()
+        this.$nextTick(() => this.updateActiveName())
         this.$on('on-menu-item-select', (name: number | string) => {
             this.currentActiveName = name
             this.$emit('on-select', name)

@@ -1,10 +1,13 @@
 <template lang="pug">
     Layout
-        Drawer(ref="Drawer" isCollapsible v-model="isCollapsed")
+        Drawer(ref="drawer" isCollapsible v-model="isCollapsed")
+            NavDrawer
         Layout
             Header
+                NavBar
             Content
-                router-view
+                keep-alive
+                    router-view
             Footer
 </template>
 
@@ -29,7 +32,7 @@ export default class Index extends Vue {
     private isCollapsed: boolean = false
 
     private setDrawer(): void {
-        (this.$refs.Drawer as Drawer).toggleCollapse()
+        (this.$refs.drawer as Drawer).toggleCollapse()
     }
 }
 </script>

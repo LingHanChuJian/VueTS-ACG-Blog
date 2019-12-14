@@ -57,6 +57,8 @@ import { Component, Mixins, Watch, Prop, Vue } from 'vue-property-decorator'
     },
 })
 export default class SubMenu extends Mixins(MenuMixins) {
+    public opened: boolean = false
+
     public active: boolean = false
 
     private parentPrefixCls: string = 'menu'
@@ -66,8 +68,6 @@ export default class SubMenu extends Mixins(MenuMixins) {
     private iconPrefixType: string = 'ios-arrow-down'
 
     private timeout?: number
-
-    private opened: boolean = false
 
     private handleMouseenter(): void {
         if (this.disabled || this.mode === 'vertical') { return }
