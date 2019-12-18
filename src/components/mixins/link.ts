@@ -12,7 +12,7 @@ export default class LinkMixins extends Vue {
     public replace!: boolean
 
     @Prop({
-        default: 'self',
+        default: '_self',
         type: String,
         validator(value: string) {
             return oneOf(value, ['_blank', '_self', '_parent', '_top'])

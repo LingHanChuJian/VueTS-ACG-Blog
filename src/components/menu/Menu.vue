@@ -13,21 +13,21 @@ import { Component, Prop, Mixins, Watch, Vue } from 'vue-property-decorator'
 @Component
 export default class Menu extends Mixins(EmitterMixins) {
     @Prop({
-        default: 'vertical',
         type: String,
+        default: 'vertical',
         validator(value: string) {
             return oneOf(value, ['vertical', 'horizontal'])
         },
     })
     public mode!: string
 
-    @Prop({ default: 250, type: [Number, String] })
+    @Prop({ type: [Number, String], default: 250 })
     private width!: number | string
 
     @Prop({ type: [Number, String] })
     private activeName?: number | string
 
-    @Prop({ default() { return [] }, type: Array })
+    @Prop({ type: Array, default() { return [] } })
     private openNames!: Array<number | string>
 
     private prefixCls: string = 'menu'

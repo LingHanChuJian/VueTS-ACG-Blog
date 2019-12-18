@@ -19,7 +19,7 @@
         transition(name="slide-up" v-else)
             DropDown(v-show="opened" placement="bottom" ref="drop")
                 ul(:class="[parentPrefixCls + '-drop-list']")
-                    solt
+                    slot
     li(
         v-else
         :class="classes"

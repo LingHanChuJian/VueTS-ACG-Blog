@@ -14,7 +14,7 @@ export default class DropDown extends Vue {
     @Prop({ type: String })
     private className?: string
 
-    @Prop({ default: 'bottom-start', type: String })
+    @Prop({ type: String, default: 'bottom-start' })
     private placement!: PopperOptions['placement']
 
     private prefixCls: string = 'dropdown'

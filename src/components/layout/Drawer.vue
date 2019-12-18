@@ -16,16 +16,16 @@ import { Component, Prop, Mixins, Watch, Vue } from 'vue-property-decorator'
 
 @Component
 export default class Drawer extends Mixins(AdaptiveMixins) {
-    @Prop({ default: false, type: Boolean })
+    @Prop({ type: Boolean, default: false })
     private value!: boolean
 
-    @Prop({ default: false, type: Boolean })
+    @Prop({ type: Boolean, default: false })
     private isCollapsible!: boolean
 
-    @Prop({ default: 250, type: [Number, String] })
+    @Prop({ type: [Number, String], default: 250 })
     private width!: number | string
 
-    @Prop({ default: 0, type: [Number, String] })
+    @Prop({ type: [Number, String], default: 0 })
     private collapsedWidth!: number | string
 
     private prefixCls: string = 'layout-drawer'

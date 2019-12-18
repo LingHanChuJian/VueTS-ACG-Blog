@@ -5,7 +5,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
 
 @Component
 export default class CollapseTransition extends Vue {
-    @Prop({ default: false, type: Boolean })
+    @Prop({ type: Boolean, default: false })
     private appear!: boolean
 
     private render(h: CreateElement, hack: RenderContext<Record<string, any>>): VNode {
@@ -30,14 +30,14 @@ export default class CollapseTransition extends Vue {
                     } else {
                         el.style.height = ''
                     }
-                    el.style.paddingTop = el.markData.oldPaddingTop
-                    el.style.paddingBottom = el.markData.oldPaddingBottom
+                    el.style.paddingTop = (el.markData.oldPaddingTop as string)
+                    el.style.paddingBottom = (el.markData.oldPaddingBottom as string)
                     el.style.overflow = 'hidden'
                 },
                 afterEnter(el: HTMLElement & { markData: MarkData }) {
                     removeClass(el, 'collapse-transition')
                     el.style.height = ''
-                    el.style.overflow = el.markData.oldOverflow
+                    el.style.overflow = (el.markData.oldOverflow as string)
                 },
                 beforeLeave(el: HTMLElement & { markData: MarkData }) {
                     if (!el.markData) {
@@ -61,9 +61,9 @@ export default class CollapseTransition extends Vue {
                 afterLeave(el: HTMLElement & { markData: MarkData }) {
                     removeClass(el, 'collapse-transition')
                     el.style.height = ''
-                    el.style.overflow = el.markData.oldOverflow
-                    el.style.paddingTop = el.markData.oldPaddingTop
-                    el.style.paddingBottom = el.markData.oldPaddingBottom
+                    el.style.overflow = (el.markData.oldOverflow as string)
+                    el.style.paddingTop = (el.markData.oldPaddingTop as string)
+                    el.style.paddingBottom = (el.markData.oldPaddingBottom as string)
                 },
             },
             props: hack.props,

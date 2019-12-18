@@ -4,7 +4,7 @@
             NavDrawer
         Layout
             Header
-                NavBar
+                NavBar(@menuClick="setDrawer")
             Content
                 keep-alive
                     router-view
@@ -29,7 +29,7 @@ import { Layout, Header, Content, Footer, Drawer } from '@/components/layout'
     },
 })
 export default class Index extends Vue {
-    private isCollapsed: boolean = false
+    public isCollapsed: boolean = false
 
     private setDrawer(): void {
         (this.$refs.drawer as Drawer).toggleCollapse()
