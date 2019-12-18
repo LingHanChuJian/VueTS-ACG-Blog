@@ -102,11 +102,11 @@ export default class SubMenu extends Mixins(MenuMixins) {
 
     private get classes(): Array<string | WrapClasses> {
         return [
-            this.prefixCls,
+            `${this.parentPrefixCls}-${this.prefixCls}`,
             {
-                [`${this.prefixCls}-item-active`] : this.active && !this.hasParentSubMenu,
-                [`${this.prefixCls}-opened`]: this.opened,
-                [`${this.prefixCls}-disabled`]: this.disabled,
+                [`${this.parentPrefixCls}-${this.prefixCls}-item-active`] : this.active && !this.hasParentSubMenu,
+                [`${this.parentPrefixCls}-${this.prefixCls}-opened`]: this.opened,
+                [`${this.parentPrefixCls}-${this.prefixCls}-disabled`]: this.disabled,
             },
         ]
     }

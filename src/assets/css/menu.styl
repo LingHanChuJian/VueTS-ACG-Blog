@@ -1,7 +1,7 @@
 .menu
     margin 0
     padding 0
-    display block
+    display flex
     list-style none
     position relative
 
@@ -9,11 +9,17 @@
     height 75px
     line-height 75px
 
-.menu-item
+.menu-item,
+.menu-submenu
+    color #666666
+    padding 0 20px
     display block
     list-style none
     cursor pointer
     transition all .2s ease-in-out
+    & i
+        margin-right 8px
+
 
 .collapse-transition
     transition 2s height ease-in-out,.2s padding-top ease-in-out,.2s padding-bottom ease-in-out

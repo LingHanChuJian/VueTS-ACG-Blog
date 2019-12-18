@@ -12,19 +12,25 @@
                         ruby 初见
         div.navbar-middle
             Menu(mode="horizontal")
-                MenuItem(name="home" to="home")
-                    Icon(type="house-damage") 首页
-                SubMenu(name="archives" to="archives")
+                MenuItem.meun-action(name="home" to="home")
+                    Icon(type="house-damage")
+                    | 首页
+                SubMenu.meun-action(name="archives" to="archives")
                     template(slot="title")
-                        Icon(type="archive") 归档
+                        Icon(type="archive")
+                        | 归档
                     MenuItem(name="archives-whatever" to="whatever")
-                        Icon(type="comment-dots") 随想
+                        Icon(type="comment-dots")
+                        | 随想
                     MenuItem(name="archives-record" to="record")
-                        Icon(type="bookmark") 笔记
-                MenuItem(name="comment" to="comment")
-                    Icon(type="edit") 留言版
-                MenuItem(name="friends" to="friends")
-                    Icon(type="link") 友人帐
+                        Icon(type="bookmark")
+                        | 笔记
+                MenuItem.meun-action(name="comment" to="comment")
+                    Icon(type="edit")
+                    | 留言版
+                MenuItem.meun-action(name="friends" to="friends")
+                    Icon(type="link")
+                    | 友人帐
         div.navbar-right
 </template>
 
