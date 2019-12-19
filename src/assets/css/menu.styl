@@ -8,26 +8,70 @@
 .menu-horizontal
     height 75px
     line-height 75px
-
-.menu-item,
-.menu-submenu
-    color #666666
-    padding 0 20px
-    display block
-    list-style none
-    cursor pointer
-    transition all .2s ease-in-out
-    & i
-        margin-right 8px
-
+    .menu-item
+    .menu-submenu
+        color #6c5b7c
+        display block
+        list-style none
+        cursor pointer
+        transition all .2s ease-in-out
+        position relative
+        & i
+            margin-right 5px
+    .menu-item
+    .menu-submenu-title
+        padding 0 20px
+        &:after
+            content ''
+            position absolute
+            transition width .25s ease-in-out
+            height 5px
+            background-color #29d
+            width 0
+            bottom 0
+            left 0
+    .menu-item:hover
+        color #29d
+    .menu-item:hover:after
+        width 100%
+    .menu-submenu-opened
+        .menu-submenu-title
+            color #29d
+            &:after
+                width 100%
+    .redefine
+        top 65px !important
+        background-color #FFFFFF
+    .menu-submenu-drop-list
+        width max-content
+        padding 10px 0
+        position relative
+        border-radius 5px
+        box-shadow 0 1px 25px -8px rgba(0,0,0,.5)
+        &:before
+            content ''
+            top -20px
+            left calc(50% - 10px)
+            position absolute
+            border 10px solid
+            border-color transparent transparent #FFFFFF
+        .menu-item
+            height auto
+            line-height normal
+            padding 10px 20px
+            &:after
+                content none
 
 .collapse-transition
     transition 2s height ease-in-out,.2s padding-top ease-in-out,.2s padding-bottom ease-in-out
 
-@keyframes HorizontalMenuFadeIn
-    0%
-        opacity 0
-        transform translateX(30px)
-    100%
-        opacity 1
-        transform translateX(0)
+.slide-up-enter-active
+    transition all .5s
+
+.slide-up-leave-active
+    transition all .2s
+
+.slide-up-enter
+.slide-up-leave-to
+    transform translateY(25px)
+    opacity 0

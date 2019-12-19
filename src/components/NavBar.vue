@@ -12,26 +12,57 @@
                         ruby 初见
         div.navbar-middle
             Menu(mode="horizontal")
-                MenuItem.meun-action(name="home" to="home")
+                MenuItem(name="home" to="home")
                     Icon(type="house-damage")
                     | 首页
-                SubMenu.meun-action(name="archives" to="archives")
+                SubMenu(name="archives" to="archives")
                     template(slot="title")
                         Icon(type="archive")
                         | 归档
                     MenuItem(name="archives-whatever" to="whatever")
-                        Icon(type="comment-dots")
+                        Icon(type="comment-dots" fixed)
                         | 随想
                     MenuItem(name="archives-record" to="record")
-                        Icon(type="bookmark")
+                        Icon(type="bookmark" fixed)
                         | 笔记
-                MenuItem.meun-action(name="comment" to="comment")
+                SubMenu(name="list")
+                    template(slot="title")
+                        Icon(type="list-ul")
+                        | 清单
+                    MenuItem(name="list-anime" to="anime")
+                        Icon(type="film" fixed)
+                        | 番剧
+                    MenuItem(name="list-music" to="music")
+                        Icon(type="headphones" fixed)
+                        | 歌单
+                    MenuItem(name="list-boy" to="boy")
+                        Icon(type="grin-wink" fixed)
+                        | 男孩
+                MenuItem(name="comment" to="comment")
                     Icon(type="edit")
                     | 留言版
-                MenuItem.meun-action(name="friends" to="friends")
+                MenuItem(name="friends" to="friends")
                     Icon(type="link")
                     | 友人帐
+                MenuItem(name="feed" to="feed")
+                    Icon(type="coffee")
+                    | 投食
+                SubMenu(name="about")
+                    template(slot="title")
+                        Icon(type="leaf")
+                        | 关于
+                    MenuItem(name="about-me" to="me")
+                        Icon(type="dragon" fixed)
+                        | 我?
+                    MenuItem(name="about-statistics" to="statistics")
+                        Icon(type="chart-area" fixed)
+                        | 统计
+                    MenuItem(name="about-theme" to="theme")
+                        Icon(type="snowflake" fixed)
+                        | 主题
         div.navbar-right
+            Icon(type="search" size="25" fixedSize="3x" fixed)
+            Icon(type="user-circle" size="25" fixedSize="3x" fixed)
 </template>
 
 <script lang="ts">

@@ -2,31 +2,32 @@
   查询图标 http://fa5.dashgame.com/#/%E5%9B%BE%E6%A0%87
 */
 
-font-setting()
-	font-family 'Font Awesome 5 Free'
+font-setting(n)
+	font-family n
 	font-style normal
 	font-weight normal
 	font-display auto
 
 @font-face
-	font-setting()
+	font-setting('Font Awesome 5 Brands')
 	src url(./../fonts/icon-brands-400.eot?#iefix) format('embedded-opentype'), url(./../fonts/icon-brands-400.woff2) format('woff2'), url(./../fonts/icon-brands-400.woff) format('woff'), url(./../fonts/icon-brands-400.ttf) format('truetype'), url(./../fonts/icon-brands-400.svg#fontawesome) format('svg')
 
 @font-face
-	font-setting()
+	font-setting('Font Awesome 5 regular')
 	src url(./../fonts/icon-regular-400.eot?#iefix) format('embedded-opentype'), url(./../fonts/icon-regular-400.woff2) format('woff2'), url(./../fonts/icon-regular-400.woff) format('woff'), url(./../fonts/icon-regular-400.ttf) format('truetype'), url(./../fonts/icon-regular-400.svg#fontawesome) format('svg')
 
 @font-face
-	font-setting()
+	font-setting('Font Awesome 5 solid')
 	src url(./../fonts/icon-solid-900.eot?#iefix) format('embedded-opentype'), url(./../fonts/icon-solid-900.woff2) format('woff2'), url(./../fonts/icon-solid-900.woff) format('woff'), url(./../fonts/icon-solid-900.ttf) format('truetype'), url(./../fonts/icon-solid-900.svg#fontawesome) format('svg')
 
 .icon
 	display inline-block
-	font-family 'Font Awesome 5 Free'
+	font-family 'Font Awesome 5 Brands', 'Font Awesome 5 regular', 'Font Awesome 5 solid'
 	speak none
 	font-style normal
 	font-weight 400
 	font-variant normal
+	font-size inherit
 	text-transform none
 	text-rendering auto
 	line-height 1
@@ -159,16 +160,17 @@ font-setting()
 	-webkit-transform scale(1, -1)
 	transform scale(1, -1)
 
-.icon-flip-both, .icon-flip-horizontal.icon-flip-vertical
+.icon-flip-both
+.icon-flip-horizontal.icon-flip-vertical
 	-ms-filter 'progidDXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1)'
 	-webkit-transform scale(-1, -1)
 	transform scale(-1, -1)
 
-:root .icon-rotate-90,
-:root .icon-rotate-180,
-:root .icon-rotate-270,
-:root .icon-flip-horizontal,
-:root .icon-flip-vertical,
+:root .icon-rotate-90
+:root .icon-rotate-180
+:root .icon-rotate-270
+:root .icon-flip-horizontal
+:root .icon-flip-vertical
 :root .icon-flip-both
 	-webkit-filter none
 	filter none
@@ -181,7 +183,7 @@ font-setting()
 	vertical-align middle
 	width 2.5em
 
-.icon-stack-1x,
+.icon-stack-1x
 .icon-stack-2x
 	left 0
 	position absolute

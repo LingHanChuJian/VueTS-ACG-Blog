@@ -10,32 +10,32 @@
         @mouseenter="handleMouseenter"
         @mouseleave="handleMouseleave"
     )
-        div(:class="[prefixCls + '-title']" ref="reference" :style="liStyle")
+        div(:class="[parentPrefixCls + '-' + prefixCls + '-title']" ref="reference" :style="liStyle")
             slot(name="title")
             Icon(v-if="mode === 'vertical'" :type="iconPrefixType" :style="iconStyles" @click="submenuIconClick")
         CollapseTransition(v-if="mode === 'vertical'")
             ul(v-show="opened" :class="[parentPrefixCls]")
                 slot
         transition(name="slide-up" v-else)
-            DropDown(v-show="opened" placement="bottom" ref="drop")
-                ul(:class="[parentPrefixCls + '-drop-list']")
+            DropDown.redefine(v-show="opened" placement="bottom" ref="drop")
+                ul(:class="[parentPrefixCls + '-' + prefixCls + '-drop-list']")
                     slot
     li(
         v-else
         :class="classes"
-        @click.stop="handleClickItem()"
+        @click.stop="handleClickItem"
         @mouseenter="handleMouseenter"
         @mouseleave="handleMouseleave"
     )
-        div(:class="[prefixCls + '-title']" ref="reference" :style="liStyle")
+        div(:class="[parentPrefixCls + '-' + prefixCls + '-title']" ref="reference" :style="liStyle")
             slot(name="title")
             Icon(v-if="mode === 'vertical'" :type="iconPrefixType" :style="iconStyles" @click="submenuIconClick")
         CollapseTransition(v-if="mode === 'vertical'")
             ul(v-show="opened" :class="[parentPrefixCls]")
                 slot
         transition(name="slide-up" v-else)
-            DropDown(v-show="opened" placement="bottom" ref="drop")
-                ul(:class="[parentPrefixCls + '-drop-list']")
+            DropDown.redefine(v-show="opened" placement="bottom" ref="drop")
+                ul(:class="[parentPrefixCls + '-' + prefixCls + '-drop-list']")
                     slot
 </template>
 
@@ -65,7 +65,7 @@ export default class SubMenu extends Mixins(MenuMixins) {
 
     private prefixCls: string = 'submenu'
 
-    private iconPrefixType: string = 'ios-arrow-down'
+    private iconPrefixType: string = 'chevron-down'
 
     private timeout?: number
 

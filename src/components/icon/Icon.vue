@@ -30,6 +30,9 @@ export default class Icon extends Vue {
     })
     private fixedSize?: string
 
+    @Prop({ type: Boolean, default: false})
+    private fixed!: boolean
+
     private prefixCls: string = 'icon'
 
     private get wrapClasses(): Array<string | WrapClasses> {
@@ -39,6 +42,7 @@ export default class Icon extends Vue {
             {
                 [`${this.prefixCls}-${this.type}`]: !!this.type,
                 [`${this.prefixCls}-${this.fixedSize}`]: !!this.fixedSize,
+                [`${this.prefixCls}-fw`]: this.fixed,
             },
         ]
     }

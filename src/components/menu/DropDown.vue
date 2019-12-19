@@ -11,9 +11,6 @@ import { Component, Prop, Vue, Provide } from 'vue-property-decorator'
 
 @Component
 export default class DropDown extends Vue {
-    @Prop({ type: String })
-    private className?: string
-
     @Prop({ type: String, default: 'bottom-start' })
     private placement!: PopperOptions['placement']
 
@@ -28,7 +25,6 @@ export default class DropDown extends Vue {
     private get classes(): Array<string | WrapClasses> {
         return [
             this.prefixCls,
-            this.className ? this.className : '',
         ]
     }
 
@@ -51,6 +47,9 @@ export default class DropDown extends Vue {
                 this.popper = new Popper((this.$parent.$refs.reference as Element), this.$el, {
                     placement: this.placement,
                     modifiers: {
+                        computeStyle: {
+                            gpuAcceleration: false,
+                        },
                         preventOverflow: {
                             boundariesElement: 'window',
                         },
@@ -88,7 +87,7 @@ export default class DropDown extends Vue {
         const xPlacement: string | null = this.popper.popper.getAttribute('x-placement')
         const placementStart: string = xPlacement ? xPlacement.split('-')[0] : ''
         const placementEnd: string = xPlacement ? xPlacement.split('-')[1] : ''
-        if (xPlacement === 'left' || xPlacement === 'right') {
+        if (xPlacement !== 'left' && xPlacement !== 'right') {
             (this.popper.popper as HTMLElement).style.transformOrigin = placementStart === 'bottom' || ( placementStart !== 'top' && placementEnd === 'start') ? 'center top' : 'center bottom'
         }
     }
