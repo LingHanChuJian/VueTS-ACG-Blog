@@ -9,15 +9,15 @@
                             rt こん
                         ruby 寒
                             rt にちは
-                        ruby 初见
+                    ruby 初见
         div.navbar-middle
             Menu(mode="horizontal")
-                MenuItem(name="home" to="home")
-                    Icon(type="house-damage")
+                MenuItem.home(name="home" to="home")
+                    Icon.animation-home(type="house-damage")
                     | 首页
-                SubMenu(name="archives" to="archives")
+                SubMenu.archives(name="archives" to="archives")
                     template(slot="title")
-                        Icon(type="archive")
+                        Icon.animation-archives(type="archive")
                         | 归档
                     MenuItem(name="archives-whatever" to="whatever")
                         Icon(type="comment-dots" fixed)
@@ -25,9 +25,9 @@
                     MenuItem(name="archives-record" to="record")
                         Icon(type="bookmark" fixed)
                         | 笔记
-                SubMenu(name="list")
+                SubMenu.list(name="list")
                     template(slot="title")
-                        Icon(type="list-ul")
+                        Icon.animation-list(type="list-ul")
                         | 清单
                     MenuItem(name="list-anime" to="anime")
                         Icon(type="film" fixed)
@@ -38,18 +38,18 @@
                     MenuItem(name="list-boy" to="boy")
                         Icon(type="grin-wink" fixed)
                         | 男孩
-                MenuItem(name="comment" to="comment")
-                    Icon(type="edit")
+                MenuItem.comment(name="comment" to="comment")
+                    Icon.animation-comment(type="edit")
                     | 留言版
-                MenuItem(name="friends" to="friends")
-                    Icon(type="link")
+                MenuItem.friends(name="friends" to="friends")
+                    Icon.animation-friends(type="link")
                     | 友人帐
-                MenuItem(name="feed" to="feed")
-                    Icon(type="coffee")
+                MenuItem.feed(name="feed" to="feed")
+                    Icon.animation-feed(type="coffee")
                     | 投食
-                SubMenu(name="about")
+                SubMenu.about(name="about")
                     template(slot="title")
-                        Icon(type="leaf")
+                        Icon.animation-about(type="leaf")
                         | 关于
                     MenuItem(name="about-me" to="me")
                         Icon(type="dragon" fixed)
@@ -61,8 +61,8 @@
                         Icon(type="snowflake" fixed)
                         | 主题
         div.navbar-right
-            Icon(type="search" size="25" fixedSize="3x" fixed)
-            Icon(type="user-circle" size="25" fixedSize="3x" fixed)
+            Icon.search(type="search" size="30" fixed)
+            Icon.login(type="user-circle" size="30" fixed)
 </template>
 
 <script lang="ts">
@@ -100,7 +100,59 @@ export default class NavBar extends Vue {
 
 <style lang="stylus" scoped>
 .navbar
-    display inline-flex
+    display flex
+    justify-content space-between
+    padding 0 20px
+
+.logo
+    font-size 20px
+    a
+        color $font-color
+        &:hover
+            color $font-hover-color
+            .logo-title
+                background-color $font-hover-color
+                color #FFFFFF
+                rt
+                    color $font-hover-color
+    .logo-title
+        background-color rgba(255,255,255,.5)
+        border-radius 5px
+
+.home:hover
+    .animation-home
+        animation animation-upper-down 2.5s ease infinite
+
+.archives:hover
+.friends:hover
+.about:hover
+    .animation-archives
+    .animation-friends
+    .animation-about
+        animation animation-counterclockwise-clockwise 2.5s ease infinite
+
+.list:hover
+    .animation-list
+        animation animation-down-upper 2.5s ease infinite
+
+.comment:hover
+    .animation-comment
+        animation animation-zoomout-zoom 2.5s ease infinite
+
+.feed:hover
+    .animation-feed
+        animation animation-zoom-zoomout 2.5s ease infinite
+
+.login:hover
+    animation animation-counterclockwise-clockwise 2.5s ease infinite
+
+.search
+.login
+    margin 0 5px
+    cursor pointer
+    transition color .5s
+    &:hover
+        color $font-hover-color
 
 menu(n)
     transition all .2s
@@ -108,6 +160,79 @@ menu(n)
     width 50px
     height 3px
     position n
+
+@keyframes animation-upper-down
+    6%
+    18%
+    30%
+        transform translateX(5px)
+    0%
+    12%
+    24%
+    36%
+    100%
+        transform translateX(0)
+
+@keyframes animation-counterclockwise-clockwise
+    0%
+        transform rotate(-12deg)
+    8%
+        transform rotate(12deg)
+    10%
+    28%
+    30%
+    48%
+    50%
+    68%
+        transform rotate(24deg)
+    18%
+    20%
+    38%
+    40%
+    58%
+    60%
+        transform rotate(-24deg)
+    75%
+    100%
+        transform rotate(0)
+
+@keyframes animation-down-upper
+    0%
+    8%
+    16%
+        transform translateY(-3px)
+    4%
+    12%
+    20%
+        transform translateY(3px)
+    22%
+    100%
+        transform translateY(0)
+
+@keyframes animation-zoomout-zoom
+    0%
+        transform scale(1)
+    10%
+    20%
+        transform scale(.9) rotate(-8deg)
+    30%
+    50%
+    70%
+        transform scale(1.3) rotate(8deg)
+    40%
+    60%
+        transform scale(1.3) rotate(-8deg)
+    80%
+    100%
+        transform scale(1) rotate(0)
+
+@keyframes animation-zoom-zoomout
+    0%
+        transform scale(1.1)
+    50%
+        transform scale(0.8)
+    100%
+        transform scale(1.1)
 
 @media screen and (max-width 860px)
     .navbar

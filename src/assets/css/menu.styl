@@ -10,7 +10,7 @@
     line-height 75px
     .menu-item
     .menu-submenu
-        color #6c5b7c
+        color $font-color
         display block
         list-style none
         cursor pointer
@@ -26,17 +26,17 @@
             position absolute
             transition width .25s ease-in-out
             height 5px
-            background-color #29d
+            background-color $font-hover-color
             width 0
             bottom 0
             left 0
     .menu-item:hover
-        color #29d
+        color $font-hover-color
     .menu-item:hover:after
         width 100%
     .menu-submenu-opened
         .menu-submenu-title
-            color #29d
+            color $font-hover-color
             &:after
                 width 100%
     .redefine

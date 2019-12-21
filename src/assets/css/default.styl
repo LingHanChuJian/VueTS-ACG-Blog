@@ -9,7 +9,7 @@ body
     padding 0
     font-family 'Merriweather Sans', 'Noto Sans', 'PT Sans', 'Source Sans Pro', 'Microsoft Yahei', '微软雅黑', sans-serif
     font-size 16px
-    color #6c5b7c
+    color $font-color
 
 main
     display block
@@ -32,8 +32,9 @@ a
     background-color transparent
     cursor pointer
     text-decoration none
+    transition all .2s
     &:hover
-        color #29d
+        color $font-hover-color
 
 ul
 ol
