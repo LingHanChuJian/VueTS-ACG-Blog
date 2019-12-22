@@ -40,7 +40,7 @@ export default class DropDown extends Vue {
 
     public update() {
         if (this.popper) {
-            this.popper.update()
+            this.popper.scheduleUpdate()
             this.popperStatus = true
         } else {
             this.$nextTick(() => {
@@ -56,7 +56,7 @@ export default class DropDown extends Vue {
                     },
                     onCreate: () => {
                         this.resetTransformOrigin()
-                        this.$nextTick(() => (this.popper as Popper).update())
+                        this.$nextTick(() => (this.popper as Popper).scheduleUpdate())
                     },
                     onUpdate: () => {
                         this.resetTransformOrigin()
