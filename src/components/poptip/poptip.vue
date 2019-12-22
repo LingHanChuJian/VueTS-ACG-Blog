@@ -55,7 +55,7 @@ export default class Poptip extends Vue {
             return oneOf(value, ['top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end', 'left', 'left-start', 'left-end', 'right', 'right-start', 'right-end'])
         },
     })
-    private placement!: string
+    private placement!: PopperOptions['placement']
 
     @Prop({
         type: Object,
@@ -74,6 +74,12 @@ export default class Poptip extends Vue {
     })
     private options!: PopperOptions
 
+    @Prop({ type: Boolean, default: false })
+    private visible!: boolean
+
+    @Prop({ type: [String, Number], default: 0 })
+    private offset!: string | number
+
     @Prop({ type: [String, Number] })
     private width?: string | number
 
@@ -90,6 +96,12 @@ export default class Poptip extends Vue {
     private disabled!: boolean
 
     private prefixCls: string = 'poptip'
+
+    private popper?: Popper | null
+
+    private createPopper(): void {
+        this.options.placement = this.placement
+    }
 
     private handleMouseenter(): void {
         console.log('handleMouseenter')

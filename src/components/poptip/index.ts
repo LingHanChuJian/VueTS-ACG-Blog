@@ -1,4 +1,4 @@
-import Poptip from '@/components/poptip/poptip.vue'
+import Poptip from '@/components/poptip/Poptip.vue'
 
 export {
     Poptip,

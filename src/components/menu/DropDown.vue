@@ -4,14 +4,20 @@
 </template>
 
 <script lang="ts">
-import { getStyle } from '@/utils'
+import { getStyle, oneOf } from '@/utils'
 import Popper, { PopperOptions } from 'popper.js'
 import { WrapClasses, CSSStyles } from '@/types/components'
 import { Component, Prop, Vue, Provide } from 'vue-property-decorator'
 
 @Component
 export default class DropDown extends Vue {
-    @Prop({ type: String, default: 'bottom-start' })
+    @Prop({
+        type: String,
+        default: 'bottom-start',
+        validator(value: string) {
+            return oneOf(value, ['top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end', 'left', 'left-start', 'left-end', 'right', 'right-start', 'right-end'])
+        },
+    })
     private placement!: PopperOptions['placement']
 
     private prefixCls: string = 'dropdown'
