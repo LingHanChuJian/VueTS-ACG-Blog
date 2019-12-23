@@ -1,0 +1,24 @@
+.poptip
+    display inline-block
+    .poptip-rel
+        display inline-block
+        position relative
+    .poptip-popper
+        display block
+        position absolute
+        overflow hidden
+        box-shadow 0 1px 40px -8px rgba(0,0,0,.5)
+        &[x-placement^=top]
+	        padding:5px 0 8px 0
+            .tooltip-arrow
+                bottom 3px
+                border-width 5px 5px 0
+        &[x-placement^=right]
+            padding:0 5px 0 8px
+        &[x-placement^=bottom]
+            padding:8px 0 5px 0
+        &[x-placement^=left]
+            padding:0 8px 0 5px
+    .poptip-popper-word-wrap
+        white-space pre-wrap
+        text-align justify

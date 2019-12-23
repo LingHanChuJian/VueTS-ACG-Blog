@@ -62,13 +62,19 @@
                         | 主题
         div.navbar-right
             Icon.search(type="search" size="30" fixed)
-            Icon.login(type="user-circle" size="30" fixed)
+            Poptip(trigger="hover")
+                Icon.login(type="user-circle" size="30" fixed)
+                template(slot="content")
+                    | Whether to 
+                    a(href="/login" target="_blank" style="color:#333;font-weight:bold;") login in 
+                    | now?
 </template>
 
 <script lang="ts">
-import { WrapClasses } from '@/types/components'
 import Index from '@/views/Index.vue'
 import { Icon } from '@/components/icon'
+import { Poptip } from '@/components/poptip'
+import { WrapClasses } from '@/types/components'
 import { Menu, SubMenu, MenuItem } from '@/components/menu'
 import { Component, Vue } from 'vue-property-decorator'
 
@@ -78,6 +84,7 @@ import { Component, Vue } from 'vue-property-decorator'
         SubMenu,
         MenuItem,
         Icon,
+        Poptip,
     },
 })
 export default class NavBar extends Vue {
@@ -103,7 +110,6 @@ export default class NavBar extends Vue {
     display flex
     justify-content space-between
     padding 0 20px
-
 .logo
     font-size 20px
     a
