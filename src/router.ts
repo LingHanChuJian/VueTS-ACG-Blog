@@ -21,6 +21,17 @@ const routes: RouteConfig[] = [
       },
     ],
   },
+  {
+    path: '/doc',
+    component: () => import('@/document/Index.vue'),
+    children: [
+      {
+        path: '/doc',
+        name: 'layout',
+        component: () => import('@/document/LayoutDoc.vue'),
+      },
+    ],
+  },
 ]
 
 const router = new VueRouter({

@@ -13,7 +13,7 @@
         div(:class="[parentPrefixCls + '-' + prefixCls + '-title']" ref="reference" :style="liStyle")
             slot(name="title")
             Icon(v-if="mode === 'vertical'" :type="iconPrefixType" :style="iconStyles" @click="submenuIconClick")
-        CollapseTransition(v-if="mode === 'vertical'")
+        CollapseTransition(v-if="mode === 'vertical'" appear)
             ul(v-show="opened" :class="[parentPrefixCls]")
                 slot
         transition(name="slide-up" v-else)
@@ -23,14 +23,14 @@
     li(
         v-else
         :class="classes"
-        @click.stop="handleClickItem"
+        @click.stop="submenuIconClick"
         @mouseenter="handleMouseenter"
         @mouseleave="handleMouseleave"
     )
         div(:class="[parentPrefixCls + '-' + prefixCls + '-title']" ref="reference" :style="liStyle")
             slot(name="title")
             Icon(v-if="mode === 'vertical'" :type="iconPrefixType" :style="iconStyles" @click="submenuIconClick")
-        CollapseTransition(v-if="mode === 'vertical'")
+        CollapseTransition(v-if="mode === 'vertical'" appear)
             ul(v-show="opened" :class="[parentPrefixCls]")
                 slot
         transition(name="slide-up" v-else)

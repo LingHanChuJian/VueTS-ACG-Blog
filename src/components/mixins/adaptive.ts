@@ -5,14 +5,14 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
 export default class AdaptiveMixins extends Vue {
     public isMediaMatched: boolean = this.matchMedia()
 
-    @Prop({ default: true, type: Boolean })
+    @Prop({ default: false, type: Boolean })
     private isMatchMediaMaxWidth!: boolean
 
     @Prop({ default: 860, type: [Number, String] })
     private matchMediaMaxWidth!: number | string
 
     private matchMedia(): boolean {
-        return this.isMatchMediaMaxWidth ? matchMedia(`(max-width: ${this.matchMediaMaxWidth}px)`).matches : false
+        return !this.isMatchMediaMaxWidth ? matchMedia(`(max-width: ${this.matchMediaMaxWidth}px)`).matches : true
     }
 
     private setIsMediaMatched(): void {

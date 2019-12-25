@@ -1,6 +1,6 @@
 import { MarkData } from '@/types/components'
 import { addClass, removeClass } from '@/utils'
-import { CreateElement, RenderContext, VNode } from 'vue'
+import { CreateElement, VNode } from 'vue'
 import { Component, Prop, Vue } from 'vue-property-decorator'
 
 @Component
@@ -8,7 +8,7 @@ export default class CollapseTransition extends Vue {
     @Prop({ type: Boolean, default: false })
     private appear!: boolean
 
-    private render(h: CreateElement, hack: RenderContext<Record<string, any>>): VNode {
+    private render(h: CreateElement): VNode {
         return h('transition', {
             on: {
                 beforeEnter(el: HTMLElement & { markData: MarkData }) {
@@ -66,7 +66,7 @@ export default class CollapseTransition extends Vue {
                     el.style.paddingBottom = (el.markData.oldPaddingBottom as string)
                 },
             },
-            props: hack.props,
-        }, hack.children)
+            props: this.$props,
+        }, this.$slots.default)
     }
 }

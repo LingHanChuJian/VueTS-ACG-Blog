@@ -1,11 +1,11 @@
 .menu
     margin 0
     padding 0
-    display flex
     list-style none
     position relative
 
 .menu-horizontal
+    display flex
     height 75px
     line-height 75px
     .menu-item
@@ -62,8 +62,22 @@
             &:after
                 content none
 
+.menu-vertical
+    height 100%
+    .menu-item
+    .menu-submenu
+        display block
+        color $font-color
+        position relative
+        padding 14px 24px
+        cursor pointer
+        & i:nth-child(1)
+            margin-right 5px
+        & i:nth-child(2)
+            float right
+
 .collapse-transition
-    transition 2s height ease-in-out,.2s padding-top ease-in-out,.2s padding-bottom ease-in-out
+    transition .2s height ease-in-out,.2s padding-top ease-in-out,.2s padding-bottom ease-in-out
 
 .slide-up-enter-active
     transition all .5s

@@ -62,7 +62,7 @@
                         | 主题
         div.navbar-right
             Icon.search(type="search" size="30" fixed)
-            Poptip(trigger="hover")
+            Poptip(trigger="hover" placement="bottom-end" wordWrap)
                 Icon.login(type="user-circle" size="30" fixed)
                 template(slot="content")
                     | Whether to 

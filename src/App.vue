@@ -13,9 +13,4 @@ export default class App extends Vue {}
 <style lang="stylus">
 #app
   position relative
-  height 100%
-.scroll
-  width 1000px
-  height 1000px
-  border 1px soild red
 </style>

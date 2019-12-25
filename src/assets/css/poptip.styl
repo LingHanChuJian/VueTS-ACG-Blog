@@ -1,24 +1,117 @@
+poptip-arrow-common()
+    display block
+    width 0
+    height 0
+    position absolute
+    border-color transparent
+    border-style solid
+
+poptip-arrow()
+    border-width 7px 7px 0
+    border-top-color rgba(217,217,217,.5)
+
+poptip-arrow-after()
+    content ''
+    border-right-width 0
+    border-left-width 7px
+    border-left-color #FFFFFF
+
 .poptip
     display inline-block
     .poptip-rel
         display inline-block
         position relative
     .poptip-popper
-        display block
-        position absolute
         overflow hidden
         box-shadow 0 1px 40px -8px rgba(0,0,0,.5)
+        .poptip-content
+            padding 15px 10px
+            border-radius 4px
+        .poptip-arrow
+            poptip-arrow-common(8px)
+            &:after
+                content ''
+                poptip-arrow-common(7px)
         &[x-placement^=top]
-	        padding:5px 0 8px 0
-            .tooltip-arrow
+	        padding 7px 0 10px 0
+            .poptip-arrow
                 bottom 3px
-                border-width 5px 5px 0
+                border-width 7px 7px 0
+                border-top-color rgba(217,217,217,.5)
+                &:after
+                    poptip-arrow-after()
+                    bottom 1px
+                    margin-left -7px
+        &[x-placement=top]
+            .poptip-arrow
+                left 50%
+                margin-left -7px
+        &[x-placement=top-start]
+            .poptip-arrow
+                left 16px
+        &[x-placement=top-end]
+            .poptip-arrow
+                right 16px
         &[x-placement^=right]
-            padding:0 5px 0 8px
+            padding 0 7px 0 10px
+            .poptip-arrow
+                left 3px
+                border-width 7px 7px 7px 0
+                border-right-color rgba(217,217,217,.5)
+                &:after
+                    poptip-arrow-after()
+                    left 1px
+                    bottom -7px
+        &[x-placement=right]
+            .poptip-arrow
+                top 50%
+                margin-top -7px
+        &[x-placement=right-start]
+            .poptip-arrow
+                top 8px
+        &[x-placement=right-end]
+            .poptip-arrow
+                bottom 8px
         &[x-placement^=bottom]
-            padding:8px 0 5px 0
+            padding 10px 0 7px 0
+            .poptip-arrow
+                top 3px
+                border-width 0 7px 7px
+                border-bottom-color rgba(217,217,217,.5)
+                &:after
+                    poptip-arrow-after()
+                    top 1px
+                    margin-left -7px
+        &[x-placement=bottom]
+            .poptip-arrow
+                left 50%
+                margin-left -7px
+        &[x-placement=bottom-start]
+            .poptip-arrow
+                left 16px
+        &[x-placement=bottom-end]
+            .poptip-arrow
+                right 16px
         &[x-placement^=left]
-            padding:0 8px 0 5px
+            padding 0 10px 0 7px
+            .poptip-arrow
+                right 3px
+                border-width 7px 0 7px 7px
+                border-left-color rgba(217,217,217,.5)
+                &:after
+                    poptip-arrow-after()
+                    right 1px
+                    bottom -7px
+        &[x-placement=left]
+            .poptip-arrow
+                top 50%
+                margin-top -7px
+        &[x-placement=left-start]
+            .poptip-arrow
+                top 8px
+        &[x-placement=left-end]
+            .poptip-arrow
+                bottom 8px
     .poptip-popper-word-wrap
         white-space pre-wrap
         text-align justify
