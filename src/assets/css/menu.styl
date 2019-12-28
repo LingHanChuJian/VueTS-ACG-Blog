@@ -69,12 +69,30 @@
         display block
         color $font-color
         position relative
-        padding 14px 24px
         cursor pointer
         & i:nth-child(1)
             margin-right 5px
         & i:nth-child(2)
             float right
+    .menu-item
+    .menu-submenu-title
+        padding 14px 24px
+        &:hover
+            color $font-hover-color
+        .menu-submenu-title-icon
+            transition transform .2s ease-in-out
+    .menu-item-active:not(.menu-submenu)
+        color $font-hover-color
+        background-color #f0faff
+        position relative
+        &:after
+            content ''
+            position absolute
+            right 0
+            top 0
+            bottom 0
+            width 2px
+            background-color $font-hover-color
 
 .collapse-transition
     transition .2s height ease-in-out,.2s padding-top ease-in-out,.2s padding-bottom ease-in-out

@@ -1,8 +1,6 @@
 <template lang="pug">
     div
         h2 Layout 布局
-        p
-            code Layout
 </template>
 
 <script lang="ts">
@@ -18,7 +16,8 @@ import { Layout, Header, Content, Footer } from '@/components/layout'
     },
 })
 export default class LayoutDoc extends Vue {
-
+    // private mounted() {
+    // }
 }
 </script>
 

@@ -12,7 +12,7 @@
     )
         div(:class="[parentPrefixCls + '-' + prefixCls + '-title']" ref="reference" :style="liStyle")
             slot(name="title")
-            Icon(v-if="mode === 'vertical'" :type="iconPrefixType" :style="iconStyles" @click="submenuIconClick")
+            Icon(v-if="mode === 'vertical'" :type="iconPrefixType" :class="[parentPrefixCls + '-' + prefixCls + '-title-icon']" :style="iconStyles" @click="submenuIconClick")
         CollapseTransition(v-if="mode === 'vertical'" appear)
             ul(v-show="opened" :class="[parentPrefixCls]")
                 slot
@@ -23,13 +23,13 @@
     li(
         v-else
         :class="classes"
-        @click.stop="submenuIconClick"
+        @click.exact="submenuIconClick"
         @mouseenter="handleMouseenter"
         @mouseleave="handleMouseleave"
     )
         div(:class="[parentPrefixCls + '-' + prefixCls + '-title']" ref="reference" :style="liStyle")
             slot(name="title")
-            Icon(v-if="mode === 'vertical'" :type="iconPrefixType" :style="iconStyles" @click="submenuIconClick")
+            Icon(v-if="mode === 'vertical'" :type="iconPrefixType" :class="[parentPrefixCls + '-' + prefixCls + '-title-icon']" :style="iconStyles" @click="submenuIconClick")
         CollapseTransition(v-if="mode === 'vertical'" appear)
             ul(v-show="opened" :class="[parentPrefixCls]")
                 slot
@@ -46,7 +46,7 @@ import MenuMixins from '@/components/mixins/menu'
 import DropDown from '@/components/menu/DropDown.vue'
 import { WrapClasses, CSSStyles } from '@/types/components'
 import { findComponentUpward, findComponentsDownward } from '@/utils'
-import CollapseTransition from '@/components/menu/CollapseTransition'
+import CollapseTransition from '@/components/base/CollapseTransition'
 import { Component, Mixins, Watch, Prop, Vue } from 'vue-property-decorator'
 
 @Component({
@@ -91,11 +91,13 @@ export default class SubMenu extends Mixins(MenuMixins) {
 
     private submenuIconClick(e: Event): boolean {
         if (this.disabled || this.mode === 'horizontal') { return false }
+        console.log('updateOpenKeys 之前: ' + this.opened)
         if (!!this.timeout) { clearTimeout(this.timeout) }
 
         (this.menu as Menu).updateOpenKeys(this.name)
+        console.log('opened 之前: ' + this.opened)
         this.opened = !this.opened
-
+        console.log('opened 之后: ' + this.opened)
         e.preventDefault()
         return false
     }
@@ -119,6 +121,7 @@ export default class SubMenu extends Mixins(MenuMixins) {
 
     @Watch('opened')
     private onOpenedChange(newValue: boolean) {
+        console.log('newValue: ' + newValue)
         if (this.mode === 'vertical') { return }
         newValue ? (this.$refs.drop as DropDown).update() : (this.$refs.drop as DropDown).destroy()
     }

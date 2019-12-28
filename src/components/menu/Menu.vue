@@ -38,21 +38,19 @@ export default class Menu extends Mixins(EmitterMixins) {
 
     public updateOpenKeys(name: number | string): void {
         const names: Array<number | string> = [...this.openedNames]
-        findComponentsDownward(this, 'SubMenu').forEach((item) => {
-            if ((item as Vue & { name: number | string }).name === name) { (item as Vue & { opened: boolean }).opened = names.indexOf(name) > -1 ? false : true }
-        })
+        // findComponentsDownward(this, 'SubMenu').forEach((item) => {
+        //     if ((item as Vue & { name: number | string }).name === name) {
+        //         (item as Vue & { opened: boolean }).opened = names.indexOf(name) === -1
+        //     }
+        // })
         const openedNames: Array<number | string> = findComponentsDownward(this, 'SubMenu').filter((item) => (item as Vue & { opened: boolean }).opened).map((item) => (item as Vue & { name: number | string }).name)
         this.openedNames = [...openedNames]
         this.$emit('on-open-change', openedNames)
     }
 
-    private updateActiveName(): void {
-        if (this.currentActiveName === undefined) {
-            this.currentActiveName = -1
-        }
-
+    public updateActiveName(): void {
         this.broadcast('SubMenu', 'on-update-active-name', false)
-        this.broadcast('MenuItem', 'on-update-active-name', this.currentActiveName)
+        this.broadcast('MenuItem', 'on-update-active-name', this.currentActiveName || -1)
     }
 
     private handleEmitSelectEvent(name: string) {
