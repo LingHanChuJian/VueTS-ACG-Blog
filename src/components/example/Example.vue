@@ -4,21 +4,27 @@
             slot(name="dome")
         div(:class="[prefixCls + '-title']")
             span(v-if="title") {{ title }}
-                a(:href="uuid" :data-title="title") #
-        div(:class="[prefixCls + '-content']")
-            slot(name="content")
+                a(:href="'#' + uuid" :data-title="title") #
+        div(:class="[prefixCls + '-description']")
+            slot(name="description")
         div(:class="[prefixCls + '-code']")
-            
-            Icon(:class="[prefixCls + '-icon']" :type="iconPrefixType" :style="iconStyles")
-            span(v-if="!opened") Show Code
+            CollapseTransition(appear)
+                div(v-show="opened" ref="code" :class="[prefixCls + '-content-code', 'markdown']")
+                    slot(name="code")
+            div(:class="[prefixCls + '-code-more']" @click.exact="handleClick")
+                Icon(:class="[prefixCls + '-icon']" :type="iconPrefixType" :style="iconStyles")
+                span(v-if="!opened") Show Code
 </template>
 
 <script lang="ts">
 import { Icon } from '@/components/icon'
 import UUID from '@/components/mixins/uuid'
+import { hljsCode } from '@/utils/markdown'
 import { WrapClasses, CSSStyles } from '@/types/components'
 import CollapseTransition from '@/components/base/CollapseTransition'
 import { Component, Prop, Mixins, Vue } from 'vue-property-decorator'
+
+import 'highlight.js/styles/atom-one-light.css'
 
 @Component({
     components: {
@@ -39,6 +45,10 @@ export default class Example extends Mixins(UUID) {
 
     private iconPrefixType: string = 'chevron-down'
 
+    private handleClick(): void {
+        this.opened = !this.opened
+    }
+
     private get wrapClasses(): Array<string | WrapClasses> {
         return [
             this.prefixCls,
@@ -50,9 +60,9 @@ export default class Example extends Mixins(UUID) {
         styles.transform = this.opened ? 'rotate(180deg)' : ''
         return styles
     }
+
+    private mounted() {
+        this.$nextTick(() => { hljsCode((this.$refs.code as HTMLElement)) })
+    }
 }
 </script>
-
-<style lang="stylus" scoped>
-
-</style>

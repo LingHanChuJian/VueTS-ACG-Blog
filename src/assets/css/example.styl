@@ -1,0 +1,46 @@
+.example
+    position relative
+    border 1px solid $border-color
+    border-radius 6px
+    padding 20px 20px 10px 20px
+    transition all .2s ease-in-out
+    &:hover
+        box-shadow $box-shadow
+    .example-title
+        margin-top 10px
+        position relative
+        &:before
+            content ''
+            position absolute
+            height 1px
+            width 100%
+            background-color $border-color
+            top 10px
+        span
+            background-color #FFFFFF
+            padding 0 5px
+            margin-left 30px
+            position relative
+            a
+                opacity 0
+                transition opacity .2s ease-in-out
+            &:hover
+                a
+                    opacity 1
+    .example-description
+        padding-left 20px
+    .example-code
+        position relative
+        &:before
+            content ''
+            border 1px dashed $border-color
+            width 100%
+            display block
+        .example-code-more
+            text-align center
+            margin-top 10px
+            cursor pointer
+            i
+                margin-right 5px
+        .example-content-code
+            position relative

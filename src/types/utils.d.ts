@@ -16,3 +16,8 @@ export interface Modules {
 export type K = keyof DocumentEventMap
 
 export type S = keyof CSSStyleDeclaration
+
+export interface LineNumbersOptions {
+    singleLine: boolean
+    el: HTMLElement
+}
