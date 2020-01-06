@@ -23,7 +23,6 @@
                 @mouseleave="handleMouseleave"
             )
                 div(:class="[prefixCls + '-content']")
-                    div(:class="[prefixCls + '-arrow']")
                     slot(name="content")
 </template>
 

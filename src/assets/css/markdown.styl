@@ -1,11 +1,10 @@
 .markdown
-    padding 10px 0
     color #797979
     blockquote
         color #797979
         padding 50px 35px
         position relative
-        &::before
+        &:before
             content '\f10d'
             position absolute
             font-size 2.5rem
@@ -13,7 +12,7 @@
             top 0
             left 0 
             font-family FontAwesome
-        &::after
+        &:after
             content '\f10e'
             position absolute
             font-size 2.5rem
@@ -34,44 +33,27 @@
             font-size 16px
             padding 5px
             display inline
-            &::after
-                content: ''
-            &::before
+            &:after
+                content ''
+            &:before
                 content ''
     h1 
         color #404040
         display block
         font-size 32px
         font-weight bold
-        margin-block-start 10px
-        margin-block-end 10px
-        margin-inline-start 0px
-        margin-inline-end 0px
     h2
         color #404040
         display block
         font-size 24px
         font-weight bold
-        margin-block-start 10px
-        margin-block-end 10px
-        margin-inline-start 0px
-        margin-inline-end 0px
     h3 
         color #404040
         display block
         font-size 16px
         font-weight bold
-        margin-block-start 10px
-        margin-block-end 10px
-        margin-inline-start 0px
-        margin-inline-end 0px
     ul  
         display block
-        margin-block-start 16px
-        margin-block-end 16px
-        margin-inline-start 0px
-        margin-inline-end 0px
-        padding-inline-start 40px
         li 
             list-style-type circle
         code  
@@ -80,17 +62,12 @@
             padding 5px
             text-shadow none
             border-radius 5px
-            &::after
+            &:after
                 content ''
-            &::before
+            &:before
                 content ''
     ol  
         display block
-        margin-block-start 16px
-        margin-block-end 16px
-        margin-inline-start 0px
-        margin-inline-end 0px
-        padding-inline-start 40px
         li 
             list-style-type decimal
         code  
@@ -99,9 +76,9 @@
             padding 5px
             text-shadow none
             border-radius 5px
-            &::after
+            &:after
                 content ''
-            &::before
+            &:before
                 content ''
     a 
         color #e67474;
@@ -121,16 +98,21 @@
     pre 
         width 100%
         position relative
-        box-shadow: 0 10px 30px 0px rgba(0,0,0,.4)
+        box-shadow 0 10px 30px 0px rgba(0,0,0,.4)
         .copy-code
-            color: #fff
-            position: absolute
-            float: right
-            right: 10px
-            top: 0
-            margin-top: -18px 
-            z-index: 2
-            font-size: 16px
+            color #FFFFFF
+            position absolute
+            right 10px
+            top -23px
+            cursor pointer
+            font-style normal
+        .amplification-code
+            color #FFFFFF
+            position absolute
+            right 30px
+            top -23px
+            cursor pointer
+            font-style normal
         code  
             background-color #1d1f21
             color #FFFFFF
@@ -138,7 +120,7 @@
             font-size 15px
             word-break break-word
             font-weight normal
-            &::before
+            &:before
                 color #fff
                 content attr(data-lang)
                 height 30px
@@ -158,6 +140,8 @@
             table
                 margin 5px 0 0 0
                 padding 0
+                tr
+                    height 24px 
             .hljs-ln-numbers
                 user-select none
                 text-align center
@@ -167,16 +151,18 @@
                 vertical-align top
                 left 0
                 width 30px
+                line-height 24px
             .hljs-ln-code
                 text-align inherit
                 padding-left 5px
                 color #FFFFFF
                 font-family sans-serif
                 font-size 16px
+                cursor text
                 &:hover
-                    background-color:rgba(255,255,255,.1)
+                    background-color rgba(255,255,255,.1)
                 .hljs-doctag, .hljs-formula, .hljs-keyword
-                    color: #c678dd
+                    color #c678dd
                 .hljs-comment, .hljs-quote
                     color #888f96
                     font-style italic
@@ -220,3 +206,36 @@
     img
         max-width 100%
         height auto
+
+.html-fullscreen
+    overflow hidden
+
+.pre-fullscreen
+    position fixed !important
+    top 30px
+    left 0
+    bottom 0
+    width 100%
+    height 100%
+    z-index 9999999
+    margin 0
+    animation animation-elastic 1s
+    code
+        --widthA 100%
+        --widthB calc(var(--widthA) - 30px)
+        height var(--widthB)
+        min-height 99%
+        overflow-y hidden
+        overflow-x auto
+        height auto
+
+
+@keyframes animation-elastic
+    0%
+        transform scale(0)
+    55%
+        transform scale(1)
+    70%
+        transform scale(.98)
+    100%
+        transform scale(1)

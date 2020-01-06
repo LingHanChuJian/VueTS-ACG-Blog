@@ -1,5 +1,6 @@
 import hljs from 'highlight.js'
 import ClipboardJS from 'clipboard'
+import { toggleClass } from '@/utils/dom'
 import { addStyles, initLineNumbersOnLoad, isHljsLnCodeDescendant, edgeGetSelectedCodeLines } from '@/utils/lineNumber'
 
 export const hljsCode = (el: HTMLElement) => {
@@ -18,6 +19,7 @@ export const hljsCode = (el: HTMLElement) => {
         initLineNumbersOnLoad({ singleLine: true, el })
         el.addEventListener('copy', (e: ClipboardEvent) => copySelection(e))
         codeListener(el)
+        expandListener(el)
     }
 }
 
@@ -43,7 +45,6 @@ export const codeListener = (el: HTMLElement) => {
     }
 }
 
-
 export const copyCode = (e: MouseEvent) => {
     for (let i = 0, len = (e as MouseEvent & { path: HTMLElement[] }).path.length; i < len; i++) {
         if ((e as MouseEvent & { path: HTMLElement[] }).path[i].className.indexOf('copy-code') > -1) {
@@ -52,11 +53,32 @@ export const copyCode = (e: MouseEvent) => {
           const code: Element | null = document.querySelector(tag)
           if (!code) { break }
           const clipboard: ClipboardJS = new ClipboardJS('.copy-code', { container: code })
+          clipboard.on('success', (event: ClipboardJS.Event) => {
+              console.log('复制成功')
+              event.clearSelection()
+          })
           clipboard.on('error', (error: ClipboardJS.Event) => {
             console.error(`Action: ${error.action}`)
             console.error(`Trigger: ${error.trigger}`)
           })
           break
+        }
+    }
+}
+
+export const expandListener = (el: HTMLElement) => {
+    const amplificationElement: NodeListOf<HTMLElement> = el.querySelectorAll('.amplification-code')
+    for (let i = 0, len = amplificationElement.length; i < len; i++) {
+        amplificationElement[i].removeEventListener('click', amplificationCode)
+        amplificationElement[i].addEventListener('click', amplificationCode)
+    }
+}
+
+export const amplificationCode = (e: MouseEvent) => {
+    for (let i = 0, len = (e as MouseEvent & { path: HTMLElement[] }).path.length; i < len; i++) {
+        if ((e as MouseEvent & { path: HTMLElement[] }).path[i].tagName === 'PRE') {
+            toggleClass((document.querySelector('html') as HTMLElement), 'html-fullscreen')
+            toggleClass((e as MouseEvent & { path: HTMLElement[] }).path[i], 'pre-fullscreen')
         }
     }
 }

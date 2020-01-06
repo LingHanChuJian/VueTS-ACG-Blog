@@ -24,6 +24,10 @@ export const removeClass = (el: HTMLElement, cls: string): void => {
     if (hasClass(el, cls)) { el.classList.remove(cls) }
 }
 
+export const toggleClass = (el: HTMLElement, cls: string): void => {
+    hasClass(el, cls) ? removeClass(el, cls) : addClass(el, cls)
+}
+
 const SPECIAL_CHARS_REGEXP: RegExp = /([\:\-\_]+(.))/g
 const MOZ_HACK_REGEXP: RegExp = /^moz([A-Z])/
 
