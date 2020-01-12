@@ -24,32 +24,32 @@ const routes: RouteConfig[] = [
   {
     path: '/docs',
     redirect: '/docs/layout',
-    component: () => import('@/document/Index.vue'),
+    component: () => import('@/docs/Index.vue'),
     children: [
       {
         path: '/docs/layout',
         name: 'layout',
-        component: () => import('@/document/LayoutDoc.vue'),
+        component: () => import('@/docs/LayoutDoc.vue'),
       },
       {
         path: '/docs/menu',
         name: 'menu',
-        component: () => import('@/document/MenuDoc.vue'),
+        component: () => import('@/docs/MenuDoc.vue'),
       },
       {
         path: '/docs/poptip',
         name: 'poptip',
-        component: () => import('@/document/PoptipDoc.vue'),
+        component: () => import('@/docs/PoptipDoc.vue'),
       },
       {
         path: '/docs/icon',
         name: 'icon',
-        component: () => import('@/document/IconDoc.vue'),
+        component: () => import('@/docs/IconDoc.vue'),
       },
       {
         path: '/docs/message',
         name: 'message',
-        component: () => import('@/document/MessageDoc.vue'),
+        component: () => import('@/docs/MessageDoc.vue'),
       },
     ],
   },
