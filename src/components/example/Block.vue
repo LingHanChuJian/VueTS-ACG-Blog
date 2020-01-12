@@ -1,6 +1,6 @@
 <template lang="pug">
     pre(:class="wrapClasses")
-        code(:id="uuid" :data-lang="lang.toUpperCase()" v-text="isSlot ? '' : content")
+        code(:id="uuid" :class="codeWrapClasses" :data-lang="lang.toUpperCase()" v-text="isSlot ? '' : content")
             slot(name="content")
         Icon.amplification-code(type="expand" title="放大")
         Icon.copy-code(type="clone" :data-clipboard-target="'#' + uuid" title="复制代码")
@@ -17,18 +17,28 @@ import { Component, Prop, Mixins, Vue } from 'vue-property-decorator'
         Icon,
     },
 })
-export default class Code extends Mixins(UUID) {
+export default class Block extends Mixins(UUID) {
     @Prop({ type: String, default: '' })
     private lang!: string
 
     @Prop({ type: String, default: '' })
     private content!: string
 
-    private prefixCls: string = 'code'
+    @Prop({ type: String })
+    private custom?: string
+
+    private prefixCls: string = 'block'
 
     private get wrapClasses(): Array<string | WrapClasses> {
         return [
             `${this.prefixCls}-pre`,
+        ]
+    }
+
+    private get codeWrapClasses(): Array<string | WrapClasses> {
+        return [
+            `${this.prefixCls}-code`,
+            this.custom ? this.custom : '',
         ]
     }
 

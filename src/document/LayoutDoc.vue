@@ -11,12 +11,12 @@
             template(slot="description")
                 p 经典页面布局
             template(slot="code")
-                Code(:content="text1" lang="VUE")
+                Block(:content="text1" lang="VUE" custom="language-pug")
 </template>
 
 <script lang="ts">
 import { Icon } from '@/components/icon'
-import { Example, Code } from '@/components/example'
+import { Example, Block } from '@/components/example'
 import { Component, Vue } from 'vue-property-decorator'
 import { Layout, Header, Content, Footer } from '@/components/layout'
 
@@ -28,11 +28,17 @@ import { Layout, Header, Content, Footer } from '@/components/layout'
         Footer,
         Example,
         Icon,
-        Code,
+        Block,
     },
 })
 export default class LayoutDoc extends Vue {
-    private text1: string = `<template lang="pug"></template>`
+    private text1: string = `<template lang="pug">
+    a she
+    Layout
+        Header.header-dome Header
+        Content.conent-dome Content
+        Footer.footer-dome Footer
+</template>`
     // private mounted() {
     // }
 }
