@@ -11,7 +11,7 @@
             template(slot="description")
                 p 经典页面布局
             template(slot="code")
-                Block(:content="text1" lang="VUE" custom="language-pug")
+                Block(:content="text1" lang="VUE" custom="language-vue")
 </template>
 
 <script lang="ts">
@@ -33,12 +33,33 @@ import { Layout, Header, Content, Footer } from '@/components/layout'
 })
 export default class LayoutDoc extends Vue {
     private text1: string = `<template lang="pug">
+    //- 说明
     a she
     Layout
-        Header.header-dome Header
+        Header.header-dome(href="sb") Header
         Content.conent-dome Content
         Footer.footer-dome Footer
-</template>`
+</template>
+
+<script lang="ts">
+//- 说明
+<\/script>
+
+<style lang="stylus" scoped>
+.header-dome
+.footer-dome
+    background-color #7cbce9
+    text-align center
+    height 64px
+    line-height 64px
+
+.conent-dome
+    background-color #0f8de9
+    text-align center
+    min-height 120px
+    line-height 120px
+    animation none
+</style>`
     // private mounted() {
     // }
 }

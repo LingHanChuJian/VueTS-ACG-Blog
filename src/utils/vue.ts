@@ -9,7 +9,7 @@ const TAG_SELECTORS = 'abbr|acronym|address|area|article|aside|audio|base|big|bl
 const PARAM_ONLY_SELECTORS = 'a|input'
 const CUSTOM_TAG_SELECTORS = 'template|Layout|Header|Content|Footer'
 
-export const languagePug = (hljs?: HLJSStatic): IMode => {
+export const languageVue = (hljs?: HLJSStatic): IMode => {
     return {
         case_insensitive: false,
         aliases: ['jade', 'pug', 'JADE', 'PUG'],
@@ -50,7 +50,7 @@ export const languagePug = (hljs?: HLJSStatic): IMode => {
             ],
           },
           {
-            className: 'attribute',
+            className: 'attr',
             begin: '&attributes',
             relevance: 0,
           },
@@ -102,7 +102,7 @@ export const languagePug = (hljs?: HLJSStatic): IMode => {
           },
           {
             className: 'comment',
-            begin: '\\//- [A-Za-z0-9_-]+',
+            begin: /\/\/-?.*/,
           },
           {
             className: 'symbol',
