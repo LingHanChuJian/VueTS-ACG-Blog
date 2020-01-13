@@ -1,10 +1,7 @@
 import hljs from 'highlight.js'
 import ClipboardJS from 'clipboard'
 import { toggleClass } from '@/utils/dom'
-import { languageVue } from '@/utils/vue'
 import { addStyles, initLineNumbersOnLoad, isHljsLnCodeDescendant, edgeGetSelectedCodeLines } from '@/utils/lineNumber'
-
-hljs.registerLanguage('vue', languageVue)
 
 export const hljsCode = (el: HTMLElement) => {
     const blocks: Element[] = []
@@ -16,14 +13,12 @@ export const hljsCode = (el: HTMLElement) => {
         }
     }
 
-    if (blocks.length > 0) {
-        Array.prototype.forEach.call(blocks, hljs.highlightBlock)
-        addStyles()
-        initLineNumbersOnLoad({ singleLine: true, el })
-        el.addEventListener('copy', (e: ClipboardEvent) => copySelection(e))
-        codeListener(el)
-        expandListener(el)
-    }
+    Array.prototype.forEach.call(blocks, hljs.highlightBlock)
+    addStyles()
+    initLineNumbersOnLoad({ singleLine: true, el })
+    el.addEventListener('copy', (e: ClipboardEvent) => copySelection(e))
+    codeListener(el)
+    expandListener(el)
 }
 
 export const copySelection = (e: ClipboardEvent) => {

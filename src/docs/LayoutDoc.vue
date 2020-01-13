@@ -11,7 +11,7 @@
             template(slot="description")
                 p 经典页面布局
             template(slot="code")
-                Block(:content="text1" lang="VUE" custom="language-vue")
+                Block(:content="text1" lang="VUE" :custom="['language-pug', 'language-stylus', 'language-ts']")
 </template>
 
 <script lang="ts">
