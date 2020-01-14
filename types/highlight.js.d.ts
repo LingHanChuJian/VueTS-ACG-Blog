@@ -29,7 +29,7 @@ declare namespace hljs
 
 	export function registerLanguage(
 		name: string,
-		language: (hljs?: HLJSStatic) => IModeBase): void
+		language: (hljs: HLJSStatic) => IModeBase): void
 	export function listLanguages(): string[]
 	export function getLanguage(name: string): IMode
 
