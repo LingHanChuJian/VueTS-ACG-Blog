@@ -32,14 +32,12 @@ import { Layout, Header, Content, Footer } from '@/components/layout'
     },
 })
 export default class LayoutDoc extends Vue {
-    private text1: string = `<template lang="pug">
-    //- 说明
-    a#sb she
+    private text1: string =
+`<template lang="pug">
     Layout
         Header.header-dome(href="sb") Header
         Content.conent-dome Content
         Footer.footer-dome Footer
-        | 你好
 </template>
 
 <script lang="ts">
