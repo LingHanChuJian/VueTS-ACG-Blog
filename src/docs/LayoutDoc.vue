@@ -11,7 +11,7 @@
             template(slot="description")
                 p 经典页面布局
             template(slot="code")
-                Block(:content="text1" lang="VUE" :custom="['language-pug', 'language-stylus', 'language-ts']")
+                Block(:content="text1" lang="VUE" :custom="['language-pug']")
 </template>
 
 <script lang="ts">
@@ -34,11 +34,12 @@ import { Layout, Header, Content, Footer } from '@/components/layout'
 export default class LayoutDoc extends Vue {
     private text1: string = `<template lang="pug">
     //- 说明
-    a she
+    a#sb she
     Layout
         Header.header-dome(href="sb") Header
         Content.conent-dome Content
         Footer.footer-dome Footer
+        | 你好
 </template>
 
 <script lang="ts">

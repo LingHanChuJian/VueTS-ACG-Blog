@@ -24,7 +24,6 @@
   },
   "devDependencies": {
     "@types/clipboard": "^2.0.1",
-    "@types/highlight.js": "^9.12.3",
     "@types/moment-timezone": "^0.5.12",
     "@types/nprogress": "^0.2.0",
     "@vue/cli-plugin-babel": "^4.0.0",

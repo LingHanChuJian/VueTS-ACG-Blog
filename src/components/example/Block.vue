@@ -24,8 +24,8 @@ export default class Block extends Mixins(UUID) {
     @Prop({ type: String, default: '' })
     private content!: string
 
-    @Prop({ type: Array, default() { return [] } })
-    private custom!: string[]
+    @Prop({ type: [String, Array], default() { return [] } })
+    private custom!: string | string[]
 
     private prefixCls: string = 'block'
 
@@ -38,7 +38,7 @@ export default class Block extends Mixins(UUID) {
     private get codeWrapClasses(): Array<string | WrapClasses> {
         return [
             `${this.prefixCls}-code`,
-            ...this.custom,
+            Array.isArray(this.custom) ? this.custom.join(',') : this.custom,
         ]
     }
 
