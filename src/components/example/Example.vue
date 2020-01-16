@@ -7,7 +7,7 @@
                 a(:href="'#' + uuid" :data-title="title") #
         div(:class="[prefixCls + '-description']")
             slot(name="description")
-        div(:class="[prefixCls + '-code']" :style="codeStyles")
+        div(:class="[prefixCls + '-code']")
             CollapseTransition(appear)
                 div(v-show="opened" ref="code" :class="[prefixCls + '-content-code', 'markdown']")
                     slot(name="code")
@@ -58,12 +58,6 @@ export default class Example extends Mixins(UUID) {
     private get iconStyles(): CSSStyles<CSSStyleDeclaration> {
         const styles: CSSStyles<CSSStyleDeclaration> = {}
         styles.transform = this.opened ? 'rotate(180deg)' : ''
-        return styles
-    }
-
-    private get codeStyles(): CSSStyles<CSSStyleDeclaration> {
-        const styles: CSSStyles<CSSStyleDeclaration> = {}
-        styles.paddingTop = this.opened ? '30px' : ''
         return styles
     }
 
