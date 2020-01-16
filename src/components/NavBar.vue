@@ -166,9 +166,10 @@ export default class NavBar extends Vue {
 menu(n)
     transition all .2s
     background-color #000000
-    width 50px
+    width 30px
     height 3px
     position n
+    cursor pointer
 
 @keyframes animation-upper-down
     6%

@@ -36,14 +36,20 @@
         Example.simple(title="自定义触发器")
             template(slot="dome")
                 div.layout-simple-dome
-                    Layout
-                        Drawer.drawer-trigger-dome(v-model="isCollapsed" isMatchMediaMaxWidth) Drawer
+                    Layout.layout-trigger-dome
+                        Drawer.drawer-trigger-dome(v-model="isCollapsed" ref="drawer" isMatchMediaMaxWidth) Drawer
                         Layout
                             Header.header-trigger-dome
-                                div(:class="menuClasses" @click="menuClick")
+                                div.icon-menu-wrap(@click="menuClick")
+                                    div(:class="menuClasses")
                             Content.conent-trigger-dome Content
                             Footer.footer-trigger-dome Footer
             template(slot="description")
+                p 使用自定义触发器, 通过 
+                    code.code-mark Drawer 
+                    | 子类 
+                    code.code-mark toggleCollapse 
+                    | 方法触发
             template(slot="code")
 </template>
 
@@ -143,6 +149,10 @@ export default class LayoutDoc extends Vue {
     animation none
 </style>`
 
+    private menuClick(): void {
+        (this.$refs.drawer as Drawer).toggleCollapse()
+    }
+
     private get menuClasses(): Array<string | WrapClasses> {
         return [
             'icon-menu',
@@ -187,15 +197,48 @@ export default class LayoutDoc extends Vue {
 .simple
     margin-bottom 20px
 
+.layout-trigger-dome
+    border 1px solid #d7dde4
+
+.drawer-trigger-dome
+    text-align center
+    line-height 400px
+    color #FFFFFF
+    background-color #515a6e
+
+.header-trigger-dome
+    line-height 75px
+    box-shadow  0 1px 1px rgba(0,0,0,.1)
+
+.conent-trigger-dome
+    min-height 260px
+    line-height 260px
+    text-align center
+
+.footer-trigger-dome
+    min-height 64px
+    line-height 64px
+    box-shadow 0 0 5px rgba(0,0,0,0.1)
+    text-align center
+
 menu(n)
     transition all .2s
     background-color #000000
-    width 50px
+    width 30px
     height 3px
     position n
 
+.icon-menu-wrap
+    width 50px
+    height 50px
+    float left
+    cursor pointer
+    position relative
+
 .icon-menu
-    menu(relative)
+    top 25px
+    left 10px
+    menu(absolute)
     &:before
         menu(absolute)
         content ''
@@ -203,7 +246,7 @@ menu(n)
     &:after
         menu(absolute)
         content ''
-        bottom 8px
+        top 8px
 
 .icon-menu-opened
     background-color transparent
@@ -211,6 +254,6 @@ menu(n)
         top 0
         transform rotate(-45deg)
     &:after
-        bottom 0
+        top 0
         transform rotate(45deg)
 </style>
