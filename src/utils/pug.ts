@@ -65,7 +65,7 @@ export const languagePug = (hljs: HLJSStatic): IMode => {
             starts: {
                 end: '\<\/style\>',
                 returnEnd: true,
-                subLanguage: ['css', 'stylus', 'scss', 'less'],
+                subLanguage: ['css', 'stylus', 'scss', 'less', 'stylus-extend'],
             },
           },
           {

@@ -37,7 +37,7 @@
             template(slot="dome")
                 div.layout-simple-dome
                     Layout.layout-trigger-dome
-                        Drawer.drawer-trigger-dome(v-model="isCollapsed" ref="drawer" isCollapsible isMatchMediaMaxWidth) Drawer
+                        Drawer.drawer-trigger-dome(v-model="isCollapsed2" ref="drawer" isCollapsible isMatchMediaMaxWidth) Drawer
                         Layout
                             Header.header-trigger-dome
                                 div.icon-menu-wrap(@click="menuClick")
@@ -75,6 +75,7 @@ import { Layout, Header, Drawer, Content, Footer } from '@/components/layout'
 })
 export default class LayoutDoc extends Vue {
     private isCollapsed: boolean = true
+    private isCollapsed2: boolean = true
     private dome1: string =
 `<template lang="pug">
     Layout
@@ -253,8 +254,7 @@ menu(n)
     &:after
         top 0
         transform rotate(45deg)
-</style>
-`
+</style>`
 
     private menuClick(): void {
         (this.$refs.drawer as Drawer).toggleCollapse()
@@ -264,7 +264,7 @@ menu(n)
         return [
             'icon-menu',
             {
-                [`icon-menu-opened`] : this.isCollapsed,
+                [`icon-menu-opened`] : this.isCollapsed2,
             },
         ]
     }

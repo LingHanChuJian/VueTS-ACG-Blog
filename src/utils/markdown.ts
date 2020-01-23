@@ -2,8 +2,10 @@ import hljs from 'highlight.js'
 import ClipboardJS from 'clipboard'
 import { toggleClass } from '@/utils/dom'
 import { languagePug } from '@/utils/pug'
+import { languageStylusExtend } from '@/utils/stylusExtend'
 import { addStyles, initLineNumbersOnLoad, isHljsLnCodeDescendant, edgeGetSelectedCodeLines } from '@/utils/lineNumber'
 
+hljs.registerLanguage('stylus-extend', languageStylusExtend)
 hljs.registerLanguage('pug', languagePug)
 
 export const hljsCode = (el: HTMLElement) => {
