@@ -115,12 +115,12 @@ export default class NavBar extends Vue {
     a
         color $font-color
         &:hover
-            color $font-hover-color
+            color $font-color-hover
             .logo-title
-                background-color $font-hover-color
+                background-color $font-color-hover
                 color #FFFFFF
                 rt
-                    color $font-hover-color
+                    color $font-color-hover
     .logo-title
         background-color rgba(255,255,255,.5)
         border-radius 5px
@@ -158,7 +158,7 @@ export default class NavBar extends Vue {
     cursor pointer
     transition color .5s
     &:hover
-        color $font-hover-color
+        color $font-color-hover
 
 .login-message
     font-size 13px

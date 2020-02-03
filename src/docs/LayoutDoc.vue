@@ -55,8 +55,8 @@
 </template>
 
 <script lang="ts">
-import { WrapClasses } from '@/types/components'
 import { Icon } from '@/components/icon'
+import { WrapClasses } from '@/types/components'
 import { Example, Block } from '@/components/example'
 import { Component, Vue } from 'vue-property-decorator'
 import { Layout, Header, Drawer, Content, Footer } from '@/components/layout'
