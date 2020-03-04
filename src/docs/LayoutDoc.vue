@@ -52,10 +52,13 @@
                     | 方法触发
             template(slot="code")
                 Block(:content="dome2" lang="VUE" :custom="['language-pug']")
+        Anchor(title="API")
 </template>
 
 <script lang="ts">
 import { Icon } from '@/components/icon'
+import { Table } from '@/components/table'
+import { Anchor } from '@/components/anchor'
 import { WrapClasses } from '@/types/components'
 import { Example, Block } from '@/components/example'
 import { Component, Vue } from 'vue-property-decorator'
@@ -71,6 +74,8 @@ import { Layout, Header, Drawer, Content, Footer } from '@/components/layout'
         Icon,
         Block,
         Drawer,
+        Table,
+        Anchor,
     },
 })
 export default class LayoutDoc extends Vue {
