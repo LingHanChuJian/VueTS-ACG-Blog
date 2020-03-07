@@ -31,12 +31,14 @@
                 keep-alive
                     router-view
         Footer
+            FooterCenter
 </template>
 
 <script lang="ts">
 import { Icon } from '@/components/icon'
+import FooterCenter from '@/components/Footer.vue'
 import { Menu, MenuItem, SubMenu } from '@/components/menu'
-import { Layout, Header, Drawer, Content } from '@/components/layout'
+import { Layout, Header, Drawer, Content, Footer } from '@/components/layout'
 import { Component, Vue } from 'vue-property-decorator'
 
 @Component({
@@ -45,6 +47,8 @@ import { Component, Vue } from 'vue-property-decorator'
         Header,
         Drawer,
         Content,
+        Footer,
+        FooterCenter,
         Menu,
         MenuItem,
         SubMenu,

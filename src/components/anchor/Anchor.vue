@@ -16,7 +16,7 @@ import { Component, Prop, Mixins, Vue } from 'vue-property-decorator'
     },
 })
 export default class Anchor extends Mixins(UUID) {
-    @Prop({ type: String, default: 'h2' })
+    @Prop({ type: String, default: 'h1' })
     private label!: string
 
     @Prop({ type: String, default: '' })
@@ -28,6 +28,7 @@ export default class Anchor extends Mixins(UUID) {
         return createElement(this.label, {
             attrs: {
                 id: (this as any).uuid,
+                class: this.prefixCls + '-label',
             },
         }, this.title)
     }

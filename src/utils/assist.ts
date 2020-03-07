@@ -28,18 +28,29 @@ export const typeOf = (value: any): string => {
 export const deepCopy = (data: any): any => {
     const dataType: string = typeOf(data)
 
+    let objects: ObjectBase | any[] = []
+
     switch (dataType) {
         case 'array':
-            const array: any[] = []
-            for (let i = 0, len = (data as any[]).length; i < len; i++) {
-                array.push(deepCopy(data))
-            }
-            return array
+            objects = []
+            break
         case 'object':
-            const objects: ObjectBase = {}
-            const objectsName: string[] = Object.keys(data as ObjectBase)
-            for (let n = 0, nLen = objectsName.length; n < nLen; n++) {
-                objects[objectsName[n]] = deepCopy((data as ObjectBase).objectsName[n])
+            objects = {}
+            break
+        default:
+            return objects
+    }
+
+    switch (dataType) {
+        case 'array':
+            for (let i = 0, len = (data as any[]).length; i < len; i++) {
+                (objects as any[]).push(deepCopy(data[i]))
+            }
+            return objects
+        case 'object':
+            const key: any[] = Object.keys(data as ObjectBase)
+            for (let n = 0, nLen = key.length; n < nLen; n++) {
+                objects[key[n]] = deepCopy((data as ObjectBase).key[n])
             }
             return objects
         default:

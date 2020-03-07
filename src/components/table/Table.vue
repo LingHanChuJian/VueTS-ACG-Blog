@@ -19,7 +19,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
 })
 export default class Table extends Vue {
     @Prop({
-        type: Object,
+        type: Array,
         default() {
             return []
         },
@@ -27,7 +27,7 @@ export default class Table extends Vue {
     private data!: Row[]
 
     @Prop({
-        type: Object,
+        type: Array,
         default() {
             return []
         },

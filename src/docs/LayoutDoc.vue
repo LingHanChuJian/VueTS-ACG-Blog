@@ -1,6 +1,6 @@
 <template lang="pug">
     div
-        h2 Layout 布局
+        Anchor(title="Layout 布局")
         Example.simple(title="基本结构")
             template(slot="dome")
                 div.layout-simple-dome
@@ -46,20 +46,23 @@
                             Footer.footer-trigger-dome Footer
             template(slot="description")
                 p 使用自定义触发器, 通过 
-                    code.code-mark Drawer 
-                    | 子类 
-                    code.code-mark toggleCollapse 
-                    | 方法触发
+                    code.code-mark Drawer
+                    | &nbsp;子类 
+                    code.code-mark toggleCollapse
+                    | &nbsp;方法触发
             template(slot="code")
                 Block(:content="dome2" lang="VUE" :custom="['language-pug']")
-        Anchor(title="API")
+        div.api
+            Anchor(title="API" label="h2")
+            Anchor(title="Drawer props" label="h3")
+            Table(:column="columns")
 </template>
 
 <script lang="ts">
 import { Icon } from '@/components/icon'
 import { Table } from '@/components/table'
 import { Anchor } from '@/components/anchor'
-import { WrapClasses } from '@/types/components'
+import { WrapClasses, Column } from '@/types/components'
 import { Example, Block } from '@/components/example'
 import { Component, Vue } from 'vue-property-decorator'
 import { Layout, Header, Drawer, Content, Footer } from '@/components/layout'
@@ -80,7 +83,9 @@ import { Layout, Header, Drawer, Content, Footer } from '@/components/layout'
 })
 export default class LayoutDoc extends Vue {
     private isCollapsed: boolean = true
+
     private isCollapsed2: boolean = true
+
     private dome1: string =
 `<template lang="pug">
     Layout
@@ -260,6 +265,17 @@ menu(n)
         top 0
         transform rotate(45deg)
 </style>`
+
+    private columns: Column[] = [
+        {
+            key: 'prop',
+            title: '属性',
+        },
+        {
+            key: 'description',
+            title: '说明',
+        },
+    ]
 
     private menuClick(): void {
         (this.$refs.drawer as Drawer).toggleCollapse()

@@ -18,7 +18,3 @@ export default class Footer extends Vue {
     }
 }
 </script>
-
-<style lang="stylus" scoped>
-
-</style>

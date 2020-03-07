@@ -11,7 +11,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
 @Component
 export default class Thead extends Vue {
     @Prop({
-        type: Object,
+        type: Array,
         default() {
             return []
         },
