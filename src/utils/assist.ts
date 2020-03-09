@@ -38,7 +38,7 @@ export const deepCopy = (data: any): any => {
             objects = {}
             break
         default:
-            return objects
+            return data
     }
 
     switch (dataType) {
@@ -50,7 +50,7 @@ export const deepCopy = (data: any): any => {
         case 'object':
             const key: any[] = Object.keys(data as ObjectBase)
             for (let n = 0, nLen = key.length; n < nLen; n++) {
-                objects[key[n]] = deepCopy((data as ObjectBase).key[n])
+                objects[key[n]] = deepCopy((data as ObjectBase)[key[n]])
             }
             return objects
         default:

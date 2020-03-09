@@ -9,7 +9,7 @@
 <script lang="ts">
 import { Icon } from '@/components/icon'
 import UUID from '@/components/mixins/uuid'
-import { WrapClasses, CSSStyles } from '@/types/components'
+import { WrapClasses } from '@/types/components'
 import { Component, Prop, Mixins, Vue } from 'vue-property-decorator'
 
 @Component({

@@ -20,8 +20,8 @@
 </template>
 
 <script lang="ts">
+import { WrapClasses } from '@/types/components'
 import MenuMixins from '@/components/mixins/menu'
-import { WrapClasses, CSSStyles } from '@/types/components'
 import { Component, Prop, Mixins, Vue } from 'vue-property-decorator'
 
 @Component

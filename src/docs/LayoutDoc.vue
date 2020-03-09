@@ -55,14 +55,14 @@
         div.api
             Anchor(title="API" label="h2")
             Anchor(title="Drawer props" label="h3")
-            Table(:column="columns")
+            Table(:column="columns" :data="data")
 </template>
 
 <script lang="ts">
 import { Icon } from '@/components/icon'
 import { Table } from '@/components/table'
 import { Anchor } from '@/components/anchor'
-import { WrapClasses, Column } from '@/types/components'
+import { WrapClasses, Column, Row } from '@/types/components'
 import { Example, Block } from '@/components/example'
 import { Component, Vue } from 'vue-property-decorator'
 import { Layout, Header, Drawer, Content, Footer } from '@/components/layout'
@@ -274,6 +274,29 @@ menu(n)
         {
             key: 'description',
             title: '说明',
+        },
+        {
+            key: 'type',
+            title: '类型',
+        },
+        {
+            key: 'default',
+            title: '默认值',
+        },
+    ]
+
+    private data: Row[] = [
+        {
+            prop: 'isCollapsible',
+            description: '是否可收起',
+            type: 'Boolean',
+            default: 'false',
+        },
+        {
+            prop: 'isMatchMediaMaxWidth',
+            description: '是否使用媒体适配仅在小于800px时显示',
+            type: 'Boolean',
+            default: 'ture',
         },
     ]
 

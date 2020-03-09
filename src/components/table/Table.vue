@@ -1,14 +1,14 @@
 <template lang="pug">
-    table
-        Thead(:column="cloneColumn")
-        Tbody(:column="cloneColumn" :data="cloneData")
+    table(:class="wrapClasses")
+        Thead(:column="cloneColumn" :align="align" :border="border")
+        Tbody(:column="cloneColumn" :data="cloneData" :align="align" :border="border")
 </template>
 
 <script lang="ts">
-import { deepCopy } from '@/utils/assist'
+import { deepCopy, oneOf } from '@/utils/assist'
 import Tbody from '@/components/table/Tbody.vue'
 import Thead from '@/components/table/Thead.vue'
-import { Row, Column } from '@/types/components'
+import { Row, Column, WrapClasses } from '@/types/components'
 import { Component, Prop, Vue } from 'vue-property-decorator'
 
 @Component({
@@ -34,11 +34,28 @@ export default class Table extends Vue {
     })
     private column!: Column[]
 
+    @Prop({
+        type: String,
+        default: 'left',
+        validator(value: string) {
+            return oneOf(value, ['left', 'center', 'right'])
+        },
+    })
+    private align!: string
+
     @Prop({ type: Boolean, default: true })
     private border!: boolean
+
+    private prefixCls: string = 'table'
 
     private cloneColumn: Column[] = deepCopy(this.column)
 
     private cloneData: Row[] = deepCopy(this.data)
+
+    private get wrapClasses(): Array<string | WrapClasses> {
+        return [
+            this.prefixCls,
+        ]
+    }
 }
 </script>
