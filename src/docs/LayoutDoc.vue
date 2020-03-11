@@ -56,15 +56,16 @@
             Anchor(title="API" label="h2")
             Anchor(title="Drawer props" label="h3")
             Table(:column="columns" :data="data")
+            Anchor(title="Drawer methods" label="h3")
+            Table(:column="columns2" :data="data2")
 </template>
 
 <script lang="ts">
-import { Icon } from '@/components/icon'
 import { Table } from '@/components/table'
 import { Anchor } from '@/components/anchor'
-import { WrapClasses, Column, Row } from '@/types/components'
 import { Example, Block } from '@/components/example'
 import { Component, Vue } from 'vue-property-decorator'
+import { WrapClasses, Column, Row } from '@/types/components'
 import { Layout, Header, Drawer, Content, Footer } from '@/components/layout'
 
 @Component({
@@ -74,7 +75,6 @@ import { Layout, Header, Drawer, Content, Footer } from '@/components/layout'
         Content,
         Footer,
         Example,
-        Icon,
         Block,
         Drawer,
         Table,
@@ -287,6 +287,18 @@ menu(n)
 
     private data: Row[] = [
         {
+            prop: 'value',
+            description: '侧边栏是否收起，可使用 v-model 双向绑定数据',
+            type: 'Boolean',
+            default: 'false',
+        },
+        {
+            prop: 'width',
+            description: '宽度',
+            type: 'Number',
+            default: '250',
+        },
+        {
             prop: 'isCollapsible',
             description: '是否可收起',
             type: 'Boolean',
@@ -294,9 +306,33 @@ menu(n)
         },
         {
             prop: 'isMatchMediaMaxWidth',
-            description: '是否使用媒体适配仅在小于800px时显示',
+            description: '是否使用媒体适配仅在小于860px时显示',
             type: 'Boolean',
             default: 'ture',
+        },
+        {
+            prop: 'matchMediaMaxWidth',
+            description: '媒体适配宽度',
+            type: 'Number',
+            default: '860',
+        },
+    ]
+
+    private columns2: Column[] = [
+        {
+            key: 'methods',
+            title: '方法名',
+        },
+        {
+            key: 'description',
+            title: '说明',
+        },
+    ]
+
+    private data2: Row[] = [
+        {
+            methods: 'toggleCollapse',
+            description: '改变Drawer展开-收起状态',
         },
     ]
 

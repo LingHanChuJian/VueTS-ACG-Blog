@@ -12,12 +12,12 @@
     )
         div(:class="[parentPrefixCls + '-' + prefixCls + '-title']" ref="reference" :style="liStyle")
             slot(name="title")
-            Icon(v-if="mode === 'vertical'" :type="iconPrefixType" :class="[parentPrefixCls + '-' + prefixCls + '-title-icon']" :style="iconStyles" @click="submenuIconClick")
+            Icon(v-if="mode === 'vertical'" :type="iconPrefixType" :class="[parentPrefixCls + '-' + prefixCls + '-title-icon']" :style="iconStyles" @click.stop="submenuIconClick")
         CollapseTransition(v-if="mode === 'vertical'" appear)
             ul(v-show="opened" :class="[parentPrefixCls]")
                 slot
         transition(name="slide-up" v-else)
-            DropDown.redefine(v-show="opened" placement="bottom" ref="drop")
+            DropDown(v-show="opened" placement="bottom" ref="drop")
                 ul(:class="[parentPrefixCls + '-' + prefixCls + '-drop-list']")
                     slot
     li(
@@ -29,12 +29,12 @@
     )
         div(:class="[parentPrefixCls + '-' + prefixCls + '-title']" ref="reference" :style="liStyle")
             slot(name="title")
-            Icon(v-if="mode === 'vertical'" :type="iconPrefixType" :class="[parentPrefixCls + '-' + prefixCls + '-title-icon']" :style="iconStyles" @click="submenuIconClick")
+            Icon(v-if="mode === 'vertical'" :type="iconPrefixType" :class="[parentPrefixCls + '-' + prefixCls + '-title-icon']" :style="iconStyles" @click.stop="submenuIconClick")
         CollapseTransition(v-if="mode === 'vertical'" appear)
             ul(v-show="opened" :class="[parentPrefixCls]")
                 slot
         transition(name="slide-up" v-else)
-            DropDown.redefine(v-show="opened" placement="bottom" ref="drop")
+            DropDown(v-show="opened" placement="bottom" ref="drop")
                 ul(:class="[parentPrefixCls + '-' + prefixCls + '-drop-list']")
                     slot
 </template>
@@ -89,17 +89,12 @@ export default class SubMenu extends Mixins(MenuMixins) {
         }, 250)
     }
 
-    private submenuIconClick(e: Event): boolean {
-        if (this.disabled || this.mode === 'horizontal') { return false }
-        console.log('updateOpenKeys 之前: ' + this.opened)
+    private submenuIconClick(e: Event): void {
+        if (this.disabled || this.mode === 'horizontal') { return }
         if (!!this.timeout) { clearTimeout(this.timeout) }
-
         (this.menu as Menu).updateOpenKeys(this.name)
-        console.log('opened 之前: ' + this.opened)
         this.opened = !this.opened
-        console.log('opened 之后: ' + this.opened)
         e.preventDefault()
-        return false
     }
 
     private get classes(): Array<string | WrapClasses> {
@@ -121,7 +116,6 @@ export default class SubMenu extends Mixins(MenuMixins) {
 
     @Watch('opened')
     private onOpenedChange(newValue: boolean) {
-        console.log('newValue: ' + newValue)
         if (this.mode === 'vertical') { return }
         newValue ? (this.$refs.drop as DropDown).update() : (this.$refs.drop as DropDown).destroy()
     }
