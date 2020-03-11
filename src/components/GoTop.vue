@@ -8,13 +8,13 @@ import { WrapClasses } from '@/types/components'
 import Scroll from '@/components/mixins/scroll'
 import { Component, Mixins, Watch, Vue } from 'vue-property-decorator'
 
-nprogress.configure({ trickle: false, showSpinner: false })
+nprogress.configure({ trickle: false, showSpinner: false, minimum: 0 })
 
 @Component
 export default class GoTop extends Mixins(Scroll) {
     private prefixCls: string = 'go-top'
 
-    private isMove: boolean = true
+    private isMove: boolean = false
 
     private get wrapClasses(): Array<string | WrapClasses> {
         return [
@@ -26,19 +26,15 @@ export default class GoTop extends Mixins(Scroll) {
     private setScrollTop(): void {
         const timer: number = setInterval(() => {
             const curScrollTop: number = document.documentElement.scrollTop || document.body.scrollTop
-            scrollTo(0, curScrollTop - 100)
-            if (curScrollTop <= 0) {
-                nprogress.set(0)
-                clearInterval(timer)
-            }
+            this.scrollTop = curScrollTop
+            curScrollTop <= 0 ? clearInterval(timer) : scrollBy(0, -50)
         }, 10)
     }
 
-    @Watch('offsetTop')
+    @Watch('scrollTop')
     private onOffsetTopChange(value: number, newValue: number) {
-        const result: number = newValue / (this.scrollHeight - this.windowHeight)
-        console.log(newValue, Math.round(result * 100) / 100)
-        result >= 1 ? nprogress.set(.99) : nprogress.set(Math.round(result * 100) / 100)
+        const result: number = Math.round((newValue > 50 ? newValue : 0) / (this.scrollHeight - this.windowHeight) * 100) / 100
+        result >= 1 ? nprogress.set(.99) : nprogress.set(result)
         newValue > 50 ? this.isMove = true : this.isMove = false
     }
 }
