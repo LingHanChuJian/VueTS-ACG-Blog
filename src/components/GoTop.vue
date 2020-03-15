@@ -67,6 +67,7 @@ export default class GoTop extends Mixins(Scroll) {
         width 48px
         height 48px
         background url(./../assets/images/mb_scroll.png) no-repeat center
+        background-size 48px
 
     .move-scroll-image
         bottom 25px

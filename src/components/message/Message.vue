@@ -1,6 +1,6 @@
 <template lang="pug">
-    transition(:name="transitionName" apper)
-        div(:class="wrapClasses")
+    transition(name="move-up" apper)
+        div(:class="wrapClasses" :style="styles")
             div(:class="[prefixCls + '-content']")
                 div(v-if="!isFun(message)" v-html="message")
                 Expand(v-else :inRender="message")
@@ -9,7 +9,7 @@
 <script lang="ts">
 import Expand from '@/components/base/expand'
 import { typeOf, oneOf } from '@/utils/assist'
-import { WrapClasses, Options, Render } from '@/types/components'
+import { WrapClasses, Options, Render, CSSStyles } from '@/types/components'
 import { Component, Prop, Vue } from 'vue-property-decorator'
 
 @Component({
@@ -39,9 +39,17 @@ export default class Message extends Vue {
     })
     private type!: string
 
-    private prefixCls: string = 'message'
+    @Prop({
+        type: Object,
+        default() {
+            return {
+                right: '50%',
+            }
+        },
+    })
+    private styles!: CSSStyles<CSSStyleDeclaration>
 
-    private visible: boolean = false
+    private prefixCls: string = 'message'
 
     private closeTimer: number | null = null
 

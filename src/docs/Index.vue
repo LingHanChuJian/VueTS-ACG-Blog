@@ -1,5 +1,5 @@
 <template lang="pug">
-    Layout
+    Layout.layout-doc
         Header.header-doc
             div.header-left 
                 router-link(to="layout")
@@ -69,6 +69,9 @@ export default class Document extends Vue {
 </script>
 
 <style lang="stylus" scoped>
+.layout-doc
+    min-width 860px
+
 .header-doc
     padding 0 20px
     border-bottom 1px solid #eaecef
