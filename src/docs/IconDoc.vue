@@ -80,6 +80,18 @@ export default class IconDoc extends Vue {
             type: 'String',
             default: '',
         },
+        {
+            prop: 'fixedSize',
+            description: '固定尺寸 lg, xs, sm, 1x, 2x, 3x, 4x, 5x, 6x, 7x, 8x, 9x, 10x',
+            type: 'String',
+            default: '',
+        },
+        {
+            prop: 'fixed',
+            description: '固定宽度',
+            type: 'Boolean',
+            default: 'false',
+        },
     ]
 
     private searchIcons: string[] = []

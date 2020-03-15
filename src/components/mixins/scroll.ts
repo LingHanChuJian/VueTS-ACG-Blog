@@ -4,11 +4,11 @@ import { Component, Vue } from 'vue-property-decorator'
 export default class Scroll extends Vue {
     public scrollTop: number = 0
 
-    public get scrollHeight(): number {
+    public scrollHeight(): number {
         return document.documentElement.scrollHeight || document.body.scrollHeight
     }
 
-    public get windowHeight(): number {
+    public windowHeight(): number {
         return document.documentElement.clientHeight || document.body.clientHeight
     }
 

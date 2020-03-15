@@ -9,10 +9,12 @@
                 keep-alive
                     router-view
             Footer
+                FooterCenter
 </template>
 
 <script lang="ts">
 import NavBar from '@/components/NavBar.vue'
+import FooterCenter from '@/views/Footer.vue'
 import NavDrawer from '@/components/NavDrawer.vue'
 import { Component, Vue } from 'vue-property-decorator'
 import { Layout, Header, Content, Footer, Drawer } from '@/components/layout'
@@ -26,6 +28,7 @@ import { Layout, Header, Content, Footer, Drawer } from '@/components/layout'
         Drawer,
         NavBar,
         NavDrawer,
+        FooterCenter,
     },
 })
 export default class Index extends Vue {
