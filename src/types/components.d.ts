@@ -9,7 +9,7 @@ export type CSSStyles<T> = {
 }
 
 // Table
-export type Render = (h: CreateElement, ctx: RenderContext) => VNode
+export type Render = (h: CreateElement, ctx?: RenderContext) => VNode
 
 export interface Row {
     [key: string]: number | string | Render

@@ -348,8 +348,10 @@ menu(n)
             },
         ]
     }
-    // private mounted() {
-    // }
+
+    private mounted() {
+        this.$Message.info({ message: '你好', duration: 0 })
+    }
 }
 </script>
 

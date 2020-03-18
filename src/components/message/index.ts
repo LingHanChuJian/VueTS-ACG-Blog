@@ -33,10 +33,11 @@ const getMessageInstance = (): Notification => {
 }
 
 
-const notice = (message: string | Render, duration: number = defaults.duration, type: string = 'info', isBackground: boolean = true) => {
+const notice = (message: string | Render, duration: number = defaults.duration, type: string = 'info', isBackground: boolean = true): void => {
     const instance: any = getMessageInstance()
     instance.add({
         name: `${prefixKey}${name}`,
+        styles: {},
         duration,
         message,
         type,
