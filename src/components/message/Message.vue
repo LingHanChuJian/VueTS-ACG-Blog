@@ -1,7 +1,7 @@
 <template lang="pug">
     transition(name="move-up" @leave="handleLeave" apper)
-        div(:class="wrapClasses" :style="styles")
-            div(:class="[prefixCls + '-content']")
+        div(:class="prefixCls" :style="styles")
+            div(:class="classes")
                 div(v-if="!isFun(message)" v-html="message")
                 Expand(v-else :inRender="message")
 </template>
@@ -74,9 +74,9 @@ export default class Message extends Vue {
         this.clearCloseTimer()
     }
 
-    private get wrapClasses(): Array<string | WrapClasses> {
+    private get classes(): Array<string | WrapClasses> {
         return [
-            this.prefixCls,
+            this.prefixCls + '-content',
             this.isBackground ? this.prefixCls + '-' + this.type : '',
         ]
     }

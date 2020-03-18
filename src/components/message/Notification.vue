@@ -4,7 +4,7 @@
             v-for="notice in notices"
             :key="notice.name"
             :name="notice.name"
-            :messgae="notice.message"
+            :message="notice.message"
             :duration="notice.duration"
             :type="notice.type"
             :styles="notice.styles"

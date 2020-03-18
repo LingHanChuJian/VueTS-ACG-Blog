@@ -10,12 +10,12 @@ let messageInstance: Notification | null = null
 const prefixKey: string = 'message_key_'
 
 const defaults: MessageDefaults = {
-    top: 24,
+    top: 0,
     duration: 1.5,
 }
 
 const newInstance = (properties: Properties = {}): Notification => {
-    const Instance: Notification = new Vue({
+    const Instance: Vue = new Vue({
         render(h: CreateElement) {
             return h(Notification, { props: properties })
         },
@@ -23,12 +23,12 @@ const newInstance = (properties: Properties = {}): Notification => {
 
     const component: Vue = Instance.$mount()
     document.body.appendChild(component.$el)
-    return Instance.$children[0]
+    return (Instance.$children[0] as Notification)
 }
 
 
 const getMessageInstance = (): Notification => {
-    messageInstance = messageInstance || newInstance({ styles: `${defaults.top}px` })
+    messageInstance = messageInstance || newInstance({ styles: { top: `${defaults.top}px` } })
     return messageInstance
 }
 
