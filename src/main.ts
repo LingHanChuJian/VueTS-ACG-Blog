@@ -2,12 +2,17 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import Message from '@/components/message'
+
 import moment from 'moment'
 
 import 'nprogress/nprogress.css'
 import './assets/css/reset.styl'
 
 Vue.config.productionTip = false
+
+// 全局提示
+Vue.prototype.$Message = Message
 
 // 修改日历令牌
 moment.calendarFormat = (m: moment.Moment, now: moment.Moment) => {

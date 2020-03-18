@@ -1,5 +1,5 @@
 <template lang="pug">
-    transition(name="move-up" apper)
+    transition(name="move-up" @leave="handleLeave" apper)
         div(:class="wrapClasses" :style="styles")
             div(:class="[prefixCls + '-content']")
                 div(v-if="!isFun(message)" v-html="message")
@@ -9,6 +9,7 @@
 <script lang="ts">
 import Expand from '@/components/base/expand'
 import { typeOf, oneOf } from '@/utils/assist'
+import Notification from '@/components/message/Notification.vue'
 import { WrapClasses, Options, Render, CSSStyles } from '@/types/components'
 import { Component, Prop, Vue } from 'vue-property-decorator'
 
@@ -18,8 +19,8 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
     },
 })
 export default class Message extends Vue {
-    @Prop({ type: String })
-    private transitionName!: string
+    @Prop({ type: String, required: true })
+    private name!: string
 
     @Prop({ type: [String, Function], default: '' })
     private message!: string | Render
@@ -57,11 +58,20 @@ export default class Message extends Vue {
         return typeOf(value) === 'function'
     }
 
+    private handleLeave(el: HTMLElement): void {
+        console.log('handleLeave')
+    }
+
     private clearCloseTimer(): void {
         if (this.closeTimer) {
             clearTimeout(this.closeTimer)
             this.closeTimer = null
         }
+    }
+
+    private close(): void {
+        (this.$parent as Notification).close(this.name)
+        this.clearCloseTimer()
     }
 
     private get wrapClasses(): Array<string | WrapClasses> {
@@ -72,9 +82,11 @@ export default class Message extends Vue {
     }
 
     private mounted() {
+        this.clearCloseTimer()
+
         if (this.duration !== 0) {
             this.closeTimer = setTimeout(() => {
-                this.clearCloseTimer()
+                this.close()
             }, this.duration * 1000)
         }
     }

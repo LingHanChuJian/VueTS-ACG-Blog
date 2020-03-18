@@ -37,9 +37,18 @@ export interface MarkData {
 
 // Messgae
 export interface Options {
-    name: string | number
+    name?: string | number
     message: string | Render
     duration?: number
     type?: string
     isBackground?: boolean
+}
+
+export interface Properties {
+    [key: string]: any
+}
+
+export interface MessageDefaults {
+    top: number
+    duration: number
 }
