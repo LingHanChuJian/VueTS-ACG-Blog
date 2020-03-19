@@ -1,7 +1,7 @@
 <template lang="pug">
     div(:class="prefixCls" :style="styles")
         div(:class="classes")
-            div(v-if="!isFun(message)" v-html="message")
+            span(v-if="!isFun(message)" v-html="message")
             Expand(v-else :inRender="message")
 </template>
 

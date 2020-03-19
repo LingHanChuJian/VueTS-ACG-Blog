@@ -9,14 +9,18 @@
             Anchor(title="Icon props" label="h3")
             Table(:column="columns" :data="data")
         Anchor(title="所有图标")
-        div.icon-search
+        div.search
             input(v-model="search" type="text" placeholder="输入英文关键词搜索, 比如 add" @input="query")
             p 点击下面的图标按钮可以直接复制代码
         div.icons
-            div.icon-item(v-for="(item, index) in searchIcons" :key="index" @click="")
+            div.icon-item(v-for="(item, index) in searchIcons" :key="index" :clipboard-text="item")
+                Icon(:type="item" size="32")
+                p {{ item }}
 </template>
 
 <script lang="ts">
+import ClipboardJS from 'clipboard'
+import { hasClass } from '@/utils/dom'
 import { Icon } from '@/components/icon'
 import { Table } from '@/components/table'
 import { Anchor } from '@/components/anchor'
@@ -106,14 +110,27 @@ export default class IconDoc extends Vue {
         }
     }
 
-    private copy(): void {
-        // console.log
+    private mounted() {
+        this.query()
+
+        const clipboard: ClipboardJS  = new ClipboardJS('.icon-item', {
+            text: (trigger: HTMLElement) => {
+                return trigger.getAttribute('clipboard-text') || ''
+            },
+        })
+
+        clipboard.on('success', (e: ClipboardJS.Event) => {
+            this.$Message.success('复制成功')
+            e.clearSelection()
+        })
+
+        clipboard.on('error', () => this.$Message.error('复制失败'))
     }
 }
 </script>
 
 <style lang="stylus" scoped>
-.icon-search
+.search
     margin 20px auto 30px
     text-align center
     input
@@ -123,4 +140,13 @@ export default class IconDoc extends Vue {
         background-color #F5F5F5
         text-align center
         border 0
+.icons
+    display flex
+    flex-wrap wrap
+    .icon-item
+        text-align center
+        margin 5px 5px 5px 0
+        width 145px
+        cursor pointer
+        transition all .2s ease
 </style>

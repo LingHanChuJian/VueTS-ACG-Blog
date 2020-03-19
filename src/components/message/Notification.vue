@@ -1,5 +1,5 @@
 <template lang="pug">
-    transition-group(name="move-up" @leave="handleLeave" apper :class="wrapClasses" :style="styles" tag="div")
+    transition-group(name="move-up" apper tag="div" :class="prefixCls" :style="styles")
         Message(
             v-for="notice in notices"
             :key="notice.name"
@@ -56,14 +56,5 @@ export default class Notification extends Mixins(UUID) {
         this.notices = []
     }
 
-    private handleLeave(el: HTMLElement): void {
-        console.log('handleLeave')
-    }
-
-    private get wrapClasses(): Array<string | WrapClasses> {
-        return [
-            this.prefixCls,
-        ]
-    }
 }
 </script>
