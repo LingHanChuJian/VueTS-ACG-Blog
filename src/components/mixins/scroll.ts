@@ -16,10 +16,8 @@ export default class Scroll extends Vue {
         this.scrollTop = document.documentElement.scrollTop || document.body.scrollTop
     }
 
-    private mounted() {
-        this.$nextTick(() => {
-            addEventListener('scroll', this.getScroll, true)
-        })
+    private created() {
+        this.$nextTick(() => addEventListener('scroll', this.getScroll, true))
     }
 
     private destroyed() {

@@ -1,4 +1,5 @@
-import Vue, { CreateElement } from 'vue'
+import { CreateElement } from 'vue'
+import { Component, Vue } from 'vue-property-decorator'
 import Notification from '@/components/message/Notification.vue'
 import { Properties, MessageDefaults, Render, Options } from '@/types/components'
 
@@ -46,36 +47,48 @@ const notice = (message: string | Render, duration: number = defaults.duration, 
     name ++
 }
 
-export default {
-    info(options: string | Options) {
+@Component
+class Notice extends Vue {
+    public info(options: string | Options) {
         return this.message('info', options)
-    },
-    success(options: string | Options) {
+    }
+
+    public success(options: string | Options) {
         return this.message('success', options)
-    },
-    warning(options: string | Options) {
+    }
+
+    public warning(options: string | Options) {
         return this.message('warning', options);
-    },
-    error(options: string | Options) {
+    }
+
+    public error(options: string | Options) {
         return this.message('error', options);
-    },
-    message(type: string, options: string | Options) {
+    }
+
+    public message(type: string, options: string | Options) {
         if (typeof options === 'string') {
             options = { message: options }
         }
         return notice(options.message, options.duration, type, options.isBackground)
-    },
-    config(options: MessageDefaults) {
+    }
+
+    public config(options: MessageDefaults) {
         if (options.top || options.top === 0) {
             defaults.top = options.top
         }
         if (options.duration || options.duration === 0) {
             defaults.duration = options.duration
         }
-    },
-    destroy() {
+    }
+
+    private destroy() {
         const instance: any = getMessageInstance()
         messageInstance = null
         instance.closeAll()
-    },
+        setTimeout(() => {
+            document.body.removeChild((document.querySelector('.notification') as any))
+        }, 500)
+    }
 }
+
+export default new Notice()

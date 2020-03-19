@@ -1,9 +1,8 @@
 <template lang="pug">
-    transition(name="move-up" @leave="handleLeave" apper)
-        div(:class="prefixCls" :style="styles")
-            div(:class="classes")
-                div(v-if="!isFun(message)" v-html="message")
-                Expand(v-else :inRender="message")
+    div(:class="prefixCls" :style="styles")
+        div(:class="classes")
+            div(v-if="!isFun(message)" v-html="message")
+            Expand(v-else :inRender="message")
 </template>
 
 <script lang="ts">
@@ -43,9 +42,7 @@ export default class Message extends Vue {
     @Prop({
         type: Object,
         default() {
-            return {
-                right: '50%',
-            }
+            return {}
         },
     })
     private styles!: CSSStyles<CSSStyleDeclaration>
@@ -58,10 +55,6 @@ export default class Message extends Vue {
         return typeOf(value) === 'function'
     }
 
-    private handleLeave(el: HTMLElement): void {
-        console.log('handleLeave')
-    }
-
     private clearCloseTimer(): void {
         if (this.closeTimer) {
             clearTimeout(this.closeTimer)
@@ -70,7 +63,7 @@ export default class Message extends Vue {
     }
 
     private close(): void {
-        (this.$parent as Notification).close(this.name)
+        (this.$parent.$parent as Notification).close(this.name)
         this.clearCloseTimer()
     }
 

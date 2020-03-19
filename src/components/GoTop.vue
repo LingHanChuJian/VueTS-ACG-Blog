@@ -3,11 +3,14 @@
 </template>
 
 <script lang="ts">
-import nprogress from 'nprogress'
+import nprogress, { NProgress } from 'nprogress'
 import Scroll from '@/components/mixins/scroll'
 import { WrapClasses } from '@/types/components'
 import { Component, Mixins, Watch, Vue } from 'vue-property-decorator'
 
+/**
+ *  @bug 刷新bug  依然会自增长 试过三种方案 无法解决
+ */
 nprogress.configure({ trickle: false, showSpinner: false, minimum: 0 })
 
 @Component
@@ -15,14 +18,6 @@ export default class GoTop extends Mixins(Scroll) {
     private prefixCls: string = 'scroll'
 
     private isMove: boolean = false
-
-    private get wrapClasses(): Array<string | WrapClasses> {
-        return [
-            this.prefixCls,
-            'scroll-image',
-            this.isMove ? 'move-scroll-image' : '',
-        ]
-    }
 
     private setScrollTop(): void {
         const timer: number = setInterval(() => {
@@ -32,11 +27,24 @@ export default class GoTop extends Mixins(Scroll) {
         }, 10)
     }
 
+    private get wrapClasses(): Array<string | WrapClasses> {
+        return [
+            this.prefixCls,
+            'scroll-image',
+            this.isMove ? 'move-scroll-image' : '',
+        ]
+    }
+
     @Watch('scrollTop')
     private onOffsetTopChange(value: number, newValue: number) {
         const result: number = Math.round((newValue > 50 ? newValue : 0) / (this.scrollHeight() - this.windowHeight()) * 100) / 100
         result >= 1 ? nprogress.set(.99) : nprogress.set(result)
         newValue > 50 ? this.isMove = true : this.isMove = false
+    }
+
+    private mounted() {
+        // 初始化时对 scrollTop 赋值
+        this.scrollTop = document.documentElement.scrollTop || document.body.scrollTop
     }
 }
 </script>

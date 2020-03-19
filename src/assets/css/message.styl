@@ -1,74 +1,67 @@
 .notification
     z-index 1000
     position fixed
-    color #FFFFFF
     font-size 15px
     width 100%
 
 .message
     padding 2px
     text-align center
-    transition all .3s ease-in-out
 
 .message-content
     padding 12px 25px
-    border-radius 4px
+    border-radius 5px
     display inline-block
+    box-shadow 0 1px 6px rgba(0,0,0,.2)
+    position relative
 
 .message-info
+    color #FFFFFF
     background-color $font-color-hover
 
 .message-success
+    color #FFFFFF
     background-color #F58CA4
 
 .message-warning
+    color #FFFFFF
     background-color #FE9600
 
 .message-error
+    color #FFFFFF
     background-color #dd3333
 
-.move-up-appear
 .move-up-enter-active
 .move-up-leave-active
-    animation-direction .3s
-    animation-fill-mode both
-    animation-play-state paused
-
-.move-up-appear
-.move-up-enter-active
-    animation-name move-up-in
-    animation-play-state running
-
-.move-up-leave-active
-    animation-name move-up-out
-    animation-play-state running
-
-.move-up-appear
-.move-up-enter-active
-    opacity 0
+	animation-duration .3s
+	animation-fill-mode both
+	animation-play-state paused
     animation-timing-function ease-in-out
 
-.move-up-leave-active
-    animation-timing-function ease-in-out
+.move-up-enter
+.move-up-enter-to
+	animation-name move-up-in
+	animation-play-state running
+
+.move-up-leave
+.move-up-leave-to
+	animation-name move-up-out
+	animation-play-state running
 
 @keyframes move-up-in
     0%
-        transform-origin 0 0
         transform translateY(-100%)
         opacity 0
 
     100%
-        transform-origin 0 0
-        transform: translateY(0)
+        transform  translateY(0)
         opacity 1
 
 @keyframes move-up-out
     0%
-        transform-origin 0 0
         transform translateY(0)
         opacity 1
     
     100%
-        transform-origin 0 0
         transform translateY(-100%)
         opacity 0

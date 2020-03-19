@@ -1,8 +1,8 @@
-import { VNode, CreateElement, RenderContext } from 'vue'
+import Vue, { VNode, CreateElement, RenderContext } from 'vue'
 
 export type Render = (h: CreateElement, ctx?: RenderContext) => VNode
 
-export declare class Message {
+export declare class Message extends Vue {
     /**
      * 消息
      * @param config MessageConfig为相关配置,string为待显示的内容
@@ -60,7 +60,7 @@ export interface MessageConfig {
 declare module 'vue/types/vue' {
     interface Vue {
         /**
-         *  全局提是
+         *  全局提示
          */
         $Message: Message
     }

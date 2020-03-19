@@ -1,5 +1,5 @@
 <template lang="pug">
-    div(:class="wrapClasses" :style="styles")
+    transition-group(name="move-up" @leave="handleLeave" apper :class="wrapClasses" :style="styles" tag="div")
         Message(
             v-for="notice in notices"
             :key="notice.name"
@@ -27,10 +27,7 @@ export default class Notification extends Mixins(UUID) {
     @Prop({
         type: Object,
         default() {
-            return {
-                top: '65px',
-                left: '50%',
-            }
+            return {}
         },
     })
     private styles!: CSSStyles<CSSStyleDeclaration>
@@ -57,6 +54,10 @@ export default class Notification extends Mixins(UUID) {
 
     public closeAll() {
         this.notices = []
+    }
+
+    private handleLeave(el: HTMLElement): void {
+        console.log('handleLeave')
     }
 
     private get wrapClasses(): Array<string | WrapClasses> {

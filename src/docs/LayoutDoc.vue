@@ -58,7 +58,7 @@
             Table(:column="columns" :data="data")
             Anchor(title="Drawer methods" label="h3")
             Table(:column="columns2" :data="data2")
-        div(style="{ boder: 1px solid red, width: 100px, height: 100px}" @click="ceshi")
+        div(@click="ceshi") 点我测试
 </template>
 
 <script lang="ts">
@@ -351,18 +351,11 @@ menu(n)
     }
 
     private ceshi() {
-        this.$Message.info({ message: '你好你好你好你好你好' })
+        this.$Message.info({ message: '你好你好你好你好你好', duration: 10})
         // this.$Message.error({ message: '你好你好你好你好你好' })
         // this.$Message.warning({ message: '你好你好你好你好你好' })
         // this.$Message.success({ message: '你好你好你好你好你好' })
     }
-
-    // private mounted() {
-    //     this.$Message.info({ message: '你好你好你好你好你好' })
-    //     this.$Message.error({ message: '你好你好你好你好你好' })
-    //     this.$Message.warning({ message: '你好你好你好你好你好' })
-    //     this.$Message.success({ message: '你好你好你好你好你好' })
-    // }
 }
 </script>
 
