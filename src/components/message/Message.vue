@@ -70,7 +70,7 @@ export default class Message extends Vue {
     private get classes(): Array<string | WrapClasses> {
         return [
             this.prefixCls + '-content',
-            this.isBackground ? this.prefixCls + '-' + this.type : this.prefixCls + '-no-background-color',
+            this.isBackground ? this.prefixCls + '-' + this.type : '',
         ]
     }
 
