@@ -27,6 +27,8 @@ poptip-arrow-after()
         border-radius 4px
         box-shadow $box-shadow
         .poptip-content
+            padding 15px 10px
+            background-color #FFFFFF
             line-height normal
         .poptip-arrow
             poptip-arrow-common(8px)
@@ -116,3 +118,32 @@ poptip-arrow-after()
     .poptip-popper-word-wrap
         white-space pre-wrap
         text-align justify
+
+.move-up-enter-active
+.move-up-leave-active
+	animation-duration .15s
+	animation-fill-mode both
+	animation-play-state paused
+    animation-timing-function ease-in-out
+
+.move-up-enter
+.move-up-enter-to
+	animation-name fade-in
+	animation-play-state running
+
+.move-up-leave
+.move-up-leave-to
+	animation-name fade-out
+	animation-play-state running
+
+@keyframes fade-in
+    0%
+        opacity 0
+    100%
+        opacity 1
+
+@keyframes fade-out
+    0%
+        opacity 1
+    100%
+        opacity 0

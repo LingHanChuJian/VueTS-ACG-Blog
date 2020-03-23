@@ -21,3 +21,10 @@ export interface LineNumbersOptions {
     singleLine: boolean
     el: HTMLElement
 }
+
+export interface TransferData {
+    parentNode: Node & ParentNode
+    comment: Comment
+    target: Node | null
+    isMove: boolean
+}

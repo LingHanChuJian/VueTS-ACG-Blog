@@ -3,7 +3,7 @@
         :class="classes"
         @mouseenter="handleMouseenter"
         @mouseleave="handleMouseleave"
-        click-outside="handleClose"
+        v-click-outside="handleClose"
     )
         div(
             :class="[prefixCls + '-rel']"
@@ -21,21 +21,25 @@
                 v-show="visible"
                 @mouseenter="handleMouseenter"
                 @mouseleave="handleMouseleave"
+                :data-transfer="transfer"
+                v-transfer
             )
                 div(:class="[prefixCls + '-content']")
-                    slot(name="content")
+                    slot(name="content") {{ content }}
 </template>
 
 <script lang="ts">
 import { oneOf } from '@/utils'
 import Popper, { PopperOptions } from 'popper.js'
-import { directive as vClickOutside } from 'v-click-outside-x'
+import transfer from '@/components/directives/transfer'
 import { WrapClasses, CSSStyles } from '@/types/components'
+import { directive as vClickOutside } from 'v-click-outside-x'
 import { Component, Watch, Prop, Vue } from 'vue-property-decorator'
 
 @Component({
     directives: {
         vClickOutside,
+        transfer,
     },
 })
 export default class Poptip extends Vue {
@@ -83,6 +87,9 @@ export default class Poptip extends Vue {
     @Prop({ type: [String, Number] })
     private width?: string | number
 
+    @Prop({ type: [String, Number] })
+    private content?: string | number
+
     @Prop({ type: String, default: '' })
     private popperClass!: string
 
@@ -94,6 +101,9 @@ export default class Poptip extends Vue {
 
     @Prop({ type: Boolean, default: false })
     private disabled!: boolean
+
+    @Prop({ type: Boolean, default: false })
+    private transfer!: boolean
 
     private prefixCls: string = 'poptip'
 

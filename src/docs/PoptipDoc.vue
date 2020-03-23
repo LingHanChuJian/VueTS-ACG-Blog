@@ -5,15 +5,15 @@
             template(slot="dome")
                 div.poptip-dome
                     Poptip(trigger="hover")
-                        div hover
+                        div.poptip-item hover
                         template(slot="content")
                             | 这是 hover 展示
                     Poptip(trigger="click")
-                        div click
+                        div.poptip-item click
                         template(slot="content")
                             | 这是 click 展示
                     Poptip(trigger="focus")
-                        div focus
+                        div.poptip-item focus
                         template(slot="content")
                             | 这是 focus 展示
             template(slot="description")
@@ -51,4 +51,18 @@ export default class PoptipDoc extends Vue {
 .simple
     margin-bottom 20px
 
+.poptip-dome
+    .poptip-item
+        margin 0 10px
+        border 1px solid red
+        height 32px
+        line-height 32px
+        border-radius 4px
+        padding 0 15px
+        transition all .2s linear
+        border 1px solid #dcdee2
+        cursor pointer
+        &:hover
+            color $font-color-hover
+            border 1px solid $font-color-hover
 </style>
