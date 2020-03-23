@@ -3,7 +3,21 @@
         Anchor(title="Poptip 气泡提示")
         Example.simple(title="基础用法")
             template(slot="dome")
+                div.poptip-dome
+                    Poptip(trigger="hover")
+                        div hover
+                        template(slot="content")
+                            | 这是 hover 展示
+                    Poptip(trigger="click")
+                        div click
+                        template(slot="content")
+                            | 这是 click 展示
+                    Poptip(trigger="focus")
+                        div focus
+                        template(slot="content")
+                            | 这是 focus 展示
             template(slot="description")
+                p 支持三种触发方式：鼠标悬停、点击、聚焦。默认是点击
             template(slot="code")
         Example.simple(title="位置")
             template(slot="dome")
@@ -34,5 +48,7 @@ export default class PoptipDoc extends Vue {
 </script>
 
 <style lang="stylus" scoped>
+.simple
+    margin-bottom 20px
 
 </style>

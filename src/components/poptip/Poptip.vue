@@ -83,9 +83,6 @@ export default class Poptip extends Vue {
     @Prop({ type: [String, Number] })
     private width?: string | number
 
-    @Prop({ type: [String, Number], default: '' })
-    private content!: string
-
     @Prop({ type: String, default: '' })
     private popperClass!: string
 

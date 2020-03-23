@@ -198,6 +198,9 @@ export default class MessageDoc extends Vue {
 </script>
 
 <style lang="stylus" scoped>
+.simple
+    margin-bottom 20px
+
 .message-dome
     display flex
     .message-item
