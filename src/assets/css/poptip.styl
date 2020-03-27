@@ -26,8 +26,8 @@ poptip-arrow-after()
         overflow hidden
         border-radius 4px
         box-shadow $box-shadow
+        z-index 999
         .poptip-content
-            padding 15px 10px
             background-color #FFFFFF
             line-height normal
         .poptip-arrow
@@ -35,7 +35,7 @@ poptip-arrow-after()
             &:after
                 content ''
                 poptip-arrow-common(7px)
-        &[x-placement^=top]
+        &[x-placement^="top"]
 	        padding 7px 0 10px 0
             .poptip-arrow
                 bottom 3px

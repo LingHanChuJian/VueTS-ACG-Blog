@@ -33,12 +33,12 @@ import { oneOf } from '@/utils'
 import Popper, { PopperOptions } from 'popper.js'
 import transfer from '@/components/directives/transfer'
 import { WrapClasses, CSSStyles } from '@/types/components'
-import { directive as vClickOutside } from 'v-click-outside-x'
+import { directive as clickOutside } from 'v-click-outside-x'
 import { Component, Watch, Prop, Vue } from 'vue-property-decorator'
 
 @Component({
     directives: {
-        vClickOutside,
+        clickOutside,
         transfer,
     },
 })
