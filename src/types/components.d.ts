@@ -1,5 +1,7 @@
+import { Placement, VirtualElement } from '@popperjs/core'
 import { CreateElement, RenderContext, VNode } from 'vue'
 
+// base
 export interface WrapClasses {
     [key: string]: boolean
 }
@@ -36,7 +38,7 @@ export interface MarkData {
 }
 
 // Messgae
-export interface Options {
+export interface MessageOptions {
     name?: string | number
     message: string | Render
     duration?: number
@@ -52,3 +54,12 @@ export interface MessageDefaults {
     top: number
     duration: number
 }
+
+// Popper
+export interface PopperFnParam {
+    placement: Placement
+    reference: Element | VirtualElement
+    popper: HTMLElement
+}
+
+export type PopperOffset = (param: PopperFnParam) => [number, number]

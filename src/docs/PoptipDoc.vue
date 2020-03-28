@@ -16,6 +16,10 @@
                         div.poptip-item focus
                         template(slot="content")
                             | 这是 focus 展示
+                    Poptip(transfer)
+                        div.poptip-item 脱离文档流
+                        template(slot="content")
+                            | 这是 脱离文档流 展示
             template(slot="description")
                 p 支持三种触发方式：鼠标悬停、点击、聚焦。默认是点击
             template(slot="code")

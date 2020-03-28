@@ -24,17 +24,22 @@
                 :data-transfer="transfer"
                 v-transfer
             )
+                div(
+                    :class="[prefixCls + '-arrow']"
+                    ref="arrow"
+                    data-popper-arrow
+                )
                 div(:class="[prefixCls + '-content']")
                     slot(name="content") {{ content }}
 </template>
 
 <script lang="ts">
 import { oneOf } from '@/utils'
-import Popper, { PopperOptions } from 'popper.js'
 import transfer from '@/components/directives/transfer'
-import { WrapClasses, CSSStyles } from '@/types/components'
 import { directive as clickOutside } from 'v-click-outside-x'
 import { Component, Watch, Prop, Vue } from 'vue-property-decorator'
+import { WrapClasses, CSSStyles, PopperOffset } from '@/types/components'
+import { createPopper, Options as PopperOptions, Placement, Instance as Popper } from '@popperjs/core'
 
 @Component({
     directives: {
@@ -54,35 +59,40 @@ export default class Poptip extends Vue {
 
     @Prop({
         type: String,
-        default: 'top',
+        default: 'auto',
         validator(value: string) {
-            return oneOf(value, ['top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end', 'left', 'left-start', 'left-end', 'right', 'right-start', 'right-end'])
+            return oneOf(value, ['auto', 'auto-start', 'auto-end', 'top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end', 'left', 'left-start', 'left-end', 'right', 'right-start', 'right-end'])
         },
     })
-    private placement!: PopperOptions['placement']
+    private placement!: Placement
 
     @Prop({
         type: Object,
-        default(): PopperOptions {
+        default() {
             return {
-                modifiers: {
-                    computeStyle: {
-                        gpuAcceleration: false,
+                modifiers: [
+                    {
+                        name: 'computeStyle',
+                        options: {
+                            gpuAcceleration: false,
+                        },
                     },
-                    preventOverflow: {
-                        boundariesElement: 'window',
-                    },
-                },
+                ],
             }
         },
     })
-    private options!: PopperOptions
+    private options!: Partial<PopperOptions>
+
+    @Prop({
+        type: [Array, Object],
+        default() {
+            return [0, 0]
+        },
+    })
+    private offset!: [number, number] | PopperOffset
 
     @Prop({ type: Boolean, default: false })
     private value!: boolean
-
-    @Prop({ type: [String, Number], default: 0 })
-    private offset!: string | number
 
     @Prop({ type: [String, Number] })
     private width?: string | number
@@ -117,21 +127,23 @@ export default class Poptip extends Vue {
 
     private createPopper(): void {
         if (this.popper) { this.popper.destroy() }
-        const options: PopperOptions = Object.assign({}, this.options)
+        const options: Partial<PopperOptions> = Object.assign({}, this.options)
         options.placement = this.placement
-        if (!(options.modifiers as Popper.Modifiers).offset) {
-            (options.modifiers as Popper.Modifiers).offset = {}
-        }
-        ((options.modifiers as Popper.Modifiers).offset as (Popper.BaseModifier & { offset?: string | number })).offset = this.offset
-        options.onCreate = () => {
+        if (!options.modifiers) { options.modifiers = [] }
+        // 添加偏移位置
+        options.modifiers.push({ name: 'offset', options: { offset: this.offset } })
+        // 添加小三角形
+        options.modifiers.push({ name: 'arrow', options: { element: this.$refs.arrow, padding: 5 } })
+        // 生命周期
+        options.onFirstUpdate = () => {
             this.$nextTick(this.updatePopper)
             this.$emit('created', this)
         }
-        this.popper = new Popper((this.$refs.reference as HTMLElement), (this.$refs.popper as HTMLElement), options)
+        this.popper = createPopper((this.$refs.reference as HTMLElement), (this.$refs.popper as HTMLElement), options)
     }
 
     private updatePopper(): void {
-        this.popper ? this.popper.update() : this.createPopper()
+        this.popper ? this.popper.forceUpdate() : this.createPopper()
     }
 
     private doDestroy(isVisible: boolean = false): void {

@@ -1,3 +1,5 @@
+$menu-horizontal-height = 75px
+
 .menu
     margin 0
     padding 0
@@ -6,8 +8,8 @@
 
 .menu-horizontal
     display flex
-    height 75px
-    line-height 75px
+    height $menu-horizontal-height
+    line-height $menu-horizontal-height
     .menu-item
     .menu-submenu
         color $font-color
@@ -40,22 +42,20 @@
             &:after
                 width 100%
     .dropdown
-        top 65px !important
+        top -15px !important
         background-color #FFFFFF
         z-index 999
+        border-radius 5px
+        box-shadow 0 1px 25px -8px rgba(0,0,0,.5)
+        .dropdown-arrow
+            top -20px
+            border-width 10px
+            border-style solid
+            border-color transparent transparent #FFFFFF
     .menu-submenu-drop-list
         width max-content
         padding 10px 0
         position relative
-        border-radius 5px
-        box-shadow 0 1px 25px -8px rgba(0,0,0,.5)
-        &:before
-            content ''
-            top -20px
-            left calc(50% - 10px)
-            position absolute
-            border 10px solid
-            border-color transparent transparent #FFFFFF
         .menu-item
             height auto
             line-height normal
@@ -106,5 +106,5 @@
 
 .slide-up-enter
 .slide-up-leave-to
-    transform translateY(25px)
+    transform translateY($menu-horizontal-height + 20px)
     opacity 0

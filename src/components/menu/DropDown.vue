@@ -1,13 +1,18 @@
 <template lang="pug">
     div(:class="classes" :style="styles")
+        div(
+            :class="[prefixCls + '-arrow']"
+            ref="arrow"
+            data-popper-arrow
+        )
         slot
 </template>
 
 <script lang="ts">
 import { getStyle, oneOf } from '@/utils'
-import Popper, { PopperOptions } from 'popper.js'
 import { WrapClasses, CSSStyles } from '@/types/components'
 import { Component, Prop, Vue, Provide } from 'vue-property-decorator'
+import { createPopper, Options as PopperOptions, Placement, Instance as Popper } from '@popperjs/core'
 
 @Component
 export default class DropDown extends Vue {
@@ -15,10 +20,10 @@ export default class DropDown extends Vue {
         type: String,
         default: 'bottom-start',
         validator(value: string) {
-            return oneOf(value, ['top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end', 'left', 'left-start', 'left-end', 'right', 'right-start', 'right-end'])
+            return oneOf(value, ['auto', 'auto-start', 'auto-end', 'top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end', 'left', 'left-start', 'left-end', 'right', 'right-start', 'right-end'])
         },
     })
-    private placement!: PopperOptions['placement']
+    private placement!: Placement
 
     private prefixCls: string = 'dropdown'
 
@@ -46,26 +51,35 @@ export default class DropDown extends Vue {
 
     public update() {
         if (this.popper) {
-            this.popper.scheduleUpdate()
+            this.popper.forceUpdate()
             this.popperStatus = true
         } else {
             this.$nextTick(() => {
-                this.popper = new Popper((this.$parent.$refs.reference as Element), this.$el, {
+                this.popper = createPopper((this.$parent.$refs.reference as Element), (this.$el as HTMLElement), {
                     placement: this.placement,
-                    modifiers: {
-                        computeStyle: {
-                            gpuAcceleration: false,
+                    modifiers: [
+                        {
+                            name: 'computeStyle',
+                            options: {
+                                gpuAcceleration: false,
+                            },
                         },
-                        preventOverflow: {
-                            boundariesElement: 'window',
+                        {
+                            phase: 'afterWrite',
+                            fn: () => {
+                                this.resetTransformOrigin()
+                            },
                         },
-                    },
-                    onCreate: () => {
+                        {
+                            name: 'arrow',
+                            options: {
+                                element: this.$refs.arrow,
+                            },
+                        },
+                    ],
+                    onFirstUpdate: () => {
                         this.resetTransformOrigin()
-                        this.$nextTick(() => (this.popper as Popper).scheduleUpdate())
-                    },
-                    onUpdate: () => {
-                        this.resetTransformOrigin()
+                        this.$nextTick((this.popper as Popper).forceUpdate)
                     },
                 })
             })
@@ -90,11 +104,12 @@ export default class DropDown extends Vue {
 
     private resetTransformOrigin(): void {
         if (!this.popper) { return }
-        const xPlacement: string | null = this.popper.popper.getAttribute('x-placement')
-        const placementStart: string = xPlacement ? xPlacement.split('-')[0] : ''
-        const placementEnd: string = xPlacement ? xPlacement.split('-')[1] : ''
-        if (xPlacement !== 'left' && xPlacement !== 'right') {
-            (this.popper.popper as HTMLElement).style.transformOrigin = placementStart === 'bottom' || ( placementStart !== 'top' && placementEnd === 'start') ? 'center top' : 'center bottom'
+        // state 来处理
+        const placement: string = this.popper.state.placement
+        const placementStart: string = placement ? placement.split('-')[0] : ''
+        const placementEnd: string = placement ? placement.split('-')[1] : ''
+        if (placement !== 'left' && placement !== 'right') {
+            this.popper.state.elements.popper.style.transformOrigin = placementStart === 'bottom' || ( placementStart !== 'top' && placementEnd === 'start') ? 'center top' : 'center bottom'
         }
     }
 

@@ -15,8 +15,8 @@
 <script lang="ts">
 import UUID from '@/components/mixins/uuid'
 import Message from '@/components/message/Message.vue'
-import { WrapClasses, Options, Render, CSSStyles } from '@/types/components'
 import { Component, Prop, Mixins, Vue } from 'vue-property-decorator'
+import { WrapClasses, MessageOptions, Render, CSSStyles } from '@/types/components'
 
 @Component({
     components: {
@@ -34,16 +34,16 @@ export default class Notification extends Mixins(UUID) {
 
     private prefixCls: string = 'notification'
 
-    private notices: Options[] = []
+    private notices: MessageOptions[] = []
 
-    public add(notice: Options) {
+    public add(notice: MessageOptions) {
         const name = notice.name || (this as any).uuid
-        const curNotice: Options = Object.assign({ message: '', name, duration: 1.5, type: 'info', isBackground: true }, notice)
+        const curNotice: MessageOptions = Object.assign({ message: '', name, duration: 1.5, type: 'info', isBackground: true }, notice)
         this.notices.push(curNotice)
     }
 
     public close(name: string) {
-        const notices: Options[] = this.notices
+        const notices: MessageOptions[] = this.notices
         for (let i = 0; i < notices.length; i++) {
             if (notices[i].name === name) {
                 this.notices.splice(i, 1)

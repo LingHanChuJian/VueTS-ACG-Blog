@@ -1,7 +1,7 @@
 import { CreateElement } from 'vue'
 import { Component, Vue } from 'vue-property-decorator'
 import Notification from '@/components/message/Notification.vue'
-import { Properties, MessageDefaults, Render, Options } from '@/types/components'
+import { Properties, MessageDefaults, Render, MessageOptions } from '@/types/components'
 
 
 let name: number = 1
@@ -49,23 +49,23 @@ const notice = (message: string | Render, duration: number = defaults.duration, 
 
 @Component
 class Notice extends Vue {
-    public info(options: string | Options) {
+    public info(options: string | MessageOptions) {
         return this.message('info', options)
     }
 
-    public success(options: string | Options) {
+    public success(options: string | MessageOptions) {
         return this.message('success', options)
     }
 
-    public warning(options: string | Options) {
+    public warning(options: string | MessageOptions) {
         return this.message('warning', options);
     }
 
-    public error(options: string | Options) {
+    public error(options: string | MessageOptions) {
         return this.message('error', options);
     }
 
-    public message(type: string, options: string | Options) {
+    public message(type: string, options: string | MessageOptions) {
         if (typeof options === 'string') {
             options = { message: options }
         }

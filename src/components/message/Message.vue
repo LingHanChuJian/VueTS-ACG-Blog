@@ -9,7 +9,7 @@
 import Expand from '@/components/base/expand'
 import { typeOf, oneOf } from '@/utils/assist'
 import Notification from '@/components/message/Notification.vue'
-import { WrapClasses, Options, Render, CSSStyles } from '@/types/components'
+import { WrapClasses, Render, CSSStyles } from '@/types/components'
 import { Component, Prop, Vue } from 'vue-property-decorator'
 
 @Component({
