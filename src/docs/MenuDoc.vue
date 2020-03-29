@@ -2,13 +2,13 @@
     div
         Anchor(title="Menu 导航菜单")
         Example.simple(title="顶部导航")
-            template(slot="dome")
+            template(v-slot:dome)
                 Menu(mode="horizontal")
                     MenuItem.home(name="home" to="home")
                         Icon.animation-home(type="house-damage")
                         | 首页
                     SubMenu.archives(name="archives" to="archives")
-                        template(slot="title")
+                        template(v-slot:title)
                             Icon.animation-archives(type="archive")
                             | 归档
                         MenuItem(name="archives-whatever" to="whatever")
@@ -18,7 +18,7 @@
                             Icon(type="bookmark" fixed)
                             | 笔记
                     SubMenu.list(name="list")
-                        template(slot="title")
+                        template(v-slot:title)
                             Icon.animation-list(type="list-ul")
                             | 清单
                         MenuItem(name="list-anime" to="anime")
@@ -40,7 +40,7 @@
                         Icon.animation-feed(type="coffee")
                         | 投食
                     SubMenu.about(name="about")
-                        template(slot="title")
+                        template(v-slot:title)
                             Icon.animation-about(type="leaf")
                             | 关于
                         MenuItem(name="about-me" to="me")
@@ -52,18 +52,18 @@
                         MenuItem(name="about-theme" to="theme")
                             Icon(type="snowflake" fixed)
                             | 主题
-            template(slot="description")
+            template(v-slot:description)
                 p 水平的顶部导航菜单
-            template(slot="code")
+            template(v-slot:code)
                 Block(:content="dome1" lang="VUE" :custom="['language-pug']")
         Example.simple(title="侧栏导航")
-            template(slot="dome")
+            template(v-slot:dome)
                 Menu(mode="vertical")
                     MenuItem.home(name="home" to="home")
                         Icon.animation-home(type="house-damage")
                         | 首页
                     SubMenu.archives(name="archives" to="archives")
-                        template(slot="title")
+                        template(v-slot:title)
                             Icon.animation-archives(type="archive")
                             | 归档
                         MenuItem(name="archives-whatever" to="whatever")
@@ -73,7 +73,7 @@
                             Icon(type="bookmark" fixed)
                             | 笔记
                     SubMenu.list(name="list")
-                        template(slot="title")
+                        template(v-slot:title)
                             Icon.animation-list(type="list-ul")
                             | 清单
                         MenuItem(name="list-anime" to="anime")
@@ -95,7 +95,7 @@
                         Icon.animation-feed(type="coffee")
                         | 投食
                     SubMenu.about(name="about")
-                        template(slot="title")
+                        template(v-slot:title)
                             Icon.animation-about(type="leaf")
                             | 关于
                         MenuItem(name="about-me" to="me")
@@ -107,9 +107,9 @@
                         MenuItem(name="about-theme" to="theme")
                             Icon(type="snowflake" fixed)
                             | 主题
-            template(slot="description")
+            template(v-slot:description)
                 p 垂直导航菜单，可以内嵌子菜单
-            template(slot="code")
+            template(v-slot:code)
                 Block(:content="dome2" lang="VUE" :custom="['language-pug']")
         div.api
             Anchor(title="API" label="h2")
@@ -154,7 +154,7 @@ export default class MenuDoc extends Vue {
             Icon.animation-home(type="house-damage")
             | 首页
         SubMenu.archives(name="archives" to="archives")
-            template(slot="title")
+            template(v-slot:title)
                 Icon.animation-archives(type="archive")
                 | 归档
             MenuItem(name="archives-whatever" to="whatever")
@@ -164,7 +164,7 @@ export default class MenuDoc extends Vue {
                 Icon(type="bookmark" fixed)
                 | 笔记
         SubMenu.list(name="list")
-            template(slot="title")
+            template(v-slot:title)
                 Icon.animation-list(type="list-ul")
                 | 清单
             MenuItem(name="list-anime" to="anime")
@@ -186,7 +186,7 @@ export default class MenuDoc extends Vue {
             Icon.animation-feed(type="coffee")
             | 投食
         SubMenu.about(name="about")
-            template(slot="title")
+            template(v-slot:title)
                 Icon.animation-about(type="leaf")
                 | 关于
             MenuItem(name="about-me" to="me")
@@ -207,7 +207,7 @@ export default class MenuDoc extends Vue {
             Icon.animation-home(type="house-damage")
             | 首页
         SubMenu.archives(name="archives" to="archives")
-            template(slot="title")
+            template(v-slot:title)
                 Icon.animation-archives(type="archive")
                 | 归档
             MenuItem(name="archives-whatever" to="whatever")
@@ -217,7 +217,7 @@ export default class MenuDoc extends Vue {
                 Icon(type="bookmark" fixed)
                 | 笔记
         SubMenu.list(name="list")
-            template(slot="title")
+            template(v-slot:title)
                 Icon.animation-list(type="list-ul")
                 | 清单
             MenuItem(name="list-anime" to="anime")
@@ -239,7 +239,7 @@ export default class MenuDoc extends Vue {
             Icon.animation-feed(type="coffee")
             | 投食
         SubMenu.about(name="about")
-            template(slot="title")
+            template(v-slot:title)
                 Icon.animation-about(type="leaf")
                 | 关于
             MenuItem(name="about-me" to="me")

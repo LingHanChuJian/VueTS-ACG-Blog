@@ -69,6 +69,14 @@ export const languageStylusExtend = (hljs: HLJSStatic): IMode => {
                         className: 'attribute',
                         begin: '[a-zA-Z0-9_-]+',
                     },
+                    {
+                        className: 'selector-class',
+                        begin: '\\.[a-zA-Z0-9_-]*' + LOOKAHEAD_TAG_END,
+                    },
+                    {
+                        className: 'selector-id',
+                        begin: '\\#[a-zA-Z0-9_-]*' + LOOKAHEAD_TAG_END,
+                    },
                 ],
             },
             FUNCTION,

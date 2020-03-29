@@ -16,7 +16,7 @@
                     Icon.animation-home(type="house-damage")
                     | 首页
                 SubMenu.archives(name="archives" to="archives")
-                    template(slot="title")
+                    template(v-slot:title)
                         Icon.animation-archives(type="archive")
                         | 归档
                     MenuItem(name="archives-whatever" to="whatever")
@@ -26,7 +26,7 @@
                         Icon(type="bookmark" fixed)
                         | 笔记
                 SubMenu.list(name="list")
-                    template(slot="title")
+                    template(v-slot:title)
                         Icon.animation-list(type="list-ul")
                         | 清单
                     MenuItem(name="list-anime" to="anime")
@@ -48,7 +48,7 @@
                     Icon.animation-feed(type="coffee")
                     | 投食
                 SubMenu.about(name="about")
-                    template(slot="title")
+                    template(v-slot:title)
                         Icon.animation-about(type="leaf")
                         | 关于
                     MenuItem(name="about-me" to="me")
@@ -64,7 +64,7 @@
             Icon.search(type="search" size="30" fixed)
             Poptip(trigger="hover" placement="bottom-end" wordWrap width="100")
                 Icon.login(type="user-circle" size="30" fixed)
-                template(slot="content")
+                template(v-slot:title)
                     | Whether to
                     a(href="/login" target="_blank" style="color:#333;font-weight:bold;") login in 
                     | now?

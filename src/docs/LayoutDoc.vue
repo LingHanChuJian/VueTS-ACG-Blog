@@ -2,7 +2,7 @@
     div
         Anchor(title="Layout 布局")
         Example.simple(title="基本结构")
-            template(slot="dome")
+            template(v-slot:dome)
                 div.layout-simple-dome
                     Layout
                         Header.header-dome Header
@@ -29,12 +29,12 @@
                             Header.header-dome Header
                             Content.conent-dome Content
                             Footer.footer-dome Footer
-            template(slot="description")
+            template(v-slot:description)
                 p 经典页面布局
-            template(slot="code")
+            template(v-slot:code)
                 Block(:content="dome1" lang="VUE" :custom="['language-pug']")
         Example.simple(title="自定义触发器")
-            template(slot="dome")
+            template(v-slot:dome)
                 div.layout-simple-dome
                     Layout.layout-trigger-dome
                         Drawer.drawer-trigger-dome(v-model="isCollapsed2" ref="drawer" isCollapsible isMatchMediaMaxWidth) Drawer
@@ -44,13 +44,13 @@
                                     div(:class="menuClasses")
                             Content.conent-trigger-dome Content
                             Footer.footer-trigger-dome Footer
-            template(slot="description")
+            template(v-slot:description)
                 p 使用自定义触发器, 通过 
                     code.code-mark Drawer
                     | &nbsp;子类 
                     code.code-mark toggleCollapse
                     | &nbsp;方法触发
-            template(slot="code")
+            template(v-slot:code)
                 Block(:content="dome2" lang="VUE" :custom="['language-pug']")
         div.api
             Anchor(title="API" label="h2")

@@ -2,16 +2,16 @@
     div
         Anchor(title="Message 全局提示")
         Example.simple(title="基本提示")
-            template(slot="dome")
+            template(v-slot:dome)
                 div.message-dome
                     div.message-item(@click="info") 显示 info 提示
                     div.message-item(@click="success") 显示 success 提示
                     div.message-item(@click="warning") 显示 warning 提示
                     div.message-item(@click="error") 显示 error 提示
                     div.message-item(@click="renderFunc") 显示 render 提示
-            template(slot="description")
+            template(v-slot:description)
                 p 基本提示, 默认在1.5s之后消失
-            template(slot="code")
+            template(v-slot:code)
                 Block(:content="dome" lang="VUE" :custom="['language-pug']")
         div.api
             Anchor(title="API" label="h2")
