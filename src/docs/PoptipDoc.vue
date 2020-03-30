@@ -69,6 +69,10 @@
             Anchor(title="API" label="h2")
             Anchor(title="Poptip props" label="h3")
             Table(:column="columns" :data="data")
+            Anchor(title="Poptip events" label="h3")
+            Table(:column="columns2" :data="data2")
+            Anchor(title="Poptip slot" label="h3")
+            Table(:column="columns3" :data="data3")
 </template>
 
 <script lang="ts">
@@ -219,6 +223,12 @@ export default class PoptipDoc extends Vue {
 
     private data: Row[] = [
         {
+            prop: 'value',
+            description: 'v-model 使用',
+            type: 'Boolean',
+            default: 'false',
+        },
+        {
             prop: 'trigger',
             description: '触发方式, 可选值为hover (悬停) click (点击) focus(聚焦)',
             type: 'String',
@@ -261,6 +271,12 @@ export default class PoptipDoc extends Vue {
             default: '',
         },
         {
+            prop: 'popperStyle',
+            description: 'popper style',
+            type: 'Object',
+            default: '{}',
+        },
+        {
             prop: 'disabled',
             description: '是否禁用',
             type: 'Boolean',
@@ -291,6 +307,56 @@ export default class PoptipDoc extends Vue {
                     },
                 ],
             }`,
+        },
+    ]
+
+    private columns2: Column[] = [
+        {
+            key: 'eventsName',
+            title: '事件名',
+        },
+        {
+            key: 'description',
+            title: '说明',
+        },
+        {
+            key: 'returnValue',
+            title: '返回值',
+        },
+    ]
+
+    private data2: Row[] = [
+        {
+            eventsName: 'on-popper-show',
+            description: 'popper显示时触发',
+            returnValue: '',
+        },
+        {
+            eventsName: 'on-popper-hide',
+            description: 'popper隐藏时触发',
+            returnValue: '',
+        },
+    ]
+
+    private columns3: Column[] = [
+        {
+            key: 'name',
+            title: '名称',
+        },
+        {
+            key: 'description',
+            title: '说明',
+        },
+    ]
+
+    private data3: Row[] = [
+        {
+            name: 'default',
+            description: '内容',
+        },
+        {
+            name: 'content',
+            description: '提示内容',
         },
     ]
 }

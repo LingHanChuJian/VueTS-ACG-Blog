@@ -62,11 +62,11 @@
                         | 主题
         div.navbar-right
             Icon.search(type="search" size="30" fixed)
-            Poptip(trigger="hover" placement="bottom-end" wordWrap width="100")
+            Poptip(trigger="hover" placement="bottom-end" width="110" :popperStyle="{ marginTop: '-10px !important' }")
                 Icon.login(type="user-circle" size="30" fixed)
                 template(v-slot:content)
-                    | Whether to
-                    a(href="/login" target="_blank" style="color:#333;font-weight:bold;") login in 
+                    | Whether to 
+                    a(href="/login" target="_blank" style="color:#29d") login in 
                     | now?
 </template>
 
@@ -159,9 +159,6 @@ export default class NavBar extends Vue {
     transition color .5s
     &:hover
         color $font-color-hover
-
-.login-message
-    font-size 13px
 
 menu(n)
     transition all .2s
