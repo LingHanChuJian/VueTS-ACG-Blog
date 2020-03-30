@@ -64,7 +64,7 @@
             Icon.search(type="search" size="30" fixed)
             Poptip(trigger="hover" placement="bottom-end" wordWrap width="100")
                 Icon.login(type="user-circle" size="30" fixed)
-                template(v-slot:title)
+                template(v-slot:content)
                     | Whether to
                     a(href="/login" target="_blank" style="color:#333;font-weight:bold;") login in 
                     | now?

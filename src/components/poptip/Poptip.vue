@@ -106,9 +106,6 @@ export default class Poptip extends Vue {
     @Prop({ type: Boolean, default: false })
     private wordWrap!: boolean
 
-    @Prop({ type: String, default: '' })
-    private padding!: string
-
     @Prop({ type: Boolean, default: false })
     private disabled!: boolean
 
@@ -212,10 +209,6 @@ export default class Poptip extends Vue {
 
         if (!!this.width) {
             style.width = `${this.width}px`
-        }
-
-        if (!!this.padding) {
-            style.padding = this.padding
         }
 
         return style

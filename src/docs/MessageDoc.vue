@@ -144,7 +144,7 @@ export default class MessageDoc extends Vue {
             default: '1.5',
         },
         {
-            prop: 'isBackground ',
+            prop: 'isBackground',
             description: '是否显示背景色',
             type: 'Boolean',
             default: 'true',

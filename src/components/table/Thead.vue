@@ -1,7 +1,7 @@
 <template lang="pug">
     thead
         tr
-            th(v-for="(item, index) in column" :key="index" :style="wrapStyles") {{ item.title }}
+            th(v-for="(item, index) in column" :key="index" :style="wrapStyles(item)") {{ item.title }}
 </template>
 
 <script lang="ts">
@@ -17,24 +17,17 @@ export default class Thead extends Vue {
             return []
         },
     })
-    private column!: Column
-
-    @Prop({
-        type: String,
-        default: 'left',
-        validator(value: string) {
-            return oneOf(value, ['left', 'center', 'right'])
-        },
-    })
-    private align!: string
+    private column!: Column[]
 
     @Prop({ type: Boolean, default: true })
     private border!: boolean
 
-    private get wrapStyles(): CSSStyles<CSSStyleDeclaration> {
+    private wrapStyles(item: Column): CSSStyles<CSSStyleDeclaration> {
+        console.log(item)
         return {
             border: this.border ? `1px solid #e9e9e9` : '',
-            textAlign: this.align,
+            textAlign: item.align || 'left',
+            width: item.width ? `${item.width}px` : 'auto',
         }
     }
 }

@@ -1,3 +1,5 @@
+$poptip-arrow-color = #FFFFFF
+
 .poptip
     display inline-block
 
@@ -15,60 +17,25 @@
         border-width 10px
         border-style solid
     &[data-popper-placement^=top]
-        margin-top -20px
+        margin-bottom 10px !important
         .poptip-arrow
-            border-color #FFFFFF transparent transparent
-    &[data-popper-placement=top]
-        .poptip-arrow
-            left 50%
-            margin-left -7px
-    &[data-popper-placement=top-start]
-        .poptip-arrow
-            left 16px
-    &[data-popper-placement=top-end]
-        .poptip-arrow
-            right 16px
+            bottom -19px
+            border-color $poptip-arrow-color transparent transparent transparent
     &[data-popper-placement^=right]
-        margin-left -20px
+        margin-left 10px !important
         .poptip-arrow
-            border-color transparent #FFFFFF transparent
-    &[data-popper-placement=right]
-        .poptip-arrow
-            left -20px
-    &[data-popper-placement=right-start]
-        .poptip-arrow
-            top 8px
-    &[data-popper-placement=right-end]
-        .poptip-arrow
-            bottom 8px
+            left -19px
+            border-color transparent $poptip-arrow-color transparent transparent
     &[data-popper-placement^=bottom]
-        margin-bottom -20px
+        margin-top 10px !important
         .poptip-arrow
-            border-color transparent transparent #FFFFFF
-    &[data-popper-placement=bottom]
-        .poptip-arrow
-            left 50%
-            margin-left -7px
-    &[data-popper-placement=bottom-start]
-        .poptip-arrow
-            left 16px
-    &[data-popper-placement=bottom-end]
-        .poptip-arrow
-            right 16px
+            top -19px
+            border-color transparent transparent $poptip-arrow-color transparent
     &[data-popper-placement^=left]
-        margin-left -20px
+        margin-right 10px !important
         .poptip-arrow
-            border-color transparent transparent transparent #FFFFFF
-    &[data-popper-placement=left]
-        .poptip-arrow
-            top 50%
-            margin-top -7px
-    &[data-popper-placement=left-start]
-        .poptip-arrow
-            top 8px
-    &[data-popper-placement=left-end]
-        .poptip-arrow
-            bottom 8px
+            right -19px
+            border-color transparent transparent transparent $poptip-arrow-color
 
 .poptip-content
     line-height normal

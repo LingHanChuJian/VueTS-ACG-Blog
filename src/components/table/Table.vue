@@ -1,7 +1,7 @@
 <template lang="pug">
     table(:class="wrapClasses")
-        Thead(:column="cloneColumn" :align="align" :border="border")
-        Tbody(:column="cloneColumn" :data="cloneData" :align="align" :border="border")
+        Thead(:column="cloneColumn" :border="border")
+        Tbody(:column="cloneColumn" :data="cloneData" :border="border")
 </template>
 
 <script lang="ts">
@@ -33,15 +33,6 @@ export default class Table extends Vue {
         },
     })
     private column!: Column[]
-
-    @Prop({
-        type: String,
-        default: 'left',
-        validator(value: string) {
-            return oneOf(value, ['left', 'center', 'right'])
-        },
-    })
-    private align!: string
 
     @Prop({ type: Boolean, default: true })
     private border!: boolean
