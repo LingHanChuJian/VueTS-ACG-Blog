@@ -91,14 +91,6 @@ export default class Poptip extends Vue {
     })
     private offset!: [number, number] | PopperOffset
 
-    @Prop({
-        type: Object,
-        default() {
-            return {}
-        },
-    })
-    private popperStyle!: CSSStyles<CSSStyleDeclaration>
-
     @Prop({ type: Boolean, default: false })
     private value!: boolean
 
@@ -219,7 +211,7 @@ export default class Poptip extends Vue {
             style.width = `${this.width}px`
         }
 
-        return Object.assign(this.popperStyle, style)
+        return style
     }
 
     @Watch('value')
