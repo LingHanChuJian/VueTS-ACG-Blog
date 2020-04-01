@@ -1,3 +1,4 @@
+import { RawLocation } from 'vue-router'
 import { Placement, VirtualElement } from '@popperjs/core'
 import { CreateElement, RenderContext, VNode } from 'vue'
 
@@ -63,3 +64,22 @@ export interface PopperFnParam {
 }
 
 export type PopperOffset = (param: PopperFnParam) => [number, number]
+
+// nav
+export interface MenuIcon {
+    type?: string
+    fixed?: boolean
+    size?: number | string
+    color?: string
+    fixedSize?: 'lg'| 'xs'| 'sm'| '1x'| '2x'| '3x'| '4x'| '5x'| '6x'| '7x'| '8x'| '9x'| '10x'
+    custom?: string
+}
+
+export interface MenuItemData {
+    name: string
+    to?: RawLocation
+    icon?: MenuIcon
+    className?: string
+    content: string
+    children?: MenuItemData[]
+}

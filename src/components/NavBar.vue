@@ -1,7 +1,8 @@
 <template lang="pug">
-    nav.navbar
+    nav
         div.navbar-left
-            div(:class="menuClasses" @click="menuClick")
+            div.icon-menu-wrap(@click="menuClick")
+                div(:class="menuClasses")
             div.logo
                 router-link(to="home")
                     span.logo-title
@@ -74,6 +75,7 @@
 import Index from '@/views/Index.vue'
 import { Icon } from '@/components/icon'
 import { Poptip } from '@/components/poptip'
+import { findComponentUpward } from '@/utils'
 import { WrapClasses } from '@/types/components'
 import { Menu, SubMenu, MenuItem } from '@/components/menu'
 import { Component, Vue } from 'vue-property-decorator'
@@ -88,16 +90,18 @@ import { Component, Vue } from 'vue-property-decorator'
     },
 })
 export default class NavBar extends Vue {
+    private isCollapsed: boolean = false
 
     private menuClick(): void {
-        this.$emit('menuClick')
+        (findComponentUpward(this, 'Index') as Index).setDrawer()
+        this.isCollapsed = !this.isCollapsed
     }
 
     private get menuClasses(): Array<string | WrapClasses> {
         return [
             'icon-menu',
             {
-                [`icon-menu-opened`] : (this.$parent as Index).isCollapsed,
+                [`icon-menu-opened`] : this.isCollapsed,
             },
         ]
     }
@@ -106,10 +110,47 @@ export default class NavBar extends Vue {
 </script>
 
 <style lang="stylus" scoped>
+menu(n)
+    transition all .2s
+    background-color #000000
+    width 30px
+    height 3px
+    position n
+
 .navbar
     display flex
     justify-content space-between
     padding 0 20px
+
+.icon-menu-wrap
+    position relative
+    width 50px
+    height 50px
+    display none
+    cursor pointer
+
+.icon-menu
+    top 25px
+    left 10px
+    menu(absolute)
+    &:before
+        menu(absolute)
+        content ''
+        top -8px
+    &:after
+        menu(absolute)
+        content ''
+        top 8px
+
+.icon-menu-opened
+    background-color transparent
+    &:before
+        top 0
+        transform rotate(-45deg)
+    &:after
+        top 0
+        transform rotate(45deg)
+
 .logo
     font-size 20px
     a
@@ -159,14 +200,6 @@ export default class NavBar extends Vue {
     transition color .5s
     &:hover
         color $font-color-hover
-
-menu(n)
-    transition all .2s
-    background-color #000000
-    width 30px
-    height 3px
-    position n
-    cursor pointer
 
 @keyframes animation-upper-down
     6%
@@ -245,22 +278,16 @@ menu(n)
     .navbar
         width 100%
         height 100%
-        .icon-menu
-            menu(relative)
-            &:before
-                menu(absolute)
-                content ''
-                top -8px
-            &:after
-                menu(absolute)
-                content ''
-                bottom 8px
-        .icon-menu-opened
-            background-color transparent
-            &:before
-                top 0
-                transform rotate(-45deg)
-            &:after
-                bottom 0
-                transform rotate(45deg)
+        display block
+        padding 0
+        .navbar-left
+            display flex
+            justify-content space-between
+        .logo
+            margin-right 10px
+        .icon-menu-wrap
+            display block
+        .navbar-middle
+        .navbar-right
+            display none
 </style>

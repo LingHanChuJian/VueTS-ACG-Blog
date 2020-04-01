@@ -2,9 +2,9 @@
     Layout
         Drawer(ref="drawer" isCollapsible v-model="isCollapsed")
             NavDrawer
-        Layout
+        Layout(:class="collapsedClasses")
             Header
-                NavBar(@menuClick="setDrawer")
+                NavBar
             Content
                 keep-alive
                     router-view
@@ -15,6 +15,7 @@
 <script lang="ts">
 import NavBar from '@/components/NavBar.vue'
 import FooterCenter from '@/views/Footer.vue'
+import { WrapClasses } from '@/types/components'
 import NavDrawer from '@/components/NavDrawer.vue'
 import { Component, Vue } from 'vue-property-decorator'
 import { Layout, Header, Content, Footer, Drawer } from '@/components/layout'
@@ -32,14 +33,23 @@ import { Layout, Header, Content, Footer, Drawer } from '@/components/layout'
     },
 })
 export default class Index extends Vue {
-    public isCollapsed: boolean = false
+    private isCollapsed: boolean = false
 
-    private setDrawer(): void {
+    public setDrawer(): void {
         (this.$refs.drawer as Drawer).toggleCollapse()
+    }
+
+    private get collapsedClasses(): Array<string | WrapClasses> {
+        return [
+            {
+                [`collapsed-opened`] : this.isCollapsed,
+            },
+        ]
     }
 }
 </script>
 
 <style lang="stylus" scoped>
-
+.collapsed-opened
+    transform translateX(250px)
 </style>

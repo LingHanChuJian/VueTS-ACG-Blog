@@ -1,14 +1,14 @@
 import { K, S } from '@/types/utils'
 
-export const addEvent = (element: Document | HTMLElement | Window, event: K, handler: EventListenerOrEventListenerObject): void => {
+export const addEvent = (element: Document | HTMLElement | Window, event: K, handler: EventListenerOrEventListenerObject, useCapture: boolean = false): void => {
     if (element && event && handler) {
-        element.addEventListener(event, handler, false)
+        element.addEventListener(event, handler, useCapture)
     }
 }
 
-export const removeEvent = (element: Document | HTMLElement | Window, event: K, handler: EventListenerOrEventListenerObject): void => {
+export const removeEvent = (element: Document | HTMLElement | Window, event: K, handler: EventListenerOrEventListenerObject, useCapture: boolean = false): void => {
     if (element && event && handler) {
-        element.removeEventListener(event, handler, false)
+        element.removeEventListener(event, handler, useCapture)
     }
 }
 

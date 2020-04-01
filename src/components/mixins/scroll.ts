@@ -1,3 +1,4 @@
+import { addEvent, removeEvent } from '@/utils'
 import { Component, Vue } from 'vue-property-decorator'
 
 @Component
@@ -17,10 +18,10 @@ export default class Scroll extends Vue {
     }
 
     private created() {
-        this.$nextTick(() => addEventListener('scroll', this.getScroll, true))
+        this.$nextTick(() => addEvent(window, 'scroll', this.getScroll, true))
     }
 
     private destroyed() {
-        removeEventListener('scroll', this.getScroll, true)
+        removeEvent(window, 'scroll', this.getScroll, true)
     }
 }
