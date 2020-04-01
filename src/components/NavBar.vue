@@ -63,7 +63,7 @@
                         | 主题
         div.navbar-right
             Icon.search(type="search" size="30" fixed)
-            Poptip(trigger="hover" placement="bottom-end" width="110" :popperStyle="{ marginTop: '-10px !important' }")
+            Poptip.login-poptip(trigger="hover" placement="bottom-end" width="110")
                 Icon.login(type="user-circle" size="30" fixed)
                 template(v-slot:content)
                     | Whether to 
