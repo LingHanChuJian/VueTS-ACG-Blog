@@ -104,7 +104,6 @@ export default class DropDown extends Vue {
 
     private resetTransformOrigin(): void {
         if (!this.popper) { return }
-        // state 来处理
         const placement: string = this.popper.state.placement
         const placementStart: string = placement ? placement.split('-')[0] : ''
         const placementEnd: string = placement ? placement.split('-')[1] : ''

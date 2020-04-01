@@ -1,31 +1,46 @@
 <template lang="pug">
-    Menu(:mode="mode")
-        SubMenu(v-if="")
+    SubMenu(
+        v-if="menuItemData.children"
+        :name="menuItemData.name"
+        :to="menuItemData.to"
+    )
+        template(v-slot:title)
+            NavIcon(:icon="menuItemData.icon" :content="menuItemData.content")
+        MenuItem(
+            v-for="item in menuItemData.children"
+            :key="item.name"
+            :name="item.name"
+            :to="item.to"
+        )
+            NavIcon(:icon="item.icon" :content="item.content")
+    MenuItem(
+        v-else
+        :name="menuItemData.name"
+        :to="menuItemData.to"
+    )
+        NavIcon(:icon="menuItemData.icon" :content="menuItemData.content")
 </template>
 
 <script lang="ts">
 import { MenuItemData } from '@/types/components'
-import { Menu, MenuItem, SubMenu } from '@/components/menu'
+import NavIcon from '@/components/nav/NavIcon.vue'
+import { MenuItem, SubMenu } from '@/components/menu'
 import { Component, Prop, Vue } from 'vue-property-decorator'
 
 @Component({
     components: {
-        Menu,
         MenuItem,
         SubMenu,
+        NavIcon,
     },
 })
 export default class Nav extends Vue {
     @Prop({
-        type: Array,
+        type: Object,
         default() {
-            return []
+            return {}
         },
     })
-    private data!: MenuItemData[]
-
-    @Prop({ type: String, default: 'horizontal' })
-    private mode!: string
-
+    private menuItemData!: MenuItemData
 }
 </script>

@@ -1,5 +1,5 @@
 <template lang="pug">
-    nav
+    nav.navbar
         div.navbar-left
             div.icon-menu-wrap(@click="menuClick")
                 div(:class="menuClasses")
