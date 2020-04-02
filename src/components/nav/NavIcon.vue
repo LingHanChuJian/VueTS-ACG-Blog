@@ -1,7 +1,7 @@
 <template lang="pug">
     Icon(
         v-if="icon"
-        :class="icon.className"
+        :class="[mode + '-' + icon.className]"
         :type="icon.type"
         :fixed="icon.fixed"
         :size="icon.size"
@@ -9,14 +9,18 @@
         :fixedSize="icon.fixedSize"
         :custom="icon.custom"
     )
-    | {{ content }}
 </template>
 
 <script lang="ts">
+import { Icon } from '@/components/icon'
 import { MenuIcon } from '@/types/components'
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Component, Prop, Inject, Vue } from 'vue-property-decorator'
 
-@Component
+@Component({
+    components: {
+        Icon,
+    },
+})
 export default class NavIcon extends Vue {
     @Prop({
         type: Object,
@@ -26,7 +30,7 @@ export default class NavIcon extends Vue {
     })
     private icon?: MenuIcon
 
-    @Prop({ type: String, default: '' })
-    private content!: string
+    @Inject('mode')
+    private readonly mode!: string
 }
 </script>

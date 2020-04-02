@@ -19,6 +19,7 @@ export default class Logo extends Vue {}
 <style lang="stylus" scoped>
 .logo
     font-size 20px
+    transition transform .2s ease-in-out
     a
         color $font-color
         &:hover

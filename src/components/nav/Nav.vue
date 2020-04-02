@@ -3,29 +3,35 @@
         v-if="menuItemData.children"
         :name="menuItemData.name"
         :to="menuItemData.to"
+        :class="[mode + '-' + menuItemData.className]"
     )
         template(v-slot:title)
-            NavIcon(:icon="menuItemData.icon" :content="menuItemData.content")
+            NavIcon(:icon="menuItemData.icon")
+            | {{ menuItemData.content }}
         MenuItem(
             v-for="item in menuItemData.children"
             :key="item.name"
             :name="item.name"
             :to="item.to"
         )
-            NavIcon(:icon="item.icon" :content="item.content")
+            NavIcon(:icon="item.icon")
+            | {{ item.content }}
     MenuItem(
         v-else
         :name="menuItemData.name"
         :to="menuItemData.to"
+        :class="[mode + '-' + menuItemData.className]"
     )
-        NavIcon(:icon="menuItemData.icon" :content="menuItemData.content")
+        NavIcon(:icon="menuItemData.icon")
+        | {{ menuItemData.content }}
 </template>
 
 <script lang="ts">
-import { MenuItemData } from '@/types/components'
+import { typeOf } from '@/utils'
 import NavIcon from '@/components/nav/NavIcon.vue'
 import { MenuItem, SubMenu } from '@/components/menu'
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { MenuItemData } from '@/types/components'
+import { Component, Prop, Inject, Provide, Vue } from 'vue-property-decorator'
 
 @Component({
     components: {
@@ -42,5 +48,8 @@ export default class Nav extends Vue {
         },
     })
     private menuItemData!: MenuItemData
+
+    @Inject('mode')
+    private readonly mode!: string
 }
 </script>

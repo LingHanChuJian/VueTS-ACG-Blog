@@ -3,8 +3,8 @@
         div.navbar-left
             Logo
         div.navbar-middle
-            Menu(mode="horizontal")
-                Nav(v-for="(item, index) in menuItemDataArr" :key="index" :menuItemData="item")
+            Menu(:mode="mode")
+                Nav(v-for="(item, index) in menuData" :key="index" :menuItemData="item")
         div.navbar-right
             Icon.search(type="search" size="30" fixed)
             Poptip.login-poptip(trigger="hover" placement="bottom-end" width="110")
@@ -22,7 +22,7 @@ import Nav from '@/components/nav/Nav.vue'
 import { Poptip } from '@/components/poptip'
 import Logo from '@/components/nav/Logo.vue'
 import { MenuItemData } from '@/types/components'
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Component, Prop, Provide, Vue } from 'vue-property-decorator'
 
 @Component({
     components: {
@@ -41,7 +41,10 @@ export default class NavBar extends Vue {
             return []
         },
     })
-    private menuItemDataArr!: MenuItemData[]
+    private menuData!: MenuItemData[]
+
+    @Provide('mode')
+    private mode: string = 'horizontal'
 }
 </script>
 
@@ -59,13 +62,10 @@ export default class NavBar extends Vue {
     &:hover
         color $font-color-hover
 
+.login:hover
+    animation animation-counterclockwise-clockwise 2.5s ease infinite
+
 @media screen and (max-width 860px)
     .navbar
-        width 100%
-        height 100%
-        display block
-        padding 0
-        .navbar-middle
-        .navbar-right
-            display none
+        display none
 </style>

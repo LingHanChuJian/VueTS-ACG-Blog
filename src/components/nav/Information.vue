@@ -1,15 +1,12 @@
 <template lang="pug">
-    nav.navdrawer
-        div.icon-menu-wrap(@click="menuClick")
-            div(:class="menuClasses")
+    figure
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 
 @Component
-export default class NavDrawer extends Vue {
-}
+export default class Information extends Vue {}
 </script>
 
 <style lang="stylus" scoped>

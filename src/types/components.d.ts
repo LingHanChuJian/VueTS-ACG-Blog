@@ -81,5 +81,6 @@ export interface MenuItemData {
     to?: RawLocation
     icon?: MenuIcon
     content: string
+    className?: string
     children?: MenuItemData[]
 }
