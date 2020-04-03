@@ -13,7 +13,7 @@
             @mouseup="handleBlur(false)"
         )
             slot
-        transition(name="fade")
+        transition(:name="transitionName")
             div(
                 :class="popperClasses"
                 :style="styles"
@@ -39,7 +39,7 @@ import transfer from '@/components/directives/transfer'
 import { directive as clickOutside } from 'v-click-outside-x'
 import { Component, Watch, Prop, Vue } from 'vue-property-decorator'
 import { WrapClasses, CSSStyles, PopperOffset } from '@/types/components'
-import { createPopper, Options as PopperOptions, Placement, Instance as Popper } from '@popperjs/core'
+import { createPopper, State, Options as PopperOptions, Placement, Instance as Popper } from '@popperjs/core'
 
 @Component({
     directives: {
@@ -118,6 +118,8 @@ export default class Poptip extends Vue {
 
     private visible: boolean = this.value
 
+    private transitionName: string = this.handlePlacement(this.placement) === 'auto' ? 'fade' : `fade-${this.handlePlacement(this.placement)}`
+
     private enterTimer?: number | null
 
     private isInput: boolean = false
@@ -141,6 +143,7 @@ export default class Poptip extends Vue {
 
     private updatePopper(): void {
         this.popper ? this.popper.forceUpdate() : this.createPopper()
+        this.updateTransitionName()
     }
 
     private doDestroy(isVisible: boolean = false): void {
@@ -149,6 +152,16 @@ export default class Poptip extends Vue {
             this.popper.destroy()
             this.popper = null
         }
+    }
+
+    private updateTransitionName(): void {
+        if (!this.popper) { return }
+        const placement: string = this.handlePlacement(this.popper.state.placement)
+        this.transitionName = placement === 'auto' ? 'fade' : `fade-${placement}`
+    }
+
+    private handlePlacement(placement: string): string {
+        return placement.split('-')[0]
     }
 
     private handleMouseenter(): boolean | void  {

@@ -7,10 +7,22 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { MenuItemData } from '@/types/components'
+import { Component, Prop, Provide, Vue } from 'vue-property-decorator'
 
 @Component
 export default class NavDrawer extends Vue {
+    @Prop({
+        type: Array,
+        required: true,
+        default() {
+            return []
+        },
+    })
+    private menuData!: MenuItemData[]
+
+    @Provide('mode')
+    private mode: string = 'vertical'
 
 }
 </script>

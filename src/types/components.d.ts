@@ -84,3 +84,10 @@ export interface MenuItemData {
     className?: string
     children?: MenuItemData[]
 }
+
+export interface UserInformation {
+    icon: MenuIcon
+    link?: string
+    image?: string
+    title?: string
+}

@@ -2,6 +2,7 @@ import hljs from 'highlight.js'
 import ClipboardJS from 'clipboard'
 import { toggleClass } from '@/utils/dom'
 import { languagePug } from '@/utils/pug'
+import Message from '@/components/message'
 import { languageStylusExtend } from '@/utils/stylusExtend'
 import { addStyles, initLineNumbersOnLoad, isHljsLnCodeDescendant, edgeGetSelectedCodeLines } from '@/utils/lineNumber'
 
@@ -57,12 +58,13 @@ export const copyCode = (e: MouseEvent) => {
           if (!code) { break }
           const clipboard: ClipboardJS = new ClipboardJS('.copy-code', { container: code })
           clipboard.on('success', (event: ClipboardJS.Event) => {
-              console.log('复制成功')
+              Message.success('复制成功!!')
               event.clearSelection()
           })
           clipboard.on('error', (error: ClipboardJS.Event) => {
             console.error(`Action: ${error.action}`)
             console.error(`Trigger: ${error.trigger}`)
+            Message.error('复制失败!!')
           })
           break
         }

@@ -46,29 +46,124 @@ $poptip-arrow-color = #FFFFFF
 
 .fade-enter-active
 .fade-leave-active
-	animation-duration .15s
+.fade-top-enter-active
+.fade-top-leave-active
+.fade-right-enter-active
+.fade-right-leave-active
+.fade-bottom-enter-active
+.fade-bottom-leave-active
+.fade-left-enter-active
+.fade-left-leave-active
+	animation-duration .3s
 	animation-fill-mode both
 	animation-play-state paused
     animation-timing-function ease-in-out
 
 .fade-enter
 .fade-enter-to
-	animation-name fade-in
+.fade-bottom-enter
+.fade-bottom-enter-to
+	animation-name fade-bottom-in
 	animation-play-state running
 
 .fade-leave
 .fade-leave-to
-	animation-name fade-out
+.fade-bottom-leave
+.fade-bottom-leave-to
+	animation-name fade-bottom-out
 	animation-play-state running
 
-@keyframes fade-in
+.fade-top-enter
+.fade-top-enter-to
+	animation-name fade-top-in
+	animation-play-state running
+
+.fade-top-leave
+.fade-top-leave-to
+	animation-name fade-top-out
+	animation-play-state running
+
+.fade-right-enter
+.fade-right-enter-to
+	animation-name fade-right-in
+	animation-play-state running
+
+.fade-right-leave
+.fade-right-leave-to
+	animation-name fade-right-out
+	animation-play-state running
+
+.fade-left-enter
+.fade-left-enter-to
+	animation-name fade-left-in
+	animation-play-state running
+
+.fade-left-leave
+.fade-left-leave-to
+	animation-name fade-left-out
+	animation-play-state running
+
+@keyframes fade-top-in
     0%
+        bottom 20px
         opacity 0
     100%
+        bottom 0
         opacity 1
 
-@keyframes fade-out
+@keyframes fade-top-out
     0%
+        bottom 0
         opacity 1
     100%
+        bottom 20px
+        opacity 0
+
+@keyframes fade-right-in
+    0%
+        left 20px
+        opacity 0
+    100%
+        left 0
+        opacity 1
+
+@keyframes fade-right-out
+    0%
+        left 0
+        opacity 1
+    100%
+        left 20px
+        opacity 0
+
+
+@keyframes fade-bottom-in
+    0%
+        top 20px
+        opacity 0
+    100%
+        top 0
+        opacity 1
+
+@keyframes fade-bottom-out
+    0%
+        top 0
+        opacity 1
+    100%
+        top 20px
+        opacity 0
+
+@keyframes fade-left-in
+    0%
+        right 20px
+        opacity 0
+    100%
+        right 0
+        opacity 1
+
+@keyframes fade-left-out
+    0%
+        right 0
+        opacity 1
+    100%
+        right 20px
         opacity 0

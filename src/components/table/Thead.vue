@@ -23,7 +23,6 @@ export default class Thead extends Vue {
     private border!: boolean
 
     private wrapStyles(item: Column): CSSStyles<CSSStyleDeclaration> {
-        console.log(item)
         return {
             border: this.border ? `1px solid #e9e9e9` : '',
             textAlign: item.align || 'left',

@@ -4,7 +4,7 @@
         :style="wrapStyles"
         v-if="isMediaMatched"
         )
-        div(:class="childClasses")
+        div(:class="childClasses" :style="childStyles")
             slot
 </template>
 
@@ -47,17 +47,25 @@ export default class Drawer extends Mixins(AdaptiveMixins) {
         }
     }
 
+    private get childStyles(): CSSStyles<CSSStyleDeclaration> {
+        return {
+            transform: `translateX(-${this.contraryDrawerWidth}px)`,
+            opacity: !this.value ? '0' : '1',
+        }
+    }
+
     private get childClasses(): Array<string | WrapClasses> {
         return [
             `${this.prefixCls}-children`,
-            {
-                [`${this.prefixCls}-children-collapsed`]: !this.value,
-            },
         ]
     }
 
     private get drawerWidth(): number | string {
         return this.isCollapsible ? (this.value ? this.width : this.collapsedWidth) : this.width
+    }
+
+    private get contraryDrawerWidth(): number | string {
+        return this.isCollapsible ? (this.value ? this.collapsedWidth : this.width) : this.collapsedWidth
     }
 
 }
