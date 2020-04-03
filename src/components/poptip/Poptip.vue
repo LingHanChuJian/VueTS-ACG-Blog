@@ -13,7 +13,13 @@
             @mouseup="handleBlur(false)"
         )
             slot
-        transition(:name="transitionName")
+        transition(
+            :css="false"
+            @before-enter="beforeEnter"
+            @enter="enter"
+            @before-leave="beforeLeave"
+            @leave="leave"
+        )
             div(
                 :class="popperClasses"
                 :style="styles"
@@ -39,7 +45,7 @@ import transfer from '@/components/directives/transfer'
 import { directive as clickOutside } from 'v-click-outside-x'
 import { Component, Watch, Prop, Vue } from 'vue-property-decorator'
 import { WrapClasses, CSSStyles, PopperOffset } from '@/types/components'
-import { createPopper, State, Options as PopperOptions, Placement, Instance as Popper } from '@popperjs/core'
+import { createPopper, Options as PopperOptions, Placement, Instance as Popper } from '@popperjs/core'
 
 @Component({
     directives: {
@@ -118,8 +124,6 @@ export default class Poptip extends Vue {
 
     private visible: boolean = this.value
 
-    private transitionName: string = this.handlePlacement(this.placement) === 'auto' ? 'fade' : `fade-${this.handlePlacement(this.placement)}`
-
     private enterTimer?: number | null
 
     private isInput: boolean = false
@@ -143,7 +147,6 @@ export default class Poptip extends Vue {
 
     private updatePopper(): void {
         this.popper ? this.popper.forceUpdate() : this.createPopper()
-        this.updateTransitionName()
     }
 
     private doDestroy(isVisible: boolean = false): void {
@@ -154,14 +157,41 @@ export default class Poptip extends Vue {
         }
     }
 
-    private updateTransitionName(): void {
-        if (!this.popper) { return }
-        const placement: string = this.handlePlacement(this.popper.state.placement)
-        this.transitionName = placement === 'auto' ? 'fade' : `fade-${placement}`
+    private handlePlacement(): string {
+        const curPlacement: string = this.popper ? this.popper.state.placement : this.placement
+        switch (curPlacement.split('-')[0]) {
+            case 'top': return 'bottom'
+            case 'right': return 'left'
+            case 'bottom': return 'top'
+            case 'left': return 'right'
+            default: return ''
+        }
     }
 
-    private handlePlacement(placement: string): string {
-        return placement.split('-')[0]
+    private beforeEnter(el: HTMLElement): void {
+        const direction: string = this.handlePlacement()
+        el.style.transition = 'all .3s ease-in-out'
+        if (direction) { (el.style as any)[direction] = '20px' }
+        el.style.opacity = '0'
+    }
+
+    private enter(el: HTMLElement): void {
+        const direction: string = this.handlePlacement()
+        if (direction) { (el.style as any)[direction] = '0' }
+        el.style.opacity = '1'
+    }
+
+    private beforeLeave(el: HTMLElement): void {
+        const direction: string = this.handlePlacement()
+        el.style.transition = 'all .3s ease-in-out'
+        if (direction) { (el.style as any)[direction] = '0' }
+        el.style.opacity = '1'
+    }
+
+    private leave(el: HTMLElement): void {
+        const direction: string = this.handlePlacement()
+        if (direction) { (el.style as any)[direction] = '20px' }
+        el.style.opacity = '0'
     }
 
     private handleMouseenter(): boolean | void  {
