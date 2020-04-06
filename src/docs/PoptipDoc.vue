@@ -271,12 +271,6 @@ export default class PoptipDoc extends Vue {
             default: '',
         },
         {
-            prop: 'popperStyle',
-            description: 'popper style',
-            type: 'Object',
-            default: '{}',
-        },
-        {
             prop: 'disabled',
             description: '是否禁用',
             type: 'Boolean',

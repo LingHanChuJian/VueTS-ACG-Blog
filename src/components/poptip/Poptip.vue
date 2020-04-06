@@ -13,22 +13,20 @@
             @mouseup="handleBlur(false)"
         )
             slot
-        transition(
-            :css="false"
-            @before-enter="beforeEnter"
-            @enter="enter"
-            @before-leave="beforeLeave"
-            @leave="leave"
+        div(
+            :class="popperClasses"
+            :style="styles"
+            ref="popper"
+            v-show="visible"
+            @mouseenter="handleMouseenter"
+            @mouseleave="handleMouseleave"
+            :data-transfer="transfer"
+            v-transfer
         )
             div(
-                :class="popperClasses"
-                :style="styles"
-                ref="popper"
-                v-show="visible"
-                @mouseenter="handleMouseenter"
-                @mouseleave="handleMouseleave"
-                :data-transfer="transfer"
-                v-transfer
+                :class="[prefixCls + '-box']"
+                ref="box"
+                :data-state="visible ? 'visible' : 'hidden'"
             )
                 div(
                     :class="[prefixCls + '-arrow']"
@@ -137,6 +135,26 @@ export default class Poptip extends Vue {
         options.modifiers.push({ name: 'offset', options: { offset: this.offset } })
         // 添加小三角形
         options.modifiers.push({ name: 'arrow', options: { element: this.$refs.arrow, padding: 5 } })
+        // 对 box 进行处理
+        options.modifiers.push({
+            enabled: true,
+            phase: 'beforeWrite',
+            fn: ({ state }) => {
+                ['placement', 'reference-hidden', 'escaped'].forEach((attr) => {
+                    if (attr === 'placement') {
+                        (this.$refs.box as HTMLElement).setAttribute('data-placement', state.placement)
+                    } else {
+                        if (state.attributes.popper[`data-popper-${attr}`]) {
+                            (this.$refs.box as HTMLElement).setAttribute(`data-${attr}`, '')
+                        } else {
+                            (this.$refs.box as HTMLElement).removeAttribute(`data-${attr}`)
+                        }
+                    }
+                })
+                console.log(state.placement)
+                state.attributes.popper = {}
+            },
+        })
         // 生命周期
         options.onFirstUpdate = () => {
             this.$nextTick(this.updatePopper)
@@ -157,54 +175,17 @@ export default class Poptip extends Vue {
         }
     }
 
-    private handlePlacement(): string {
-        const curPlacement: string = this.popper ? this.popper.state.placement : this.placement
-        switch (curPlacement.split('-')[0]) {
-            case 'top': return 'bottom'
-            case 'right': return 'left'
-            case 'bottom': return 'top'
-            case 'left': return 'right'
-            default: return ''
-        }
-    }
-
-    private beforeEnter(el: HTMLElement): void {
-        const direction: string = this.handlePlacement()
-        el.style.transition = 'all .3s ease-in-out'
-        if (direction) { (el.style as any)[direction] = '20px' }
-        el.style.opacity = '0'
-    }
-
-    private enter(el: HTMLElement): void {
-        const direction: string = this.handlePlacement()
-        if (direction) { (el.style as any)[direction] = '0' }
-        el.style.opacity = '1'
-    }
-
-    private beforeLeave(el: HTMLElement): void {
-        const direction: string = this.handlePlacement()
-        el.style.transition = 'all .3s ease-in-out'
-        if (direction) { (el.style as any)[direction] = '0' }
-        el.style.opacity = '1'
-    }
-
-    private leave(el: HTMLElement): void {
-        const direction: string = this.handlePlacement()
-        if (direction) { (el.style as any)[direction] = '20px' }
-        el.style.opacity = '0'
-    }
-
     private handleMouseenter(): boolean | void  {
         if (this.disabled) { return }
         if (this.trigger !== 'hover') { return false }
         if (this.enterTimer) { clearTimeout(this.enterTimer) }
-        this.enterTimer = setTimeout(() => { this.visible = true }, 100)
+        this.enterTimer = setTimeout(() => { this.visible = true }, 300)
     }
 
     private handleMouseleave(): boolean | void {
         if (this.trigger !== 'hover') { return false }
         if (this.enterTimer) { clearTimeout(this.enterTimer) }
-        this.enterTimer = setTimeout(() => { this.visible = false }, 100)
+        this.enterTimer = setTimeout(() => { this.visible = false }, 300)
     }
 
     private handleClose(): boolean | void {
@@ -241,8 +222,8 @@ export default class Poptip extends Vue {
 
     private get popperClasses(): Array<string | WrapClasses> {
         return [
+            this.popperClass,
             `${this.prefixCls}-popper`,
-            this.popperClass ? this.popperClass : '',
             this.wordWrap ? `${this.prefixCls}-popper-word-wrap` : '',
         ]
     }

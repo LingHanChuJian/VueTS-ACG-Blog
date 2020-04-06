@@ -1,4 +1,14 @@
-$poptip-arrow-color = #FFFFFF
+$poptip-color = #FFFFFF
+
+hidden-transform(placement)
+    if placement == 'top'
+        transform translateY(-20px)
+    else if placement == 'bottom'
+        transform translateY(20px)
+    else if placement == 'left'
+        transform translateX(-20px)
+    else if placement == 'right'
+        transform translateX(20px)
 
 .poptip
     display inline-block
@@ -8,34 +18,33 @@ $poptip-arrow-color = #FFFFFF
     position relative
 
 .poptip-popper
-    border-radius 5px
-    box-shadow $box-shadow
     z-index 999
-    background-color #FFFFFF
-    padding 15px 10px
-    .poptip-arrow
-        border-width 10px
-        border-style solid
-    &[data-popper-placement^=top]
-        margin-bottom 10px !important
+    position absolute
+    .poptip-box
+        border-radius 5px
+        padding 15px 10px
+        position relative
+        background-color $poptip-color
+        box-shadow $box-shadow
+        transition transform .3s ease-in-out, opacity .3s ease-in-out, visibility .3s ease-in-out
         .poptip-arrow
-            bottom -19px
-            border-color $poptip-arrow-color transparent transparent transparent
-    &[data-popper-placement^=right]
-        margin-left 10px !important
-        .poptip-arrow
-            left -19px
-            border-color transparent $poptip-arrow-color transparent transparent
-    &[data-popper-placement^=bottom]
-        margin-top 10px !important
-        .poptip-arrow
-            top -19px
-            border-color transparent transparent $poptip-arrow-color transparent
-    &[data-popper-placement^=left]
-        margin-right 10px !important
-        .poptip-arrow
-            right -19px
-            border-color transparent transparent transparent $poptip-arrow-color
+            border-width 10px
+            border-style solid
+        for item in top right bottom left 
+            &[data-placement^={item}]
+                margin-{opposite-position(item)} 10px !important
+                .poptip-arrow
+                    {opposite-position(item)} -19px
+                    for border-item in top right bottom left
+                        if border-item == item
+                            border-{border-item}-color $poptip-color
+                        else
+                            border-{border-item}-color transparent
+        &[data-state="hidden"]
+            opacity 0
+            for item in top right bottom left
+                &[data-placement^={item}]
+                    hidden-transform(item)
 
 .poptip-content
     line-height normal
@@ -43,32 +52,3 @@ $poptip-arrow-color = #FFFFFF
 .poptip-popper-word-wrap
     white-space pre-wrap
     text-align justify
-
-// .fade-enter-active
-// .fade-leave-active
-// 	animation-duration .3s
-// 	animation-fill-mode both
-// 	animation-play-state paused
-//     animation-timing-function ease-in-out
-
-// .fade-enter
-// .fade-enter-to
-// 	animation-name fade-in
-// 	animation-play-state running
-
-// .fade-leave
-// .fade-leave-to
-// 	animation-name fade-out
-// 	animation-play-state running
-
-// @keyframes fade-in
-//     0%
-//         opacity 0
-//     100%
-//         opacity 1
-
-// @keyframes fade-out
-//     0%
-//         opacity 1
-//     100%
-//         opacity 0
