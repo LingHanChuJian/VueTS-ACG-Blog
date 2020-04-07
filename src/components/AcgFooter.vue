@@ -19,7 +19,7 @@ import { Component, Vue } from 'vue-property-decorator'
         Icon,
     },
 })
-export default class FooterCenter extends Vue {
+export default class AcgFooter extends Vue {
     private timer: number = 0
 
     private liveTime: string = ''

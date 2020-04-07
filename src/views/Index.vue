@@ -1,20 +1,22 @@
 <template lang="pug">
     Layout
         Drawer(ref="drawer" isCollapsible v-model="isCollapsed")
-            NavDrawer
+            NavDrawer(:menuData="menuData")
         Layout(:class="layoutClasses" @click.native="layoutClick")
             Header
                 NavBar(:menuData="menuData")
                 NavBarMobile(:isCollapsed="isCollapsed" @on-menu-click="setDrawer")
+            Header
+
             Content(:class="collapsedClasses")
                 keep-alive
                     router-view
             Footer(:class="collapsedClasses")
-                FooterCenter
+                AcgFooter
 </template>
 
 <script lang="ts">
-import FooterCenter from '@/views/Footer.vue'
+import AcgFooter from '@/components/AcgFooter.vue'
 import { Component, Vue } from 'vue-property-decorator'
 import { WrapClasses, MenuItemData } from '@/types/components'
 import { NavBar, NavDrawer, NavBarMobile } from '@/components/nav'
@@ -30,7 +32,7 @@ import { Layout, Header, Content, Footer, Drawer } from '@/components/layout'
         NavBar,
         NavDrawer,
         NavBarMobile,
-        FooterCenter,
+        AcgFooter,
     },
 })
 export default class Index extends Vue {
@@ -219,7 +221,7 @@ export default class Index extends Vue {
     width 100%
     height 100%
     position fixed
-    background-color rgba(0,0,0,.4)
+    background-color rgba(0,0,0,.3)
     z-index -1
 
 .collapsed-opened

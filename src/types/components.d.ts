@@ -90,4 +90,5 @@ export interface UserInformation {
     link?: string
     image?: string
     title?: string
+    fn?: () => void
 }

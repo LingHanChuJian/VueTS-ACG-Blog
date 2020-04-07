@@ -31,14 +31,14 @@
                 keep-alive
                     router-view
         Footer
-            FooterCenter
+            AcgFooter
         GoTop
 </template>
 
 <script lang="ts">
 import { Icon } from '@/components/icon'
 import GoTop from '@/components/GoTop.vue'
-import FooterCenter from '@/views/Footer.vue'
+import AcgFooter from '@/components/AcgFooter.vue'
 import { Menu, MenuItem, SubMenu } from '@/components/menu'
 import { Layout, Header, Drawer, Content, Footer } from '@/components/layout'
 import { Component, Vue } from 'vue-property-decorator'
@@ -50,7 +50,7 @@ import { Component, Vue } from 'vue-property-decorator'
         Drawer,
         Content,
         Footer,
-        FooterCenter,
+        AcgFooter,
         Menu,
         MenuItem,
         SubMenu,

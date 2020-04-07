@@ -43,7 +43,9 @@ export default class Information extends Vue {
     private prefixCls: string = 'info'
 
     private get noImageUserInformation(): UserInformation[] {
-        return this.userInformation.filter((item) => !item.image)
+        const curNoImageUserInformation: UserInformation[] = this.userInformation.filter((item) => !item.image)
+        if (curNoImageUserInformation.length > this.maxNum) { return curNoImageUserInformation.splice(0, Number(this.maxNum)) }
+        return curNoImageUserInformation
     }
 
     private get wrapClasses(): Array<string | WrapClasses> {
