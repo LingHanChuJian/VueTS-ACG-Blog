@@ -24,6 +24,10 @@
                         div.poptip-item 脱离文档流
                         template(v-slot:content)
                             | 这是 脱离文档流 展示内容
+                    Poptip(trigger="focus")
+                        input.poptip-input(placeholder="focus 时展示")
+                        template(v-slot:content)
+                            | 这是 input focus 展示内容
             template(v-slot:description)
                 p 支持三种触发方式：鼠标悬停、点击、聚焦。默认是点击
             template(v-slot:code)
@@ -116,6 +120,10 @@ export default class PoptipDoc extends Vue {
             div.poptip-item 脱离文档流
             template(v-slot:content)
                 | 这是 脱离文档流 展示内容
+        Poptip(trigger="focus")
+            input.poptip-input(placeholder="focus 时展示")
+            template(v-slot:content)
+                | 这是 input focus 展示内容
 </template>
 
 <style lang="stylus" scoped>
@@ -130,6 +138,16 @@ export default class PoptipDoc extends Vue {
     &:hover
         color #6c5b7c
         border 1px solid #29d
+
+.poptip-input
+    margin 0 5px
+    border-radius 4px
+    display inline-block
+    border 1px solid #dcdee2
+    height 32px
+    padding 0 15px
+    &:focus
+        border-radius 4px
 </style>`
 
     private dome2: string =
@@ -359,6 +377,16 @@ export default class PoptipDoc extends Vue {
 <style lang="stylus" scoped>
 .simple
     margin-bottom 20px
+
+.poptip-input
+    margin 0 5px
+    border-radius 4px
+    display inline-block
+    border 1px solid #dcdee2
+    height 32px
+    padding 0 15px
+    &:focus
+        border-radius 4px
 
 .poptip-item
 .top-item

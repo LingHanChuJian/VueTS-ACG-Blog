@@ -9,15 +9,15 @@
             :class="[prefixCls + '-rel']"
             ref="reference"
             @click="handleClick"
-            @mousedown="handleFocus(false)"
-            @mouseup="handleBlur(false)"
+            @mousedown="handleFocus"
+            @mouseup="handleBlur"
         )
             slot
         div(
             :class="popperClasses"
             :style="styles"
             ref="popper"
-            v-show="visible"
+            v-show="isShow"
             @mouseenter="handleMouseenter"
             @mouseleave="handleMouseleave"
             :data-transfer="transfer"
@@ -38,7 +38,7 @@
 </template>
 
 <script lang="ts">
-import { oneOf } from '@/utils'
+import { oneOf, addEvent, removeEvent } from '@/utils'
 import transfer from '@/components/directives/transfer'
 import { directive as clickOutside } from 'v-click-outside-x'
 import { Component, Watch, Prop, Vue } from 'vue-property-decorator'
@@ -122,6 +122,9 @@ export default class Poptip extends Vue {
 
     private visible: boolean = this.value
 
+    // display none 导致 animation 失效 维护一个 isShow 控制动画
+    private isShow: boolean = this.value
+
     private enterTimer?: number | null
 
     private isInput: boolean = false
@@ -151,7 +154,6 @@ export default class Poptip extends Vue {
                         }
                     }
                 })
-                console.log(state.placement)
                 state.attributes.popper = {}
             },
         })
@@ -199,15 +201,19 @@ export default class Poptip extends Vue {
         this.visible = !this.visible
     }
 
-    private handleFocus(fromInput: boolean = true): boolean | void {
+    private handleFocus(event: Event): boolean | void {
         if (this.disabled) { return }
-        if (this.trigger !== 'focus' || (fromInput && this.isInput)) { return false }
+        if (this.trigger !== 'focus' || (event instanceof MouseEvent && this.isInput)) { return false }
         this.visible = true
     }
 
-    private handleBlur(fromInput: boolean = true): boolean | void {
-        if (this.trigger !== 'focus' || (fromInput && this.isInput)) { return false }
+    private handleBlur(event: Event): boolean | void {
+        if (this.trigger !== 'focus' || (event instanceof MouseEvent && this.isInput)) { return false }
         this.visible = false
+    }
+
+    private handleAnimationend(): void {
+        if (!this.visible) { this.isShow = false }
     }
 
     private getInputChildren(): HTMLElement | null {
@@ -247,6 +253,7 @@ export default class Poptip extends Vue {
     @Watch('visible')
     private onVisibleChange(newValue: boolean) {
         if (newValue) {
+            this.isShow = newValue
             this.updatePopper()
             this.$emit('on-popper-show')
         } else {
@@ -261,11 +268,12 @@ export default class Poptip extends Vue {
                 const children: HTMLElement | null = this.getInputChildren()
                 if (children) {
                     this.isInput = true
-                    children.addEventListener('focus', () => this.handleFocus(), false)
-                    children.addEventListener('blur', () => this.handleBlur(), false)
+                    addEvent(children, 'focus', this.handleFocus, false)
+                    addEvent(children, 'blur', this.handleBlur, false)
                 }
             })
         }
+        addEvent((this.$refs.box as HTMLElement), 'animationend', this.handleAnimationend)
     }
 
     private updated() {
@@ -276,9 +284,10 @@ export default class Poptip extends Vue {
         this.doDestroy(true)
         const children: HTMLElement | null = this.getInputChildren()
         if (children) {
-            children.removeEventListener('focus', () => this.handleFocus(), false)
-            children.removeEventListener('blur', () => this.handleBlur(), false)
+            removeEvent(children, 'focus', this.handleFocus, false)
+            removeEvent(children, 'blur', this.handleBlur, false)
         }
+        removeEvent((this.$refs.box as HTMLElement), 'animationend', this.handleAnimationend)
     }
 }
 </script>

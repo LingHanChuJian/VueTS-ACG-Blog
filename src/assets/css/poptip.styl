@@ -18,19 +18,18 @@ hidden-transform(placement)
     position relative
 
 .poptip-popper
-    z-index 999
     position absolute
+    z-index 999
     .poptip-box
         border-radius 5px
         padding 15px 10px
         position relative
         background-color $poptip-color
         box-shadow $box-shadow
-        transition transform .3s ease-in-out, opacity .3s ease-in-out, visibility .3s ease-in-out
         .poptip-arrow
             border-width 10px
             border-style solid
-        for item in top right bottom left 
+        for item in top right bottom left
             &[data-placement^={item}]
                 margin-{opposite-position(item)} 10px !important
                 .poptip-arrow
@@ -40,11 +39,14 @@ hidden-transform(placement)
                             border-{border-item}-color $poptip-color
                         else
                             border-{border-item}-color transparent
-        &[data-state="hidden"]
-            opacity 0
+        &[data-state="visible"]
             for item in top right bottom left
                 &[data-placement^={item}]
-                    hidden-transform(item)
+                    animation fade- + item + -in .3s ease-in-out
+        &[data-state="hidden"]
+            for item in top right bottom left
+                &[data-placement^={item}]
+                    animation fade- + item + -out .3s ease-in-out
 
 .poptip-content
     line-height normal
@@ -52,3 +54,21 @@ hidden-transform(placement)
 .poptip-popper-word-wrap
     white-space pre-wrap
     text-align justify
+
+for name in top right bottom left
+    @keyframes fade-{name}-in
+        0%
+            opacity 0
+            hidden-transform(name)
+        100%
+            opacity 1
+            transform translate(0, 0)
+
+for name in top right bottom left
+    @keyframes fade-{name}-out
+        0%
+            opacity 1
+            transform translate(0, 0)
+        100%
+            opacity 0
+            hidden-transform(name)
