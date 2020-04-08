@@ -6,6 +6,7 @@
 import nprogress, { NProgress } from 'nprogress'
 import Scroll from '@/components/mixins/scroll'
 import { WrapClasses } from '@/types/components'
+import { scrollHeight, clientHeight, scrollTop } from '@/utils'
 import { Component, Mixins, Watch, Vue } from 'vue-property-decorator'
 
 /**
@@ -21,9 +22,8 @@ export default class GoTop extends Mixins(Scroll) {
 
     private setScrollTop(): void {
         const timer: number = setInterval(() => {
-            const curScrollTop: number = document.documentElement.scrollTop || document.body.scrollTop
-            this.scrollTop = curScrollTop
-            curScrollTop <= 0 ? clearInterval(timer) : scrollBy(0, -50)
+            this.scrollTop = scrollTop()
+            scrollTop() <= 0 ? clearInterval(timer) : scrollBy(0, -50)
         }, 10)
     }
 
@@ -37,7 +37,7 @@ export default class GoTop extends Mixins(Scroll) {
 
     @Watch('scrollTop')
     private onOffsetTopChange(value: number, newValue: number) {
-        const result: number = Math.round((newValue > 50 ? newValue : 0) / (this.scrollHeight() - this.windowHeight()) * 100) / 100
+        const result: number = Math.round((newValue > 50 ? newValue : 0) / (scrollHeight() - clientHeight()) * 100) / 100
         result >= 1 ? nprogress.set(.99) : nprogress.set(result)
         newValue > 50 ? this.isMove = true : this.isMove = false
     }

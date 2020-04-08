@@ -54,3 +54,18 @@ export const getStyle = (element: HTMLElement, styleName: S | 'float'): any | nu
         return element.style[styleName]
     }
 }
+
+// 文档高度
+export const scrollHeight = (): number => {
+    return document.documentElement.scrollHeight || document.body.scrollHeight
+}
+
+//  可见高度
+export const clientHeight = (): number => {
+    return document.documentElement.clientHeight || document.body.clientHeight
+}
+
+// 当前滚动条位置
+export const scrollTop = (): number => {
+    return document.documentElement.scrollTop || document.body.scrollTop
+}

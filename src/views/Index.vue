@@ -6,17 +6,19 @@
             Header
                 NavBar(:menuData="menuData")
                 NavBarMobile(:isCollapsed="isCollapsed" @on-menu-click="setDrawer")
-            Header
-
+            Acg-Header
             Content(:class="collapsedClasses")
                 keep-alive
                     router-view
             Footer(:class="collapsedClasses")
                 AcgFooter
+        GoTop
 </template>
 
 <script lang="ts">
+import GoTop from '@/components/GoTop.vue'
 import AcgFooter from '@/components/AcgFooter.vue'
+import { AcgHeader } from '@/components/acg-header'
 import { Component, Vue } from 'vue-property-decorator'
 import { WrapClasses, MenuItemData } from '@/types/components'
 import { NavBar, NavDrawer, NavBarMobile } from '@/components/nav'
@@ -33,6 +35,8 @@ import { Layout, Header, Content, Footer, Drawer } from '@/components/layout'
         NavDrawer,
         NavBarMobile,
         AcgFooter,
+        AcgHeader,
+        GoTop,
     },
 })
 export default class Index extends Vue {
