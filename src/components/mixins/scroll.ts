@@ -9,7 +9,7 @@ export default class ScrollMixins extends Vue {
         this.scrollTop = scrollTop()
     }
 
-    private mounted() {
+    private created() {
         this.getScroll()
         addEvent(window, 'scroll', this.getScroll, true)
     }
