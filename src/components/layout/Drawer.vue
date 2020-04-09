@@ -12,7 +12,7 @@
 import { addEvent, removeEvent } from '@/utils'
 import AdaptiveMixins from '@/components/mixins/adaptive'
 import { CSSStyles, WrapClasses } from '@/types/components'
-import { Component, Prop, Mixins, Watch, Vue } from 'vue-property-decorator'
+import { Component, Prop, Mixins, Vue } from 'vue-property-decorator'
 
 @Component
 export default class Drawer extends Mixins(AdaptiveMixins) {

@@ -3,7 +3,7 @@ import { Component, Vue } from 'vue-property-decorator'
 let uuid: number = 0
 
 @Component
-export default class UUID extends Vue {
+export default class UUIDMixins extends Vue {
     private beforeCreate() {
         uuid += 1
         const vm: Vue = this

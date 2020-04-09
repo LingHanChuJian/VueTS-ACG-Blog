@@ -31,7 +31,7 @@
                 keep-alive
                     router-view
         Footer
-            AcgFooter
+            Acg-Footer
         GoTop
 </template>
 

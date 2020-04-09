@@ -2,9 +2,10 @@
     nav.navbar
         div.navbar-left
             Logo
-        div.navbar-middle
-            Menu(:mode="mode")
-                Nav(v-for="(item, index) in menuData" :key="index" :menuItemData="item")
+        transition(name="menu")
+            div.navbar-middle(v-show="isToggle")
+                Menu(:mode="mode")
+                    Nav(v-for="(item, index) in menuData" :key="index" :menuItemData="item")
         div.navbar-right
             Icon.search(type="search" size="30" fixed)
             Poptip.login-poptip(trigger="hover" placement="bottom-end" width="110")
@@ -43,6 +44,9 @@ export default class NavBar extends Vue {
     })
     private menuData!: MenuItemData[]
 
+    @Prop({ type: Boolean, default: false })
+    private isToggle!: boolean
+
     @Provide('mode')
     private mode: string = 'horizontal'
 }
@@ -64,6 +68,18 @@ export default class NavBar extends Vue {
 
 .login:hover
     animation animation-counterclockwise-clockwise 2.5s ease infinite
+
+.navbar-middle-animation
+    animation animation-right-left .2s ease-in-out
+
+.menu-enter-active
+.menu-leave-active
+    transition all .5s
+
+.menu-enter
+.menu-leave-to
+    transform translateX(30px)
+    opacity 0
 
 @media screen and (max-width 860px)
     .navbar

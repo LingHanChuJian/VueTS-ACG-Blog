@@ -8,7 +8,7 @@
 
 <script lang="ts">
 import { Icon } from '@/components/icon'
-import UUID from '@/components/mixins/uuid'
+import UUIDMixins from '@/components/mixins/uuid'
 import { WrapClasses } from '@/types/components'
 import { Component, Prop, Mixins, Vue } from 'vue-property-decorator'
 
@@ -17,7 +17,7 @@ import { Component, Prop, Mixins, Vue } from 'vue-property-decorator'
         Icon,
     },
 })
-export default class Block extends Mixins(UUID) {
+export default class Block extends Mixins(UUIDMixins) {
     @Prop({ type: String, default: '' })
     private lang!: string
 

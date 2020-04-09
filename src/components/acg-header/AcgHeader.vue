@@ -1,23 +1,50 @@
 <template lang="pug">
-    header
-        Video(ref="video" src="http://img.cdn.myrove.cn/test/video.m3u8" @ended="videoEnded" @hls-error="hlsError")
-        Icon(type="play-circle" size="32" @click="videoClick")
+    div.header-container
+        Information(mode="vertical" :style="InformationStyle")
+        div.video-container
+            Video(ref="video" src="http://img.cdn.myrove.cn/test/video.m3u8" @ended="videoEnded" @hls-error="hlsError")
+            div.video-message {{ videoMessage }}
+            Icon.video-icon(:type="videoIcon" size="32" @click="videoIconClick")
 </template>
 
 <script lang="ts">
+import { oneOf } from '@/utils'
 import { Icon } from '@/components/icon'
+import { Information } from '@/components/nav'
+import { CSSStyles } from '@/types/components'
 import Video from '@/components/acg-header/Video.vue'
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import AdaptiveMixins from '@/components/mixins/adaptive'
+import { Component, Prop, Mixins, Vue } from 'vue-property-decorator'
 
 @Component({
     components: {
         Video,
         Icon,
+        Information,
     },
 })
-export default class AcgHeader extends Vue {
-    private videoClick(): void {
-        (this.$refs.video as Video).play()
+export default class AcgHeader extends Mixins(AdaptiveMixins) {
+    @Prop({
+        type: String,
+        default: 'acg-header',
+        validator(value: string) {
+            return oneOf(value, ['acg-header', 'blog-header'])
+        },
+    })
+    private name!: string
+
+    private videoIcon: string = 'play-circle'
+
+    private videoMessage: string = ''
+
+    private videoIconClick(): void {
+        if (this.videoIcon === 'play-circle') {
+            (this.$refs.video as Video).play()
+            this.videoIcon = 'pause-circle'
+        } else {
+            (this.$refs.video as Video).pause()
+            this.videoIcon = 'play-circle'
+        }
     }
 
     private videoEnded(): void {
@@ -28,5 +55,29 @@ export default class AcgHeader extends Vue {
         console.log('hlsError')
     }
 
+    private get InformationStyle(): CSSStyles<CSSStyleDeclaration> {
+        const style: CSSStyles<CSSStyleDeclaration> = {}
+        style.height = `${this.clientHeight}px`
+        return style
+    }
+
 }
 </script>
+
+<style lang="stylus" scoped>
+.header-container
+    animation animation-header-container 1s ease-in-out
+
+.video-icon
+    position absolute
+    right 10px
+    bottom 10px
+
+@keyframes animation-header-container
+    0%
+        transform translateY(-50px)
+        opacity 0
+    100%
+        transform translateY(0)
+        opacity 1
+</style>

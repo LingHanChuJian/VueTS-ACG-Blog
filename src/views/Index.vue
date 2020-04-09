@@ -2,16 +2,21 @@
     Layout
         Drawer(ref="drawer" isCollapsible v-model="isCollapsed")
             NavDrawer(:menuData="menuData")
-        Layout(:class="layoutClasses" @click.native="layoutClick")
-            Header
-                NavBar(:menuData="menuData")
+        Layout(:class="{ 'layout-opened': isCollapsed }" @click.native="layoutClick")
+            Header(
+                :class="headerClasses"
+                @mouseenter.native="handleToggle"
+                @mouseleave.native="handleToggle"
+            )
+                NavBar(:menuData="menuData" :isToggle="isToggle")
                 NavBarMobile(:isCollapsed="isCollapsed" @on-menu-click="setDrawer")
-            Acg-Header
-            Content(:class="collapsedClasses")
+            Header.acg-header-wrap
+                Acg-Header
+            Content.acg-content(:class="{ 'collapsed-opened': isCollapsed }")
                 keep-alive
                     router-view
-            Footer(:class="collapsedClasses")
-                AcgFooter
+            Footer.acg-footer(:class="{ 'collapsed-opened': isCollapsed }")
+                Acg-Footer
         GoTop
 </template>
 
@@ -19,9 +24,10 @@
 import GoTop from '@/components/GoTop.vue'
 import AcgFooter from '@/components/AcgFooter.vue'
 import { AcgHeader } from '@/components/acg-header'
-import { Component, Vue } from 'vue-property-decorator'
+import ScrollMixins from '@/components/mixins/scroll'
 import { WrapClasses, MenuItemData } from '@/types/components'
 import { NavBar, NavDrawer, NavBarMobile } from '@/components/nav'
+import { Component, Mixins, Watch, Vue } from 'vue-property-decorator'
 import { Layout, Header, Content, Footer, Drawer } from '@/components/layout'
 
 @Component({
@@ -39,8 +45,10 @@ import { Layout, Header, Content, Footer, Drawer } from '@/components/layout'
         GoTop,
     },
 })
-export default class Index extends Vue {
+export default class Index extends Mixins(ScrollMixins) {
     private isCollapsed: boolean = false
+
+    private isToggle: boolean = false
 
     private menuData: MenuItemData[] = [
         {
@@ -201,25 +209,45 @@ export default class Index extends Vue {
         this.setDrawer()
     }
 
-    private get layoutClasses(): Array<string | WrapClasses> {
+    private handleToggle(): void {
+        if (this.scrollTop !== 0) { return }
+        this.isToggle = !this.isToggle
+    }
+
+    private get headerClasses(): Array<string | WrapClasses> {
         return [
+            'header-navbar',
             {
-                [`layout-opened`] : this.isCollapsed,
+                ['toggle-header-navbar']: this.isToggle,
             },
         ]
     }
 
-    private get collapsedClasses(): Array<string | WrapClasses> {
-        return [
-            {
-                [`collapsed-opened`] : this.isCollapsed,
-            },
-        ]
+    @Watch('scrollTop')
+    private onOffsetTopChange(newValue: number, oldValue: number) {
+        this.isToggle = newValue !== 0
     }
 }
 </script>
 
 <style lang="stylus" scoped>
+toggle-header-navbar()
+  background-color rgba(255,255,255,.95)
+  box-shadow 0 1px 40px -8px rgba(0,0,0,.5)
+
+.acg-header-wrap
+    position relative
+    height auto
+    &:before
+        content ''
+        position absolute
+        top 0
+        left 0
+        right 0
+        bottom 0
+        background-attachment fixed
+        background url(./../assets/images/dot.png)
+
 .layout-opened:after
     content ''
     width 100%
@@ -230,4 +258,23 @@ export default class Index extends Vue {
 
 .collapsed-opened
     transform translateX(250px)
+
+@media screen and (min-width 860px)
+    .header-navbar
+        position fixed
+        width 100%
+        background-color transparent
+        transition background .4s ease
+        z-index 999
+    .toggle-header-navbar
+        toggle-header-navbar()
+
+@media screen and (max-width 860px)
+    .header-navbar
+        position absolute
+        width 100%
+        z-index 999
+    .acg-content
+    .acg-footer
+        transition transform .5s ease-in-out
 </style>

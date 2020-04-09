@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts">
-import UUID from '@/components/mixins/uuid'
+import UUIDMixins from '@/components/mixins/uuid'
 import Message from '@/components/message/Message.vue'
 import { Component, Prop, Mixins, Vue } from 'vue-property-decorator'
 import { WrapClasses, MessageOptions, Render, CSSStyles } from '@/types/components'
@@ -23,7 +23,7 @@ import { WrapClasses, MessageOptions, Render, CSSStyles } from '@/types/componen
         Message,
     },
 })
-export default class Notification extends Mixins(UUID) {
+export default class Notification extends Mixins(UUIDMixins) {
     @Prop({
         type: Object,
         default() {

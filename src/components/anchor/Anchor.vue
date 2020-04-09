@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import UUID from '@/components/mixins/uuid'
+import UUIDMixins from '@/components/mixins/uuid'
 import Expand from '@/components/base/expand'
 import { CreateElement, RenderContext, VNode } from 'vue'
 import { Component, Prop, Mixins, Vue } from 'vue-property-decorator'
@@ -15,7 +15,7 @@ import { Component, Prop, Mixins, Vue } from 'vue-property-decorator'
         Expand,
     },
 })
-export default class Anchor extends Mixins(UUID) {
+export default class Anchor extends Mixins(UUIDMixins) {
     @Prop({ type: String, default: 'h1' })
     private label!: string
 
