@@ -3,11 +3,10 @@
 </template>
 
 <script lang="ts">
-import { scrollTop } from '@/utils'
 import nprogress, { NProgress } from 'nprogress'
 import { WrapClasses } from '@/types/components'
 import ScrollMixins from '@/components/mixins/scroll'
-import AdaptiveMixins from '@/components/mixins/adaptive'
+import { scrollTop, clientHeight, scrollHeight } from '@/utils'
 import { Component, Mixins, Watch, Vue } from 'vue-property-decorator'
 
 /**
@@ -16,7 +15,7 @@ import { Component, Mixins, Watch, Vue } from 'vue-property-decorator'
 nprogress.configure({ trickle: false, showSpinner: false, minimum: 0 })
 
 @Component
-export default class GoTop extends Mixins(ScrollMixins, AdaptiveMixins) {
+export default class GoTop extends Mixins(ScrollMixins) {
     private prefixCls: string = 'scroll'
 
     private isMove: boolean = false
@@ -38,8 +37,7 @@ export default class GoTop extends Mixins(ScrollMixins, AdaptiveMixins) {
 
     @Watch('scrollTop')
     private onOffsetTopChange(newValue: number, oldValue: number) {
-        console.log(this.scrollHeight, this.clientHeight)
-        const result: number = Math.round((newValue > 50 ? newValue : 0) / (this.scrollHeight - this.clientHeight) * 100) / 100
+        const result: number = Math.round((newValue > 50 ? newValue : 0) / (scrollHeight() - clientHeight()) * 100) / 100
         result >= 1 ? nprogress.set(.99) : nprogress.set(result)
         newValue > 50 ? this.isMove = true : this.isMove = false
     }
@@ -52,6 +50,7 @@ export default class GoTop extends Mixins(ScrollMixins, AdaptiveMixins) {
     cursor pointer
     background-size contain
     transition all .5s ease-in-out
+    z-index 99
 
 @media screen and (min-width 860px)
     .scroll-image

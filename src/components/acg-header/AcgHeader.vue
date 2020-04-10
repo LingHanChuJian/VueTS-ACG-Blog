@@ -1,6 +1,6 @@
 <template lang="pug">
-    div.header-container
-        Information(mode="vertical" :style="InformationStyle")
+    div.header-container(:style="headerContainerStyle")
+        Information(mode="vertical")
         div.video-container
             Video(ref="video" src="http://img.cdn.myrove.cn/test/video.m3u8" @ended="videoEnded" @hls-error="hlsError")
             div.video-message {{ videoMessage }}
@@ -8,7 +8,7 @@
 </template>
 
 <script lang="ts">
-import { oneOf } from '@/utils'
+import { oneOf, clientHeight } from '@/utils'
 import { Icon } from '@/components/icon'
 import { Information } from '@/components/nav'
 import { CSSStyles } from '@/types/components'
@@ -55,7 +55,7 @@ export default class AcgHeader extends Mixins(AdaptiveMixins) {
         console.log('hlsError')
     }
 
-    private get InformationStyle(): CSSStyles<CSSStyleDeclaration> {
+    private get headerContainerStyle(): CSSStyles<CSSStyleDeclaration> {
         const style: CSSStyles<CSSStyleDeclaration> = {}
         style.height = `${this.clientHeight}px`
         return style
@@ -72,6 +72,8 @@ export default class AcgHeader extends Mixins(AdaptiveMixins) {
     position absolute
     right 10px
     bottom 10px
+    z-index 10
+    cursor pointer
 
 @keyframes animation-header-container
     0%

@@ -4,8 +4,8 @@
             Logo
         transition(name="menu")
             div.navbar-middle(v-show="isToggle")
-                Menu(:mode="mode")
-                    Nav(v-for="(item, index) in menuData" :key="index" :menuItemData="item")
+                Menu(mode="horizontal")
+                    Nav(v-for="(item, index) in menuData" :key="index" :menuItemData="item" mode="horizontal")
         div.navbar-right
             Icon.search(type="search" size="30" fixed)
             Poptip.login-poptip(trigger="hover" placement="bottom-end" width="110")
@@ -23,7 +23,7 @@ import Nav from '@/components/nav/Nav.vue'
 import { Poptip } from '@/components/poptip'
 import Logo from '@/components/nav/Logo.vue'
 import { MenuItemData } from '@/types/components'
-import { Component, Prop, Provide, Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue } from 'vue-property-decorator'
 
 @Component({
     components: {
@@ -46,9 +46,6 @@ export default class NavBar extends Vue {
 
     @Prop({ type: Boolean, default: false })
     private isToggle!: boolean
-
-    @Provide('mode')
-    private mode: string = 'horizontal'
 }
 </script>
 

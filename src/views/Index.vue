@@ -1,6 +1,6 @@
 <template lang="pug">
     Layout
-        Drawer(ref="drawer" isCollapsible v-model="isCollapsed")
+        Drawer.drawer(ref="drawer" isCollapsible v-model="isCollapsed")
             NavDrawer(:menuData="menuData")
         Layout(:class="{ 'layout-opened': isCollapsed }" @click.native="layoutClick")
             Header(
@@ -10,13 +10,14 @@
             )
                 NavBar(:menuData="menuData" :isToggle="isToggle")
                 NavBarMobile(:isCollapsed="isCollapsed" @on-menu-click="setDrawer")
-            Header.acg-header-wrap
-                Acg-Header
-            Content.acg-content(:class="{ 'collapsed-opened': isCollapsed }")
-                keep-alive
-                    router-view
-            Footer.acg-footer(:class="{ 'collapsed-opened': isCollapsed }")
-                Acg-Footer
+            Layout.acg-layout(:class="{ 'collapsed-opened': isCollapsed }")
+                Header.acg-header
+                    Acg-Header
+                Content
+                    keep-alive
+                        router-view
+                Footer
+                    Acg-Footer
         GoTop
 </template>
 
@@ -25,9 +26,9 @@ import GoTop from '@/components/GoTop.vue'
 import AcgFooter from '@/components/AcgFooter.vue'
 import { AcgHeader } from '@/components/acg-header'
 import ScrollMixins from '@/components/mixins/scroll'
-import { WrapClasses, MenuItemData } from '@/types/components'
 import { NavBar, NavDrawer, NavBarMobile } from '@/components/nav'
-import { Component, Mixins, Watch, Vue } from 'vue-property-decorator'
+import { WrapClasses, MenuItemData, UserInformation } from '@/types/components'
+import { Component, Mixins, Watch, Provide, Vue } from 'vue-property-decorator'
 import { Layout, Header, Content, Footer, Drawer } from '@/components/layout'
 
 @Component({
@@ -46,6 +47,13 @@ import { Layout, Header, Content, Footer, Drawer } from '@/components/layout'
     },
 })
 export default class Index extends Mixins(ScrollMixins) {
+    @Provide('userInformation')
+    private userInformation: UserInformation[] = [
+        {
+
+        },
+    ]
+
     private isCollapsed: boolean = false
 
     private isToggle: boolean = false
@@ -235,7 +243,11 @@ toggle-header-navbar()
   background-color rgba(255,255,255,.95)
   box-shadow 0 1px 40px -8px rgba(0,0,0,.5)
 
-.acg-header-wrap
+.drawer
+.acg-layout
+    transition all .3s ease-in-out
+
+.acg-header
     position relative
     height auto
     &:before
@@ -247,6 +259,7 @@ toggle-header-navbar()
         bottom 0
         background-attachment fixed
         background url(./../assets/images/dot.png)
+        z-index 1
 
 .layout-opened:after
     content ''
@@ -254,10 +267,12 @@ toggle-header-navbar()
     height 100%
     position fixed
     background-color rgba(0,0,0,.3)
-    z-index -1
 
 .collapsed-opened
     transform translateX(250px)
+    position fixed
+    left 0
+    right 0
 
 @media screen and (min-width 860px)
     .header-navbar
@@ -274,7 +289,6 @@ toggle-header-navbar()
         position absolute
         width 100%
         z-index 999
-    .acg-content
-    .acg-footer
-        transition transform .5s ease-in-out
+    .acg-header:before
+        background url(./../assets/images/grid.png)
 </style>

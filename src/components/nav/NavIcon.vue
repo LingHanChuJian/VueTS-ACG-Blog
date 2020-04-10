@@ -12,9 +12,10 @@
 </template>
 
 <script lang="ts">
+import { oneOf } from '@/utils'
 import { Icon } from '@/components/icon'
 import { MenuIcon } from '@/types/components'
-import { Component, Prop, Inject, Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue } from 'vue-property-decorator'
 
 @Component({
     components: {
@@ -23,14 +24,20 @@ import { Component, Prop, Inject, Vue } from 'vue-property-decorator'
 })
 export default class NavIcon extends Vue {
     @Prop({
+        type: String,
+        default: 'horizontal',
+        validator(value: string) {
+            return oneOf(value, ['vertical', 'horizontal'])
+        },
+    })
+    private mode!: string
+
+    @Prop({
         type: Object,
         default() {
             return {}
         },
     })
     private icon?: MenuIcon
-
-    @Inject('mode')
-    private readonly mode!: string
 }
 </script>
