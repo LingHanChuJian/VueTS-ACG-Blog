@@ -8,12 +8,12 @@
 </template>
 
 <script lang="ts">
-import { oneOf, clientHeight } from '@/utils'
+import { oneOf } from '@/utils'
 import { Icon } from '@/components/icon'
 import { Information } from '@/components/nav'
-import { CSSStyles } from '@/types/components'
 import Video from '@/components/acg-header/Video.vue'
 import AdaptiveMixins from '@/components/mixins/adaptive'
+import { CSSStyles, UserInformation } from '@/types/components'
 import { Component, Prop, Mixins, Vue } from 'vue-property-decorator'
 
 @Component({
@@ -32,6 +32,14 @@ export default class AcgHeader extends Mixins(AdaptiveMixins) {
         },
     })
     private name!: string
+
+    @Prop({
+        type: Array,
+        default() {
+            return []
+        },
+    })
+    private userInformation!: UserInformation[]
 
     private videoIcon: string = 'play-circle'
 
@@ -66,6 +74,8 @@ export default class AcgHeader extends Mixins(AdaptiveMixins) {
 
 <style lang="stylus" scoped>
 .header-container
+    position relative
+    overflow hidden
     animation animation-header-container 1s ease-in-out
 
 .video-icon
@@ -74,6 +84,7 @@ export default class AcgHeader extends Mixins(AdaptiveMixins) {
     bottom 10px
     z-index 10
     cursor pointer
+    animation animation-video-icon 0.5s linear infinite alternate
 
 @keyframes animation-header-container
     0%
@@ -82,4 +93,12 @@ export default class AcgHeader extends Mixins(AdaptiveMixins) {
     100%
         transform translateY(0)
         opacity 1
+
+@keyframes animation-video-icon
+    0%
+        transform translateY(0)
+    50%
+        transform translateY(-3px)
+    100%
+        transform translateY(0)
 </style>

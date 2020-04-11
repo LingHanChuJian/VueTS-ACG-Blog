@@ -11,9 +11,9 @@
 
 <script lang="ts">
 import Hls from 'hls.js'
-import { addEvent, removeEvent } from '@/utils'
+import { addEvent, removeEvent, clientHeight } from '@/utils'
 import { CSSStyles, WrapClasses } from '@/types/components'
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Component, Prop, Mixins, Vue } from 'vue-property-decorator'
 
 @Component
 export default class Video extends Vue {
@@ -45,6 +45,10 @@ export default class Video extends Vue {
 
     public pause(): void {
         (this.$refs.video as HTMLVideoElement).pause()
+    }
+
+    public load(): void {
+        (this.$refs.video as HTMLVideoElement).load()
     }
 
     private play2(): void {
@@ -82,7 +86,8 @@ export default class Video extends Vue {
 
     private get videoStyles(): CSSStyles<CSSStyleDeclaration> {
         const styles: CSSStyles<CSSStyleDeclaration> = {}
-        styles.width = '100%'
+        styles.minWidth = '100%'
+        styles.minHeight = `${clientHeight()}px`
         return styles
     }
 

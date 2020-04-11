@@ -8,11 +8,11 @@
                 template(v-slot:content)
                     p {{ description }}
                     ul(:class="[mode + '-' + prefixCls + '-ul']")
-                        li(v-for="(item, index) in userInformation" :key="index")
+                        li(v-for="(item, index) in userInformation" :key="index" :title="item.title")
                             Poptip(v-if="item.image" trigger="hover" placement="bottom")
                                 NavIcon(:icon="item.icon" :mode="mode")
                                 template(v-slot:content)
-                                    image(:src="item.image")
+                                    img(:src="item.image")
                             NavIcon(v-else-if="item.fn" :icon="item.icon" :mode="mode" @click="item.fn")
                             a(v-else="item.link" :href="item.link" target="_blank")
                                 NavIcon(:icon="item.icon" :mode="mode")
@@ -22,7 +22,7 @@
 import { oneOf } from '@/utils'
 import { Poptip } from '@/components/poptip'
 import NavIcon from '@/components/nav/NavIcon.vue'
-import { Component, Prop, Inject, Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue } from 'vue-property-decorator'
 import { UserInformation, WrapClasses, CSSStyles } from '@/types/components'
 
 @Component({
@@ -41,7 +41,12 @@ export default class Information extends Vue {
     })
     public mode!: string
 
-    @Inject('userInformation')
+    @Prop({
+        type: Array,
+        default() {
+            return []
+        },
+    })
     private userInformation!: UserInformation[]
 
     @Prop({ type: String, default: '' })

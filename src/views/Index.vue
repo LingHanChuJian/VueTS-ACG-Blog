@@ -12,7 +12,7 @@
                 NavBarMobile(:isCollapsed="isCollapsed" @on-menu-click="setDrawer")
             Layout.acg-layout(:class="{ 'collapsed-opened': isCollapsed }")
                 Header.acg-header
-                    Acg-Header
+                    Acg-Header(:userInformation="userInformation")
                 Content
                     keep-alive
                         router-view
@@ -27,8 +27,8 @@ import AcgFooter from '@/components/AcgFooter.vue'
 import { AcgHeader } from '@/components/acg-header'
 import ScrollMixins from '@/components/mixins/scroll'
 import { NavBar, NavDrawer, NavBarMobile } from '@/components/nav'
+import { Component, Mixins, Watch, Vue } from 'vue-property-decorator'
 import { WrapClasses, MenuItemData, UserInformation } from '@/types/components'
-import { Component, Mixins, Watch, Provide, Vue } from 'vue-property-decorator'
 import { Layout, Header, Content, Footer, Drawer } from '@/components/layout'
 
 @Component({
@@ -47,13 +47,6 @@ import { Layout, Header, Content, Footer, Drawer } from '@/components/layout'
     },
 })
 export default class Index extends Mixins(ScrollMixins) {
-    @Provide('userInformation')
-    private userInformation: UserInformation[] = [
-        {
-
-        },
-    ]
-
     private isCollapsed: boolean = false
 
     private isToggle: boolean = false
@@ -205,6 +198,41 @@ export default class Index extends Mixins(ScrollMixins) {
                     },
                 },
             ],
+        },
+    ]
+
+    private userInformation: UserInformation[] = [
+        {
+            icon: {
+                type: 'github',
+                size: 24,
+            },
+            link: 'https://github.com/LingHanChuJian',
+            title: 'github',
+        },
+        {
+            icon: {
+                type: 'twitter',
+                size: 24,
+            },
+            link: 'https://twitter.com/5wHHx3QAsNNxhYd?lang=zh-tw',
+            title: 'twitter',
+        },
+        {
+            icon: {
+                type: 'weixin',
+                size: 24,
+            },
+            image: 'http://img.cdn.myrove.cn/blog/img/wenchat.9c0df2f2.png',
+            title: 'weixin',
+        },
+        {
+            icon: {
+                type: 'envelope',
+                size: 24,
+            },
+            link: 'mailto:linghanchujian@gmail.com',
+            title: 'email',
         },
     ]
 
