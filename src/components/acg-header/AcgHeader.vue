@@ -78,6 +78,13 @@ export default class AcgHeader extends Mixins(AdaptiveMixins) {
     overflow hidden
     animation animation-header-container 1s ease-in-out
 
+.video-container
+    top 0
+    position absolute
+    overflow hidden
+    height 100%
+    width 100%
+
 .video-icon
     position absolute
     right 10px
