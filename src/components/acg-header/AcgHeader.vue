@@ -56,11 +56,11 @@ export default class AcgHeader extends Mixins(AdaptiveMixins) {
     }
 
     private videoEnded(): void {
-        console.log('videoEnded')
+        (this.$refs.video as Video).load()
     }
 
     private hlsError(): void {
-        console.log('hlsError')
+        this.videoMessage = '浏览器不支持 hls'
     }
 
     private get headerContainerStyle(): CSSStyles<CSSStyleDeclaration> {
