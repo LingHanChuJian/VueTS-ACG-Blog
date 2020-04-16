@@ -7,12 +7,14 @@
 
 <script lang="ts">
 import Hls from 'hls.js'
-import { CSSStyles, WrapClasses } from '@/types/components'
+import { WrapClasses, Properties } from '@/types/components'
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import DPlayer, { DPlayerOptions, DPlayerEvents, VideoType } from 'dplayer'
 
+import 'dplayer/dist/DPlayer.min.css'
+
 @Component
-export class Video extends Vue {
+export default class Player extends Vue {
     @Prop({ type: String, default: '' })
     private src!: string
 
@@ -36,7 +38,7 @@ export class Video extends Vue {
     })
     private options!: DPlayerOptions
 
-    private prefixCls: string = 'dplayer'
+    private prefixCls: string = 'dplayer-warp'
 
     private dp?: DPlayer
 
@@ -45,10 +47,10 @@ export class Video extends Vue {
     'seeked', 'seeking', 'stalled', 'suspend', 'timeupdate', 'volumechange', 'waiting', 'screenshot', 'thumbnails_show',
     'thumbnails_hide', 'danmaku_show', 'danmaku_hide', 'danmaku_clear', 'danmaku_loaded', 'danmaku_send', 'danmaku_opacity',
     'contextmenu_show', 'contextmenu_hide', 'notice_show', 'notice_hide', 'quality_start', 'quality_end', 'destroy', 'resize',
-    'fullscreen', 'fullscreen_cancel', 'subtitle_show', 'subtitle_hide', 'subtitle_change']
+    'fullscreen', 'fullscreen_cancel', 'subtitle_show', 'subtitle_hide', 'subtitle_changes']
 
-    public toggle(): void {
-        if (this.dp) { this.dp.toggle() }
+    public getDPlayer(): DPlayer | undefined {
+        return this.dp
     }
 
     private createDPlayer(): void {
@@ -70,11 +72,14 @@ export class Video extends Vue {
             },
         })
         this.dp = new DPlayer(options)
-
-        // for (let key in this.events) {
-        //     this.dp.on(DPlayerEvents[this.events], () => this.$emit(DPlayerEvents[key]))
-        // }
     }
+
+    // private addDPlayerEventListener(): void {
+    //     for (let i = 0, len = this.events.length; i < len; i++) {
+    //         if (!this.dp) { return }
+    //         this.dp.on(this.events[i], (...args) => this.$emit(item, ...args))
+    //     }
+    // }
 
     private get wrapClasses(): Array<string | WrapClasses> {
         return [
@@ -84,6 +89,7 @@ export class Video extends Vue {
 
     private mounted() {
         this.createDPlayer()
+        // this.addDPlayerEventListener()
     }
 
     private beforeDestroy() {
@@ -93,5 +99,7 @@ export class Video extends Vue {
 </script>
 
 <style lang="stylus" scoped>
-
+.dplayer-warp
+    width 100%
+    height 100%
 </style>

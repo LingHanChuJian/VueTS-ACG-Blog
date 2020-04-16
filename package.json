@@ -27,7 +27,6 @@
   },
   "devDependencies": {
     "@types/clipboard": "^2.0.1",
-    "@types/dplayer": "^1.25.0",
     "@types/hls.js": "^0.12.6",
     "@types/nprogress": "^0.2.0",
     "@vue/cli-plugin-babel": "^4.0.0",

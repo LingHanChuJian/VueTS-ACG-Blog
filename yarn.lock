@@ -832,11 +832,6 @@
   resolved "https://registry.yarnpkg.com/@types/clipboard/-/clipboard-2.0.1.tgz#75a74086c293d75b12bc93ff13bc7797fef05a40"
   integrity sha512-gJJX9Jjdt3bIAePQRRjYWG20dIhAgEqonguyHxXuqALxsoDsDLimihqrSg8fXgVTJ4KZCzkfglKtwsh/8dLfbA==
 
-"@types/dplayer@^1.25.0":
-  version "1.25.0"
-  resolved "https://registry.yarnpkg.com/@types/dplayer/-/dplayer-1.25.0.tgz#54b4ea84c1aa05cca4803088b74c2c3e273cac6b"
-  integrity sha512-QjWZ+ucauVn7y/7dkHc29kh2u/zs9S3OXILmIR/zQBDFx5rfxAUNa24LYgEuiuIrO+KAHyOTiSDYl1WE2hElnw==
-
 "@types/events@*":
   version "3.0.0"
   resolved "https://registry.npm.taobao.org/@types/events/download/@types/events-3.0.0.tgz#2862f3f58a9a7f7c3e78d79f130dd4d71c25c2a7"
