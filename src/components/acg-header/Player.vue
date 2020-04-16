@@ -42,7 +42,7 @@ export default class Player extends Vue {
 
     private dp?: DPlayer
 
-    private events: string[] = ['abort', 'canplay', 'canplaythrough', 'durationchange', 'emptied', 'ended', 'error',
+    private events: DPlayerEvents[] = ['abort', 'canplay', 'canplaythrough', 'durationchange', 'emptied', 'ended', 'error',
     'loadeddata', 'loadedmetadata', 'loadstart', 'mozaudioavailable', 'pause', 'play', 'playing', 'progress', 'ratechange',
     'seeked', 'seeking', 'stalled', 'suspend', 'timeupdate', 'volumechange', 'waiting', 'screenshot', 'thumbnails_show',
     'thumbnails_hide', 'danmaku_show', 'danmaku_hide', 'danmaku_clear', 'danmaku_loaded', 'danmaku_send', 'danmaku_opacity',
@@ -74,12 +74,12 @@ export default class Player extends Vue {
         this.dp = new DPlayer(options)
     }
 
-    // private addDPlayerEventListener(): void {
-    //     for (let i = 0, len = this.events.length; i < len; i++) {
-    //         if (!this.dp) { return }
-    //         this.dp.on(this.events[i], (...args) => this.$emit(item, ...args))
-    //     }
-    // }
+    private addDPlayerEventListener(): void {
+        for (let i = 0, len = this.events.length; i < len; i++) {
+            if (!this.dp) { return }
+            this.dp.on(this.events[i], (...args) => this.$emit(this.events[i], ...args))
+        }
+    }
 
     private get wrapClasses(): Array<string | WrapClasses> {
         return [
@@ -89,7 +89,7 @@ export default class Player extends Vue {
 
     private mounted() {
         this.createDPlayer()
-        // this.addDPlayerEventListener()
+        this.addDPlayerEventListener()
     }
 
     private beforeDestroy() {
