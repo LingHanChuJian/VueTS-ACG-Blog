@@ -38,7 +38,7 @@ export default class Player extends Vue {
     })
     private options!: DPlayerOptions
 
-    private prefixCls: string = 'dplayer-warp'
+    private prefixCls: string = 'dplayer-wrap'
 
     private dp?: DPlayer
 
@@ -47,7 +47,7 @@ export default class Player extends Vue {
     'seeked', 'seeking', 'stalled', 'suspend', 'timeupdate', 'volumechange', 'waiting', 'screenshot', 'thumbnails_show',
     'thumbnails_hide', 'danmaku_show', 'danmaku_hide', 'danmaku_clear', 'danmaku_loaded', 'danmaku_send', 'danmaku_opacity',
     'contextmenu_show', 'contextmenu_hide', 'notice_show', 'notice_hide', 'quality_start', 'quality_end', 'destroy', 'resize',
-    'fullscreen', 'fullscreen_cancel', 'subtitle_show', 'subtitle_hide', 'subtitle_changes']
+    'fullscreen', 'fullscreen_cancel', 'subtitle_show', 'subtitle_hide', 'subtitle_change']
 
     public getDPlayer(): DPlayer | undefined {
         return this.dp
@@ -99,7 +99,7 @@ export default class Player extends Vue {
 </script>
 
 <style lang="stylus" scoped>
-.dplayer-warp
+.dplayer-wrap
     width 100%
     height 100%
 </style>

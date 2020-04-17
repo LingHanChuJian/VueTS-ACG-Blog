@@ -1,9 +1,20 @@
 <template lang="pug">
     div.header-container(:style="headerContainerStyle")
-        Information(mode="vertical")
+        Information(
+            mode="vertical"
+            :userInformation="userInformation"
+            title="Hi,Wanderer!"
+            description="心若没有归处, 哪里都时流浪"
+        )
         div.player-container
-            Player(ref="dplayer" src="http://img.cdn.myrove.cn/test/video.m3u8" @ended="playerEnded")
-            div.player-message {{ playerMessage }}
+            Player(
+                ref="dplayer"
+                :style="{ zIndex: isShowPlayer? '5' : '-5'  }"
+                src="http://img.cdn.myrove.cn/test/video.m3u8"
+                @ended="playerEnded"
+            )
+            transition(name="player-message")
+                div.player-message(v-show="playerMessage") {{ playerMessage }}
             Icon.player-icon(:type="playerIcon" size="32" @click="playerIconClick")
 </template>
 
@@ -46,17 +57,23 @@ export default class AcgHeader extends Mixins(AdaptiveMixins) {
 
     private playerMessage: string = ''
 
+    private isShowPlayer: boolean = false
+
     private playerIconClick(): void {
-        this.playerIcon = this.playerIcon === 'play-circle' ? 'pause-circle' : 'play-circle'
-        this.playerMessage = this.playerIcon === 'play-circle' ? '已暂停' : ''
         const dp: DPlayer | undefined = (this.$refs.dplayer as Player).getDPlayer()
-        if (dp) { dp.toggle() }
+        if (!dp) { return }
+        this.isShowPlayer = true
+        this.playerIcon = !dp.video.paused ? 'play-circle' : 'pause-circle'
+        this.playerMessage = !dp.video.paused ? '已暂停' : ''
+        dp.toggle()
     }
 
     private playerEnded(): void {
-        this.playerIcon = 'play-circle'
         const dp: DPlayer | undefined = (this.$refs.dplayer as Player).getDPlayer()
-        if (dp) { dp.pause() }
+        if (!dp) { return }
+        dp.pause()
+        this.isShowPlayer = false
+        this.playerIcon = 'play-circle'
     }
 
     private get headerContainerStyle(): CSSStyles<CSSStyleDeclaration> {
@@ -88,6 +105,28 @@ export default class AcgHeader extends Mixins(AdaptiveMixins) {
     z-index 10
     cursor pointer
     animation animation-player-icon 0.5s linear infinite alternate
+
+.player-message
+    position absolute
+    left 0
+    right 0
+    bottom 0
+    height auto
+    padding 12px 0
+    text-align center
+    z-index 5
+    color #FFFFFF
+    background-color rgba(0, 0, 0, 0.8)
+    line-height unset
+    font-size 18px
+
+.player-message-enter-active
+.player-message-leave-active
+    transition bottom .3s
+
+.player-message-enter
+.player-message-leave-to
+    bottom -30px
 
 @keyframes animation-header-container
     0%

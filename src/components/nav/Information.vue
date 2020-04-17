@@ -1,21 +1,22 @@
 <template lang="pug">
-    figure(:class="wrapClasses" :style="wrapStyle")
-        div(:class="[mode + '-' + prefixCls + '-container']")
-            Poptip(v-model="poptipValue" :disabled="true" placement="bottom-end")
-                h1(v-if="title" :class="[mode + '-' + prefixCls + '-title']") {{ title }}
-                router-link(v-else to="/")
-                    img(:src="author")
-                template(v-slot:content)
-                    p {{ description }}
-                    ul(:class="[mode + '-' + prefixCls + '-ul']")
-                        li(v-for="(item, index) in userInformation" :key="index" :title="item.title")
-                            Poptip(v-if="item.image" trigger="hover" placement="bottom")
-                                NavIcon(:icon="item.icon" :mode="mode")
-                                template(v-slot:content)
-                                    img(:src="item.image")
-                            NavIcon(v-else-if="item.fn" :icon="item.icon" :mode="mode" @click="item.fn")
-                            a(v-else="item.link" :href="item.link" target="_blank")
-                                NavIcon(:icon="item.icon" :mode="mode")
+    transition(:name="mode + '-move'")
+        figure(:class="wrapClasses" :style="wrapStyle")
+            div(:class="[mode + '-' + prefixCls + '-container']")
+                Poptip(:value="true" :disabled="true" placement="bottom-end")
+                    h1(v-if="title" :class="[mode + '-' + prefixCls + '-title']") {{ title }}
+                    router-link(v-else to="/")
+                        img(:src="author")
+                    template(v-slot:content)
+                        p {{ description }}
+                        ul(:class="[mode + '-' + prefixCls + '-ul']")
+                            li(v-for="(item, index) in userInformation" :key="index" :title="item.title")
+                                Poptip(v-if="item.image" trigger="hover" placement="bottom")
+                                    NavIcon(:icon="item.icon" :mode="mode")
+                                    template(v-slot:content)
+                                        img(:src="item.image")
+                                NavIcon(v-else-if="item.fn" :icon="item.icon" :mode="mode" @click="item.fn")
+                                a(v-else="item.link" :href="item.link" target="_blank")
+                                    NavIcon(:icon="item.icon" :mode="mode")
 </template>
 
 <script lang="ts">
@@ -62,8 +63,6 @@ export default class Information extends Vue {
     private maxNum!: number | string
 
     private prefixCls: string = 'info'
-
-    private poptipValue: boolean = false
 
     private get noImageUserInformation(): UserInformation[] {
         const curNoImageUserInformation: UserInformation[] = this.userInformation.filter((item) => !item.image)

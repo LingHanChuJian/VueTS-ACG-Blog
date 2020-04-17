@@ -287,7 +287,7 @@ toggle-header-navbar()
         bottom 0
         background-attachment fixed
         background url(./../assets/images/dot.png)
-        z-index 1
+        z-index 10
 
 .layout-opened:after
     content ''
