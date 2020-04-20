@@ -3,7 +3,7 @@
         Information(
             mode="vertical"
             :userInformation="userInformation"
-            title="Hi,Wanderer!"
+            title="你好, 流浪者!"
             description="心若没有归处, 哪里都时流浪"
         )
         div.player-container
@@ -117,7 +117,7 @@ export default class AcgHeader extends Mixins(AdaptiveMixins) {
     z-index 5
     color #FFFFFF
     background-color rgba(0, 0, 0, 0.8)
-    line-height unset
+    line-height initial
     font-size 18px
 
 .player-message-enter-active

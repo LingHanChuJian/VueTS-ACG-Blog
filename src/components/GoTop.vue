@@ -54,7 +54,7 @@ export default class GoTop extends Mixins(ScrollMixins) {
 
 @media screen and (min-width 860px)
     .scroll-image
-        top -900px
+        bottom 950px
         right 25px
         height 900px
         width 70px
@@ -62,7 +62,7 @@ export default class GoTop extends Mixins(ScrollMixins) {
         animation bounce 2s linear infinite
 
     .move-scroll-image
-        top -200px
+        bottom 50px
 
 @media screen and (max-width 860px)
     .scroll-image

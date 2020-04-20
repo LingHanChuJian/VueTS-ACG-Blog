@@ -11,8 +11,6 @@ import { WrapClasses, Properties } from '@/types/components'
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import DPlayer, { DPlayerOptions, DPlayerEvents, VideoType } from 'dplayer'
 
-import 'dplayer/dist/DPlayer.min.css'
-
 @Component
 export default class Player extends Vue {
     @Prop({ type: String, default: '' })

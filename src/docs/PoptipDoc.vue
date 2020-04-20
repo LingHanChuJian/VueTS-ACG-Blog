@@ -241,14 +241,8 @@ export default class PoptipDoc extends Vue {
 
     private data: Row[] = [
         {
-            prop: 'value',
-            description: 'v-model 使用',
-            type: 'Boolean',
-            default: 'false',
-        },
-        {
             prop: 'trigger',
-            description: '触发方式, 可选值为hover (悬停) click (点击) focus(聚焦)',
+            description: '触发方式, 可选值为hover (悬停) click (点击) focus(聚焦) show(直接展示)',
             type: 'String',
             default: 'click',
         },

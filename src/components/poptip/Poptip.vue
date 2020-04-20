@@ -56,7 +56,7 @@ export default class Poptip extends Vue {
         type: String,
         default: 'click',
         validator(value: string) {
-            return oneOf(value, ['hover', 'click', 'focus'])
+            return oneOf(value, ['hover', 'click', 'focus', 'show'])
         },
     })
     private trigger!: string
@@ -95,9 +95,6 @@ export default class Poptip extends Vue {
     })
     private offset!: [number, number] | PopperOffset
 
-    @Prop({ type: Boolean, default: false })
-    private value!: boolean
-
     @Prop({ type: [String, Number] })
     private width?: string | number
 
@@ -120,10 +117,10 @@ export default class Poptip extends Vue {
 
     private popper?: Popper | null
 
-    private visible: boolean = this.value
+    private visible: boolean = false
 
     // display none 导致 animation 失效 维护一个 isShow 控制动画
-    private isShow: boolean = this.value
+    private isShow: boolean = false
 
     private enterTimer?: number | null
 
@@ -170,7 +167,7 @@ export default class Poptip extends Vue {
     }
 
     private doDestroy(isVisible: boolean = false): void {
-        if (!isVisible && this.value) { return }
+        if (!isVisible) { return }
         if (this.popper) {
             this.popper.destroy()
             this.popper = null
@@ -244,12 +241,6 @@ export default class Poptip extends Vue {
         return style
     }
 
-    @Watch('value')
-    private onValueChange(newValue: boolean) {
-        this.visible = newValue
-        this.$emit('input', newValue)
-    }
-
     @Watch('visible')
     private onVisibleChange(newValue: boolean) {
         if (newValue) {
@@ -273,6 +264,11 @@ export default class Poptip extends Vue {
                 }
             })
         }
+
+        if (this.trigger === 'show') {
+            this.visible = true
+        }
+
         addEvent((this.$refs.box as HTMLElement), 'animationend', this.handleAnimationend)
     }
 
