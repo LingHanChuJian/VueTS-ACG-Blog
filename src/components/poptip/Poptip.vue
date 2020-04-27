@@ -88,7 +88,7 @@ export default class Poptip extends Vue {
     private options!: Partial<PopperOptions>
 
     @Prop({
-        type: [Array, Object],
+        type: [Array, Function],
         default() {
             return [0, 0]
         },
@@ -235,7 +235,7 @@ export default class Poptip extends Vue {
         const style: CSSStyles<CSSStyleDeclaration> = {}
 
         if (!!this.width) {
-            style.width = `${this.width}px`
+            style.minWidth = `${this.width}px`
         }
 
         return style

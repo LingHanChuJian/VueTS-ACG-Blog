@@ -3,8 +3,8 @@
         Information(
             mode="vertical"
             :userInformation="userInformation"
-            title="你好, 流浪者!"
-            description="心若没有归处, 哪里都时流浪"
+            title="Hi,Wanderer!"
+            description="If the heart does not have a destination, there will be wandering everywhere."
         )
         div.player-container
             Player(

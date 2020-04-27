@@ -204,16 +204,20 @@ export default class Index extends Mixins(ScrollMixins) {
     private userInformation: UserInformation[] = [
         {
             icon: {
-                type: 'github',
+                type: 'github-alt',
                 size: 24,
+                color: '#000',
+                fixed: true,
             },
             link: 'https://github.com/LingHanChuJian',
             title: 'github',
         },
         {
             icon: {
-                type: 'twitter',
+                type: 'twitter-square',
                 size: 24,
+                color: '#1ab2e8',
+                fixed: true,
             },
             link: 'https://twitter.com/5wHHx3QAsNNxhYd?lang=zh-tw',
             title: 'twitter',
@@ -222,6 +226,8 @@ export default class Index extends Mixins(ScrollMixins) {
             icon: {
                 type: 'weixin',
                 size: 24,
+                color: '#02bb0e',
+                fixed: true,
             },
             image: 'http://img.cdn.myrove.cn/blog/img/wenchat.9c0df2f2.png',
             title: 'weixin',
@@ -230,6 +236,8 @@ export default class Index extends Mixins(ScrollMixins) {
             icon: {
                 type: 'envelope',
                 size: 24,
+                color: '#ffbf00',
+                fixed: true,
             },
             link: 'mailto:linghanchujian@gmail.com',
             title: 'email',
