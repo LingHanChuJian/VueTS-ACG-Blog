@@ -3,7 +3,9 @@
         Information(
             mode="vertical"
             :userInformation="userInformation"
+            :isPlayer="isPlayer"
             title="Hi,Wanderer!"
+            author="http://www.yx319.cn/wp-content/uploads/2019/02/headimg.jpg"
             description="If the heart does not have a destination, there will be wandering everywhere."
         )
         div.player-container
@@ -57,12 +59,17 @@ export default class AcgHeader extends Mixins(AdaptiveMixins) {
 
     private playerMessage: string = ''
 
+    // player是否暂停
+    private isPlayer: boolean = false
+
+    // player是否显示
     private isShowPlayer: boolean = false
 
     private playerIconClick(): void {
         const dp: DPlayer | undefined = (this.$refs.dplayer as Player).getDPlayer()
         if (!dp) { return }
         this.isShowPlayer = true
+        this.isPlayer = dp.video.paused
         this.playerIcon = !dp.video.paused ? 'play-circle' : 'pause-circle'
         this.playerMessage = !dp.video.paused ? '已暂停' : ''
         dp.toggle()
@@ -73,6 +80,7 @@ export default class AcgHeader extends Mixins(AdaptiveMixins) {
         if (!dp) { return }
         dp.pause()
         this.isShowPlayer = false
+        this.isPlayer = false
         this.playerIcon = 'play-circle'
     }
 
@@ -104,6 +112,7 @@ export default class AcgHeader extends Mixins(AdaptiveMixins) {
     bottom 10px
     z-index 10
     cursor pointer
+    color #FFFFFF
     animation animation-player-icon 0.5s linear infinite alternate
 
 .player-message

@@ -9,7 +9,7 @@
                 @mouseleave.native="handleToggle"
             )
                 NavBar(:menuData="menuData" :isToggle="isToggle")
-                NavBarMobile(:isCollapsed="isCollapsed" @on-menu-click="setDrawer")
+                NavBarMobile(:isCollapsed="isCollapsed" :userInformation="userInformation"  @on-menu-click="setDrawer")
             Layout.acg-layout(:class="{ 'collapsed-opened': isCollapsed }")
                 Header.acg-header
                     Acg-Header(:userInformation="userInformation")
@@ -299,7 +299,7 @@ toggle-header-navbar()
 
 .layout-opened:after
     content ''
-    width 100%
+    width 100% 
     height 100%
     position fixed
     background-color rgba(0,0,0,.3)

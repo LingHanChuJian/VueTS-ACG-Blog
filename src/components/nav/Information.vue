@@ -1,25 +1,24 @@
 <template lang="pug">
     figure(:class="wrapClasses" :style="wrapStyle")
-        transition(:name="mode + '-move'")
-            div(:class="[mode + '-' + prefixCls + '-container']")
-                Poptip(trigger="show" :disabled="true" placement="bottom-start" :offset="[-60, 0]")
-                    h1(v-if="title" :class="titleClasses") {{ handleTitle }}
-                    router-link(v-else to="/")
-                        img(:src="author")
-                    template(v-slot:content)
-                        p(:class="[mode + '-' + prefixCls + '-description']")
-                            Icon(type="quote-left")
-                            span {{ description }}
-                            Icon(type="quote-right")
-                        ul(:class="[mode + '-' + prefixCls + '-ul']")
-                            li(v-for="(item, index) in handleUserInformation" :key="index" :title="item.title")
-                                Poptip(v-if="item.image" trigger="hover" placement="bottom")
-                                    NavIcon(:icon="item.icon" :mode="mode")
-                                    template(v-slot:content)
-                                        img(:src="item.image")
-                                NavIcon(v-else-if="item.fn" :icon="item.icon" :mode="mode" @click.native="item.fn")
-                                a(v-else="item.link" :href="item.link" target="_blank")
-                                    NavIcon(:icon="item.icon" :mode="mode")
+        div(:class="containerClasses")
+            Poptip(trigger="show" :disabled="true" placement="bottom")
+                h1(v-if="title" :class="titleClasses") {{ handleTitle }}
+                router-link(v-else to="/")
+                    img(:class="[mode + '-' + prefixCls + '-author']" :src="author")
+                template(v-slot:content)
+                    p(:class="[mode + '-' + prefixCls + '-description']")
+                        Icon(type="quote-left")
+                        span {{ description }}
+                        Icon(type="quote-right")
+                    ul(:class="[mode + '-' + prefixCls + '-ul']")
+                        li(v-for="(item, index) in handleUserInformation" :key="index" :title="item.title")
+                            Poptip(v-if="item.image" trigger="hover" placement="bottom")
+                                NavIcon(:icon="item.icon" :mode="mode")
+                                template(v-slot:content)
+                                    img(:src="item.image")
+                            NavIcon(v-else-if="item.fn" :icon="item.icon" :mode="mode" :style="{ cursor: 'pointer' }"  @click.native="item.fn")
+                            a(v-else="item.link" :href="item.link" target="_blank")
+                                NavIcon(:icon="item.icon" :mode="mode")
 </template>
 
 <script lang="ts">
@@ -67,6 +66,9 @@ export default class Information extends Vue {
     @Prop({ type: [Number, String], default: 4 })
     private maxNum!: number | string
 
+    @Prop({ type: Boolean, default: false })
+    private isPlayer!: boolean
+
     private prefixCls: string = 'info'
 
     private handleTitle: string = ''
@@ -88,10 +90,17 @@ export default class Information extends Vue {
         return style
     }
 
+    private get containerClasses(): Array<string | WrapClasses> {
+        return [
+            `${this.mode}-${this.prefixCls}-container`,
+            this.mode === 'vertical' && this.isPlayer ? `${this.mode}-${this.prefixCls}-container-move` : '',
+        ]
+    }
+
     private get titleClasses(): Array<string | WrapClasses> {
         return [
             `${this.mode}-${this.prefixCls}-title`,
-            this.handleTitle === this.title ?  `${this.mode}-${this.prefixCls}-title-after` : '',
+            this.handleTitle === this.title ? `${this.mode}-${this.prefixCls}-title-after` : '',
         ]
     }
 
@@ -159,6 +168,7 @@ export default class Information extends Vue {
     transform translate(-50%, -50%)
     min-width 800px
     min-height 250px
+    transition top .4s ease
 
 .vertical-info-title
     margin 0
@@ -185,6 +195,20 @@ export default class Information extends Vue {
     li
         display inline-block
         margin-right 20px
+        img 
+            width 115px
+            height auto
+
+.vertical-info-author
+    width 130px
+    height auto
+    box-shadow inset 0 0 10px #000
+    padding 5px
+    transition transform ease 1s
+    border-radius 100%
+
+.vertical-info-container-move
+    top -250px
 
 @keyframes animation-flicker
     50%
@@ -193,4 +217,7 @@ export default class Information extends Vue {
 @media screen and (max-width 860px)
     .vertical-info
          background-attachment scroll
+
+    .vertical-info-container
+        display none
 </style>

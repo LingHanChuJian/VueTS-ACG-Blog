@@ -49,7 +49,7 @@ export default class GoTop extends Mixins(ScrollMixins) {
     position fixed
     cursor pointer
     background-size contain
-    transition all .5s ease-in-out
+    transition bottom .5s ease-in-out
     z-index 99
 
 @media screen and (min-width 860px)

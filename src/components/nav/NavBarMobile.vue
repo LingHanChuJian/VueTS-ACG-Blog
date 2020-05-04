@@ -3,23 +3,38 @@
         div.icon-menu-wrap(@click.stop="menuClick")
             div(:class="menuClasses")
         Logo(:class="logoClasses")
+        Information(
+            mode="horizontal"
+            :userInformation="userInformation"
+            title="Hi,Wanderer!"
+        )
 </template>
 
 <script lang="ts">
 import Index from '@/views/Index.vue'
-import { Logo } from '@/components/nav'
 import { findComponentUpward } from '@/utils'
-import { WrapClasses } from '@/types/components'
+import { Nav, Logo, Information } from '@/components/nav'
 import { Component, Prop, Vue } from 'vue-property-decorator'
+import { WrapClasses, UserInformation } from '@/types/components'
 
 @Component({
     components: {
+        Nav,
         Logo,
+        Information,
     },
 })
 export default class NavBarMobile extends Vue {
     @Prop({ type: Boolean, default: false })
     private isCollapsed!: boolean
+
+    @Prop({
+        type: Array,
+        default() {
+            return []
+        },
+    })
+    private userInformation!: UserInformation[]
 
     private menuClick(): void {
         this.$emit('on-menu-click')
