@@ -1,38 +1,34 @@
 <template lang="pug">
     figure(:class="wrapClasses" :style="wrapStyle")
         div(:class="containerClasses")
-            Poptip(trigger="show" :disabled="true" placement="bottom")
+            Poptip(v-if="mode === 'vertical'" trigger="show" :disabled="true" placement="bottom")
                 h1(v-if="title" :class="titleClasses") {{ handleTitle }}
-                router-link(v-else to="/")
+                router-link(v-else to="/" :style="{ display: 'block' }")
                     img(:class="[mode + '-' + prefixCls + '-author']" :src="author")
                 template(v-slot:content)
                     p(:class="[mode + '-' + prefixCls + '-description']")
                         Icon(type="quote-left")
                         span {{ description }}
                         Icon(type="quote-right")
-                    ul(:class="[mode + '-' + prefixCls + '-ul']")
-                        li(v-for="(item, index) in handleUserInformation" :key="index" :title="item.title")
-                            Poptip(v-if="item.image" trigger="hover" placement="bottom")
-                                NavIcon(:icon="item.icon" :mode="mode")
-                                template(v-slot:content)
-                                    img(:src="item.image")
-                            NavIcon(v-else-if="item.fn" :icon="item.icon" :mode="mode" :style="{ cursor: 'pointer' }"  @click.native="item.fn")
-                            a(v-else="item.link" :href="item.link" target="_blank")
-                                NavIcon(:icon="item.icon" :mode="mode")
+                    Info(:mode="mode" :prefixCls="prefixCls" :handleUserInformation="handleUserInformation")
+            div(v-else)
+                p(v-if="title" :class="[mode + '-' + prefixCls + '-title']") {{ title }}
+                Info(:mode="mode" :prefixCls="prefixCls" :handleUserInformation="handleUserInformation")
 </template>
 
 <script lang="ts">
 import { Icon } from '@/components/icon'
+import { oneOf, deepCopy } from '@/utils'
+import Info from '@/components/nav/Info.vue'
 import { Poptip } from '@/components/poptip'
-import NavIcon from '@/components/nav/NavIcon.vue'
-import { oneOf, deepCopy, getStyle } from '@/utils'
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import { UserInformation, WrapClasses, CSSStyles } from '@/types/components'
+import { title, author, description, userInformation, randomImagesLink } from '@/config'
 
 @Component({
     components: {
         Icon,
-        NavIcon,
+        Info,
         Poptip,
     },
 })
@@ -46,23 +42,6 @@ export default class Information extends Vue {
     })
     public mode!: string
 
-    @Prop({
-        type: Array,
-        default() {
-            return []
-        },
-    })
-    private userInformation!: UserInformation[]
-
-    @Prop({ type: String, default: '' })
-    private title?: string
-
-    @Prop({ type: String, default: '' })
-    private author?: string
-
-    @Prop({ type: String, default: '' })
-    private description?: string
-
     @Prop({ type: [Number, String], default: 4 })
     private maxNum!: number | string
 
@@ -73,7 +52,15 @@ export default class Information extends Vue {
 
     private handleTitle: string = ''
 
-    private toggleImageLink: string = 'https://api.2heng.xin/cover'
+    private title: string = title
+
+    private author: string = author
+
+    private description: string = description
+
+    private toggleImageLink: string = randomImagesLink
+
+    private userInformation: UserInformation[] = userInformation
 
     private handleUserInformation: UserInformation[] = []
 
@@ -144,6 +131,14 @@ export default class Information extends Vue {
             if (this.handleUserInformation.length > this.maxNum) { this.handleUserInformation = this.handleUserInformation.splice(0, Number(this.maxNum)) }
         }
 
+        for (let i = 0, len = this.handleUserInformation.length; i < len; i++) {
+            const handleItem: UserInformation = this.handleUserInformation[i]
+            if (!handleItem.icon) { continue }
+            if (!handleItem.icon.type) { continue }
+            if (handleItem.icon.type === 'angle-left' || handleItem.icon.type === 'angle-right') { continue }
+            handleItem.icon.size = this.mode === 'vertical' ? 24 : 20
+        }
+
         this.$nextTick(() => this.typewriter())
     }
 }
@@ -158,6 +153,9 @@ export default class Information extends Vue {
     background-repeat no-repeat
     background-size cover
     background-position center center
+
+.horizontal-info
+    text-align center
 
 .vertical-info-container
     z-index 15
@@ -180,6 +178,11 @@ export default class Information extends Vue {
         content '|'
         font-size larger
 
+.horizontal-info-title
+    color #333333
+    font-weight 900
+    letter-spacing 1.5px
+
 .vertical-info-title-after:after
     animation animation-flicker .7s infinite
 
@@ -190,15 +193,6 @@ export default class Information extends Vue {
     span
         margin 0 5px
 
-.vertical-info-ul
-    margin-top 20px
-    li
-        display inline-block
-        margin-right 20px
-        img 
-            width 115px
-            height auto
-
 .vertical-info-author
     width 130px
     height auto
@@ -206,6 +200,8 @@ export default class Information extends Vue {
     padding 5px
     transition transform ease 1s
     border-radius 100%
+    &:hover
+        transform rotate(360deg)
 
 .vertical-info-container-move
     top -250px

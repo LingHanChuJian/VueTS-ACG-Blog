@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import nprogress from 'nprogress'
-import VueRouter, { Route, RouteConfig } from 'vue-router'
+import VueRouter, { RouteConfig } from 'vue-router'
 
 Vue.use(VueRouter)
 
@@ -15,7 +15,7 @@ const routes: RouteConfig[] = [
         component: () => import('@/views/Home.vue'),
       },
       {
-        path: '/archives',
+        path: '/archives/:year/:month/:day/:subtitle',
         name: 'archives',
         component: () => import('@/views/Archives.vue'),
       },
@@ -68,14 +68,17 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes,
+  scrollBehavior(to, from, savedPosition) {
+    return savedPosition ? savedPosition : { x: 0, y: 0 }
+  },
 })
 
-router.beforeEach((to: Route, from: Route, next) => {
+router.beforeEach((to, from, next) => {
   nprogress.start()
   next()
 })
 
-router.afterEach((to: Route, from: Route) => {
+router.afterEach((to, from) => {
   nprogress.done()
 })
 

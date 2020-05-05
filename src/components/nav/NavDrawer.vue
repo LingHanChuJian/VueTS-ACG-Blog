@@ -3,14 +3,20 @@
         div.navdrawer-top
             div.author
         div.navdrawer-middle
+            Information
         div.navdrawer-bottom
 </template>
 
 <script lang="ts">
 import { MenuItemData } from '@/types/components'
+import Information from '@/components/nav/Information.vue'
 import { Component, Prop, Vue } from 'vue-property-decorator'
 
-@Component
+@Component({
+    components: {
+        Information,
+    },
+})
 export default class NavDrawer extends Vue {
     @Prop({
         type: Array,

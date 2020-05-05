@@ -266,7 +266,7 @@ export default class Poptip extends Vue {
         }
 
         if (this.trigger === 'show') {
-            this.visible = true
+            setTimeout(() => { this.visible = true }, 500)
         }
 
         addEvent((this.$refs.box as HTMLElement), 'animationend', this.handleAnimationend)

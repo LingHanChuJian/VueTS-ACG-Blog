@@ -1,18 +1,11 @@
 <template lang="pug">
     div.header-container(:style="headerContainerStyle")
-        Information(
-            mode="vertical"
-            :userInformation="userInformation"
-            :isPlayer="isPlayer"
-            title="Hi,Wanderer!"
-            author="http://www.yx319.cn/wp-content/uploads/2019/02/headimg.jpg"
-            description="If the heart does not have a destination, there will be wandering everywhere."
-        )
+        Information( mode="vertical" :isPlayer="isPlayer")
         div.player-container
             Player(
                 ref="dplayer"
                 :style="{ zIndex: isShowPlayer? '5' : '-5'  }"
-                src="http://img.cdn.myrove.cn/test/video.m3u8"
+                :src="playerLink"
                 @ended="playerEnded"
             )
             transition(name="player-message")
@@ -23,6 +16,7 @@
 <script lang="ts">
 import DPlayer from 'dplayer'
 import { oneOf } from '@/utils'
+import { playerLink } from '@/config'
 import { Icon } from '@/components/icon'
 import { Information } from '@/components/nav'
 import Player from '@/components/acg-header/Player.vue'
@@ -47,13 +41,7 @@ export default class AcgHeader extends Mixins(AdaptiveMixins) {
     })
     private name!: string
 
-    @Prop({
-        type: Array,
-        default() {
-            return []
-        },
-    })
-    private userInformation!: UserInformation[]
+    private playerLink: string = playerLink
 
     private playerIcon: string = 'play-circle'
 
@@ -152,4 +140,8 @@ export default class AcgHeader extends Mixins(AdaptiveMixins) {
         transform translateY(-3px)
     100%
         transform translateY(0)
+
+@media screen and (max-width 860px)
+    .player-icon
+        display none
 </style>
