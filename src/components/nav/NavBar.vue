@@ -3,11 +3,11 @@
         div.navbar-left
             Logo
         transition(name="menu")
-            div.navbar-middle(v-show="isToggle")
+            div.navbar-middle(v-show="isMenu")
                 Menu(mode="horizontal")
                     Nav(v-for="(item, index) in menuData" :key="index" :menuItemData="item" mode="horizontal")
         div.navbar-right
-            Icon.search(type="search" size="30" fixed)
+            Icon.search(type="search" size="30" fixed @click="searchClick")
             Poptip.login-poptip(trigger="hover" placement="bottom-end" width="110")
                 Icon.login(type="user-circle" size="30" fixed)
                 template(v-slot:content)
@@ -45,7 +45,11 @@ export default class NavBar extends Vue {
     private menuData!: MenuItemData[]
 
     @Prop({ type: Boolean, default: false })
-    private isToggle!: boolean
+    private isMenu!: boolean
+
+    private searchClick(): void {
+        this.$emit('search')
+    }
 }
 </script>
 

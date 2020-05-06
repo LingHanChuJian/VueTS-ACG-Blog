@@ -26,12 +26,12 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
 export default class Info extends Vue {
     @Prop({
         type: String,
-        default: 'horizontal',
+        default: 'vertical',
         validator(value: string) {
             return oneOf(value, ['vertical', 'horizontal'])
         },
     })
-    public mode!: string
+    private mode!: string
 
     @Prop({
         type: Array,

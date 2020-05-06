@@ -59,7 +59,7 @@ export const menuData: MenuItemData[] = [
     },
     {
         name: 'list',
-        content: '归档',
+        content: '清单',
         className: 'list',
         icon: {
             type: 'list-ul',

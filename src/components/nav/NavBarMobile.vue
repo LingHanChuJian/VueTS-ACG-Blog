@@ -47,9 +47,11 @@ export default class NavBarMobile extends Vue {
 
 <style lang="stylus" scoped>
 .navbar-mobile
+    position fixed
     display none
     justify-content space-between
     padding-right 10px
+    width calc(100% - 10px)
 
 .logo-opened
     transform translateX(250px)

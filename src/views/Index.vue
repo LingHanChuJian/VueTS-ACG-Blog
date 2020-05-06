@@ -8,10 +8,10 @@
                 @mouseenter.native="handleToggle"
                 @mouseleave.native="handleToggle"
             )
-                NavBar(:menuData="menuData" :isToggle="isToggle")
+                NavBar(:menuData="menuData" :isMenu="isMenu" @search="search")
                 NavBarMobile(:isCollapsed="isCollapsed" @on-menu-click="setDrawer")
             Layout.acg-layout(:class="{ 'collapsed-opened': isCollapsed }")
-                Header.acg-header
+                Header.acg-header(v-show="isHeader")
                     Acg-Header
                 Content
                     keep-alive
@@ -19,18 +19,20 @@
                 Footer
                     Acg-Footer
         GoTop
+        NavSearch(mode="horizontal" :visible.sync="isSearch")
 </template>
 
 <script lang="ts">
+import { Route } from 'vue-router'
 import { menuData } from '@/config'
 import GoTop from '@/components/GoTop.vue'
 import AcgFooter from '@/components/AcgFooter.vue'
 import { AcgHeader } from '@/components/acg-header'
 import ScrollMixins from '@/components/mixins/scroll'
-import { NavBar, NavDrawer, NavBarMobile } from '@/components/nav'
 import { Component, Mixins, Watch, Vue } from 'vue-property-decorator'
-import { WrapClasses, MenuItemData, UserInformation } from '@/types/components'
+import { NavBar, NavDrawer, NavBarMobile, NavSearch } from '@/components/nav'
 import { Layout, Header, Content, Footer, Drawer } from '@/components/layout'
+import { WrapClasses, MenuItemData, UserInformation } from '@/types/components'
 
 @Component({
     components: {
@@ -41,6 +43,7 @@ import { Layout, Header, Content, Footer, Drawer } from '@/components/layout'
         Drawer,
         NavBar,
         NavDrawer,
+        NavSearch,
         NavBarMobile,
         AcgFooter,
         AcgHeader,
@@ -48,9 +51,17 @@ import { Layout, Header, Content, Footer, Drawer } from '@/components/layout'
     },
 })
 export default class Index extends Mixins(ScrollMixins) {
+    // 侧边栏
     private isCollapsed: boolean = false
 
-    private isToggle: boolean = false
+    // 展示菜单
+    private isMenu: boolean = false
+
+    // 显示 search
+    private isSearch: boolean = false
+
+    // 显示 header
+    private isHeader: boolean = true
 
     private menuData: MenuItemData[] = menuData
 
@@ -65,21 +76,30 @@ export default class Index extends Mixins(ScrollMixins) {
 
     private handleToggle(): void {
         if (this.scrollTop !== 0) { return }
-        this.isToggle = !this.isToggle
+        this.isMenu = !this.isMenu
+    }
+
+    private search(): void {
+        this.isSearch = !this.isSearch
     }
 
     private get headerClasses(): Array<string | WrapClasses> {
         return [
             'header-navbar',
             {
-                ['toggle-header-navbar']: this.isToggle,
+                ['toggle-header-navbar']: this.isMenu,
             },
         ]
     }
 
     @Watch('scrollTop')
     private onOffsetTopChange(newValue: number, oldValue: number) {
-        this.isToggle = newValue !== 0
+        this.isMenu = newValue !== 0
+    }
+
+    @Watch('$route')
+    private onRouteChange(to: Route, from: Route) {
+        this.isHeader = to.name !== 'search'
     }
 }
 </script>

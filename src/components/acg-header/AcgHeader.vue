@@ -1,6 +1,6 @@
 <template lang="pug">
     div.header-container(:style="headerContainerStyle")
-        Information( mode="vertical" :isPlayer="isPlayer")
+        Information(mode="horizontal" :isPlayer="isPlayer")
         div.player-container
             Player(
                 ref="dplayer"

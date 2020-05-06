@@ -1,7 +1,7 @@
 <template lang="pug">
     figure(:class="wrapClasses" :style="wrapStyle")
         div(:class="containerClasses")
-            Poptip(v-if="mode === 'vertical'" trigger="show" :disabled="true" placement="bottom")
+            Poptip(v-if="mode === 'horizontal'" trigger="show" :disabled="true" placement="bottom")
                 h1(v-if="title" :class="titleClasses") {{ handleTitle }}
                 router-link(v-else to="/" :style="{ display: 'block' }")
                     img(:class="[mode + '-' + prefixCls + '-author']" :src="author")
@@ -35,12 +35,12 @@ import { title, author, description, userInformation, randomImagesLink } from '@
 export default class Information extends Vue {
     @Prop({
         type: String,
-        default: 'horizontal',
+        default: 'vertical',
         validator(value: string) {
             return oneOf(value, ['vertical', 'horizontal'])
         },
     })
-    public mode!: string
+    private mode!: string
 
     @Prop({ type: [Number, String], default: 4 })
     private maxNum!: number | string
@@ -71,7 +71,8 @@ export default class Information extends Vue {
     }
 
     private get wrapStyle(): CSSStyles<CSSStyleDeclaration> {
-        if (this.mode === 'horizontal') { return {} }
+        // horizontal
+        if (this.mode === 'vertical') { return {} }
         const style: CSSStyles<CSSStyleDeclaration> = {}
         style.backgroundImage = `url(${this.toggleImageLink})`
         return style
@@ -80,7 +81,7 @@ export default class Information extends Vue {
     private get containerClasses(): Array<string | WrapClasses> {
         return [
             `${this.mode}-${this.prefixCls}-container`,
-            this.mode === 'vertical' && this.isPlayer ? `${this.mode}-${this.prefixCls}-container-move` : '',
+            this.mode === 'horizontal' && this.isPlayer ? `${this.mode}-${this.prefixCls}-container-move` : '',
         ]
     }
 
@@ -106,7 +107,7 @@ export default class Information extends Vue {
     }
 
     private mounted() {
-        if (this.mode === 'vertical') {
+        if (this.mode === 'horizontal') {
             this.handleUserInformation = deepCopy(this.userInformation)
             this.handleUserInformation.unshift({
                 icon: {
@@ -136,7 +137,7 @@ export default class Information extends Vue {
             if (!handleItem.icon) { continue }
             if (!handleItem.icon.type) { continue }
             if (handleItem.icon.type === 'angle-left' || handleItem.icon.type === 'angle-right') { continue }
-            handleItem.icon.size = this.mode === 'vertical' ? 24 : 20
+            handleItem.icon.size = this.mode === 'horizontal' ? 24 : 20
         }
 
         this.$nextTick(() => this.typewriter())
@@ -145,7 +146,7 @@ export default class Information extends Vue {
 </script>
 
 <style lang="stylus" scoped>
-.vertical-info
+.horizontal-info
     width 100%
     height 100%
     position relative
@@ -154,10 +155,10 @@ export default class Information extends Vue {
     background-size cover
     background-position center center
 
-.horizontal-info
+.vertical-info
     text-align center
 
-.vertical-info-container
+.horizontal-info-container
     z-index 15
     text-align center
     position absolute
@@ -168,7 +169,7 @@ export default class Information extends Vue {
     min-height 250px
     transition top .4s ease
 
-.vertical-info-title
+.horizontal-info-title
     margin 0
     font-size 80px
     color #FFFFFF
@@ -178,22 +179,21 @@ export default class Information extends Vue {
         content '|'
         font-size larger
 
-.horizontal-info-title
-    color #333333
+.vertical-info-title
     font-weight 900
     letter-spacing 1.5px
 
-.vertical-info-title-after:after
+.horizontal-info-title-after:after
     animation animation-flicker .7s infinite
 
-.vertical-info-description
+.horizontal-info-description
     margin 0
     padding 0
     font-weight 700
     span
         margin 0 5px
 
-.vertical-info-author
+.horizontal-info-author
     width 130px
     height auto
     box-shadow inset 0 0 10px #000
@@ -203,7 +203,7 @@ export default class Information extends Vue {
     &:hover
         transform rotate(360deg)
 
-.vertical-info-container-move
+.horizontal-info-container-move
     top -250px
 
 @keyframes animation-flicker
@@ -211,9 +211,9 @@ export default class Information extends Vue {
         opacity 0
 
 @media screen and (max-width 860px)
-    .vertical-info
+    .horizontal-info
          background-attachment scroll
 
-    .vertical-info-container
+    .horizontal-info-container
         display none
 </style>

@@ -4,8 +4,8 @@
  */
 
 import { TransferData } from '@/types/utils'
-import { addClass, removeClass } from '@/utils/dom'
 import { DirectiveOptions, VNode } from 'vue'
+import { addClass, removeClass } from '@/utils/dom'
 
 /**
  * Get target DOM Node
