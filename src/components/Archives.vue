@@ -1,5 +1,5 @@
 <template lang="pug">
-    
+    transition-group(tag="div" name="move-up")
 </template>
 
 <script lang="ts">

@@ -1,5 +1,13 @@
 <template lang="pug">
-    transition-group(name="move-up" apper tag="div" :class="prefixCls" :style="styles")
+    transition-group(
+        tag="div"
+        name="move-up"
+        apper
+        :class="prefixCls"
+        :style="styles"
+        @enter="handleEnter"
+        @leave="handleLeave"
+    )
         Message(
             v-for="notice in notices"
             :key="notice.name"
@@ -36,13 +44,13 @@ export default class Notification extends Mixins(UUIDMixins) {
 
     private notices: MessageOptions[] = []
 
-    public add(notice: MessageOptions) {
+    public add(notice: MessageOptions): void {
         const name = notice.name || (this as any).uuid
         const curNotice: MessageOptions = Object.assign({ message: '', name, duration: 1.5, type: 'info', isBackground: true }, notice)
         this.notices.push(curNotice)
     }
 
-    public close(name: string) {
+    public close(name: string): void {
         const notices: MessageOptions[] = this.notices
         for (let i = 0; i < notices.length; i++) {
             if (notices[i].name === name) {
@@ -52,9 +60,18 @@ export default class Notification extends Mixins(UUIDMixins) {
         }
     }
 
-    public closeAll() {
+    public closeAll(): void {
         this.notices = []
     }
 
+    private handleEnter(el: HTMLElement): void {
+        el.style.height = `${el.scrollHeight}px`
+    }
+
+    private handleLeave(el: HTMLElement): void {
+        el.style.height = '0'
+        el.style.paddingTop = '0'
+        el.style.paddingBottom = '0'
+    }
 }
 </script>
