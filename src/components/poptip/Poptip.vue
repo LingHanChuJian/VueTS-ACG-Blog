@@ -235,7 +235,7 @@ export default class Poptip extends Vue {
         const style: CSSStyles<CSSStyleDeclaration> = {}
 
         if (!!this.width) {
-            style.minWidth = `${this.width}px`
+            style.maxWidth = `${this.width}px`
         }
 
         return style
