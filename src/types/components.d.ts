@@ -92,3 +92,23 @@ export interface UserInformation {
     title?: string
     fn?: () => void
 }
+
+// components
+export interface UserRecommend {
+    link: string
+    title: string
+    description: string
+    image: string
+}
+
+export interface UserArchives {
+    id: number | string
+    link: string
+    title: string
+    subtitle: string
+    tag: string
+    image: string
+    pageView: string
+    content: string
+    create: number
+}

@@ -14,6 +14,11 @@ Vue.config.productionTip = false
 // 全局提示
 Vue.prototype.$Message = Message
 
+// 设置浏览器标题
+Vue.prototype.$Title = (title: string) => {
+  document.title = title
+}
+
 // 修改日历令牌
 moment.calendarFormat = (m: moment.Moment, now: moment.Moment) => {
   const diff: number = m.diff(now, 'day', true)
