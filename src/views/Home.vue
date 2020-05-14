@@ -5,7 +5,7 @@
                 Icon(type="anchor" fixed)
                 |  START:RUSHING!!!
             Recommend(:recommend="recommend")
-        div.home-discovery(v-scroll="onScrollChage" :data-disabled="isLoadData")
+        div.home-discovery(v-scroll="loadScroll" :data-disabled="isLoadData")
             h3
                 Icon(type="envira" fixed)
                 |  DISCOVERY
@@ -83,7 +83,7 @@ export default class Home extends Vue {
         },
     ]
 
-    private onScrollChage(): void {
+    private loadScroll(): void {
         this.isLoadData = true
         console.log('加载数据')
         setTimeout(() => {

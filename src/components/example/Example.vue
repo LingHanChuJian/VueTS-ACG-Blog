@@ -21,7 +21,7 @@ import { Icon } from '@/components/icon'
 import { hljsCode } from '@/utils/markdown'
 import UUIDMixins from '@/components/mixins/uuid'
 import { WrapClasses, CSSStyles } from '@/types/components'
-import CollapseTransition from '@/components/base/CollapseTransition'
+import CollapseTransition from '@/components/base/collapseTransition'
 import { Component, Prop, Mixins, Vue } from 'vue-property-decorator'
 
 import 'highlight.js/styles/atom-one-light.css'

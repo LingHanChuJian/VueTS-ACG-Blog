@@ -46,7 +46,7 @@ import MenuMixins from '@/components/mixins/menu'
 import DropDown from '@/components/menu/DropDown.vue'
 import { WrapClasses, CSSStyles } from '@/types/components'
 import { findComponentUpward, findComponentsDownward } from '@/utils'
-import CollapseTransition from '@/components/base/CollapseTransition'
+import CollapseTransition from '@/components/base/collapseTransition'
 import { Component, Mixins, Watch, Prop, Vue } from 'vue-property-decorator'
 
 @Component({
