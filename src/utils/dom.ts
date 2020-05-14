@@ -1,4 +1,4 @@
-import { K, S } from '@/types/utils'
+import { K, S, Coordinate } from '@/types/utils'
 
 export const addEvent = (element: Document | HTMLElement | Window, event: K, handler: EventListenerOrEventListenerObject, useCapture: boolean = false): void => {
     if (element && event && handler) {
@@ -55,17 +55,34 @@ export const getStyle = (element: HTMLElement, styleName: S | 'float'): any | nu
     }
 }
 
-// 文档高度
-export const scrollHeight = (): number => {
-    return document.documentElement.scrollHeight || document.body.scrollHeight
+// 内容高度
+export const scrollHeight = (element: HTMLElement | Window = window): number => {
+    return element === window ? document.documentElement.scrollHeight : (element as HTMLElement).scrollHeight
 }
 
-//  可见高度
-export const clientHeight = (): number => {
-    return document.documentElement.clientHeight || document.body.clientHeight
+//  元素可见高度
+export const clientHeight = (element: HTMLElement | Window = window): number => {
+    return element === window ? document.documentElement.clientHeight : (element as HTMLElement).clientHeight
 }
 
 // 当前滚动条位置
-export const scrollTop = (): number => {
-    return document.documentElement.scrollTop || document.body.scrollTop
+export const scrollTop = (element: HTMLElement | Window = window): number => {
+    return element === window ? Math.max(window.pageYOffset || 0, document.documentElement.scrollTop) : (element as HTMLElement).scrollTop
 }
+
+// 获取元素绝对位置坐标
+export const getCoordinate = (element: HTMLElement): Coordinate => {
+    let x: number = element.offsetLeft
+    let y: number = element.offsetTop
+
+    let curElemnet: any = element.offsetParent
+
+    while (curElemnet !== null) {
+        x += curElemnet.offsetLeft
+        y += curElemnet.offsetTop
+        curElemnet = curElemnet.offsetParent
+    }
+
+    return { x, y }
+}
+

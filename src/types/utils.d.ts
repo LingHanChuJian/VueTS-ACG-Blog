@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import { StoreOptions } from 'vuex'
 
 export interface ObjectBase {
@@ -27,4 +28,20 @@ export interface TransferData {
     comment: Comment
     target: Node | null
     isMove: boolean
+}
+
+export interface Coordinate {
+    x: number
+    y: number
+}
+
+export type Func = (...arg: IArguments[]) => void
+
+export interface ScrollData {
+    el: HTMLElement
+    vm?: Vue
+    expression: any
+    distance: number
+    delay: number
+    listener?: EventListenerOrEventListenerObject
 }

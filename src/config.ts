@@ -38,8 +38,27 @@ export const menuData: MenuItemData[] = [
         },
         children: [
             {
+                name: 'archives-hacking',
+                to: {
+                    name: 'archives',
+                    params: {
+                        tag: 'hacking',
+                    },
+                },
+                content: '极客',
+                icon: {
+                    type: 'terminal',
+                    fixed: true,
+                },
+            },
+            {
                 name: 'archives-whatever',
-                to: 'whatever',
+                to: {
+                    name: 'archives',
+                    params: {
+                        tag: 'whatever',
+                    },
+                },
                 content: '随想',
                 icon: {
                     type: 'comment-dots',
@@ -48,7 +67,12 @@ export const menuData: MenuItemData[] = [
             },
             {
                 name: 'archives-record',
-                to: 'record',
+                to: {
+                    name: 'archives',
+                    params: {
+                        tag: 'record',
+                    },
+                },
                 content: '笔记',
                 icon: {
                     type: 'bookmark',
@@ -171,7 +195,7 @@ export const userInformation: UserInformation[] = [
     {
         icon: {
             type: 'github-alt',
-            color: '#000',
+            color: '#000000',
             fixed: true,
         },
         link: 'https://github.com/LingHanChuJian',

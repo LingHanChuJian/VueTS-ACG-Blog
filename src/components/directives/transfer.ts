@@ -35,7 +35,7 @@ const directives: DirectiveOptions = {
             isMove = true
         }
 
-        if ((el as HTMLElement & { transferData: TransferData}).transferData) {
+        if (!(el as HTMLElement & { transferData: TransferData}).transferData) {
             (el as HTMLElement & { transferData: TransferData}).transferData = {
                 target: getTarget(value),
                 parentNode,

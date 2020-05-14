@@ -103,12 +103,13 @@ export interface UserRecommend {
 
 export interface UserArchives {
     id: number | string
-    link: string
     title: string
     subtitle: string
     tag: string
+    tagName: string
     image: string
-    pageView: string
-    content: string
+    pageView: number
+    comments: number
+    introduction: string
     create: number
 }

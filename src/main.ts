@@ -1,15 +1,35 @@
 import Vue from 'vue'
 import App from './App.vue'
-import router from './router'
 import store from './store'
-import Message from '@/components/message'
+import router from './router'
 
 import moment from 'moment'
+import Message from '@/components/message'
+import VueLazyload, { VueReactiveListener } from 'vue-lazyload'
 
 import 'nprogress/nprogress.css'
 import './assets/css/reset.styl'
 
 Vue.config.productionTip = false
+
+// 图片懒加载
+Vue.use(VueLazyload, {
+  error: 'http://img.cdn.myrove.cn/test/error.jpg',
+  loading: 'http://img.cdn.myrove.cn/test/loading.gif',
+  filter: {
+    progressive: (listener: VueReactiveListener) => {
+      if (process.env.NODE_ENV === 'development') { return }
+      listener.el.setAttribute('lazy-progressive', '')
+      const cdnHost: string = new URL(process.env.VUE_APP_CND_LINK).hostname
+      const isCDN: boolean = new RegExp(cdnHost).test(listener.src)
+      if (isCDN) {
+        const result: RegExpMatchArray | null = listener.src.match(/\?(.*)/)
+        const symbol: string = result ? result.length === 2 && result[1] ? '&' : '' : '?'
+        listener.loading = listener.src + symbol + process.env.VUE_APP_CND_IMG_PARAM
+      }
+    },
+  },
+})
 
 // 全局提示
 Vue.prototype.$Message = Message

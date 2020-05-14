@@ -1,5 +1,5 @@
-import { ObjectBase } from '@/types/utils'
 import { Vue } from 'vue-property-decorator'
+import { ObjectBase, Func } from '@/types/utils'
 
 // 判断元素是否在数组中
 export const oneOf = (value: any, validList: any[]): boolean => {
@@ -146,4 +146,37 @@ export const findBrothersComponents = (context: Vue, componentName: string, exce
     const index: number = res.findIndex((item) => (item as Vue & { _uid: string})._uid === (context as Vue & { _uid: string })._uid)
     if (exceptMe) { res.splice(index, 1) }
     return res
+}
+
+// 节流函数
+export const throttle = (fn: Func, delay: number): EventListenerOrEventListenerObject => {
+    let now: number
+    let lastExec: number
+    let timer: number | null
+
+    return function() {
+        now = Date.now()
+
+        if (timer) {
+            clearTimeout(timer)
+            timer = null
+        }
+
+        if (lastExec) {
+            const diff: number = delay - (now - lastExec)
+
+            if (diff < 0) {
+                fn.apply(this, [...arguments])
+                lastExec = Date.now()
+            } else {
+                timer = setTimeout(() => {
+                    fn.apply(this, [...arguments])
+                    lastExec = Date.now()
+                }, diff)
+            }
+        } else {
+            fn.apply(this, [...arguments])
+            lastExec = Date.now()
+        }
+    }
 }

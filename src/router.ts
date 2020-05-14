@@ -24,6 +24,11 @@ const routes: RouteConfig[] = [
         name: 'article',
         component: () => import('@/views/Article.vue'),
       },
+      {
+        path: '/archives/:tag',
+        name: 'archives',
+        component: () => import('@/views/Tag.vue'),
+      },
     ],
   },
   {
@@ -74,7 +79,9 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes,
   scrollBehavior(to, from, savedPosition) {
-    return savedPosition ? savedPosition : { x: 0, y: 0 }
+    return new Promise((resolve, reject) => {
+      resolve(to.hash ? { selector: to.hash } : (savedPosition ? savedPosition : { x: 0, y: 0 }))
+    })
   },
 })
 
