@@ -1,11 +1,11 @@
 <template lang="pug">
-    div.home-wrap
-        div.home-strat(v-if="recommend.length !== 0")
+    div(:class="[prefixCls + '-wrap']")
+        div(v-if="recommend.length !== 0" :class="[prefixCls + '-strat']")
             h3
                 Icon(type="anchor" fixed)
                 |  START:RUSHING!!!
             Recommend(:recommend="recommend")
-        div.home-discovery(v-scroll="loadScroll" :data-disabled="isLoadData")
+        div(:class="[prefixCls + '-discovery']" v-scroll="loadScroll" :data-disabled="isLoadData")
             h3
                 Icon(type="envira" fixed)
                 |  DISCOVERY
@@ -32,6 +32,7 @@ import { Component, Mixins, Watch, Vue } from 'vue-property-decorator'
     },
 })
 export default class Home extends Vue {
+    private prefixCls: string = 'home'
     // 判断是否在请求加载数据
     private isLoadData: boolean = false
 

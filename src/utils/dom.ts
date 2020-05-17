@@ -70,19 +70,3 @@ export const scrollTop = (element: HTMLElement | Window = window): number => {
     return element === window ? Math.max(window.pageYOffset || 0, document.documentElement.scrollTop) : (element as HTMLElement).scrollTop
 }
 
-// 获取元素绝对位置坐标
-export const getCoordinate = (element: HTMLElement): Coordinate => {
-    let x: number = element.offsetLeft
-    let y: number = element.offsetTop
-
-    let curElemnet: any = element.offsetParent
-
-    while (curElemnet !== null) {
-        x += curElemnet.offsetLeft
-        y += curElemnet.offsetTop
-        curElemnet = curElemnet.offsetParent
-    }
-
-    return { x, y }
-}
-

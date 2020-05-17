@@ -1,30 +1,26 @@
 .markdown
-    color #797979
+    line-height 1.5
     blockquote
-        color #797979
-        padding 50px 35px
+        padding 24px 30px
         position relative
         &:before
             content '\f10d'
             position absolute
-            font-size 2.5rem
+            font-size 1.5rem
             color #69d2e7
             top 0
             left 0 
-            font-family FontAwesome
+            font-family 'Font Awesome 5 Brands', 'Font Awesome 5 regular', 'Font Awesome 5 solid'
         &:after
             content '\f10e'
             position absolute
-            font-size 2.5rem
+            font-size 1.5rem
             color #69d2e7
             bottom 0
             right 0
-            font-family FontAwesome
-        p  
-            padding 2px 0
+            font-family 'Font Awesome 5 Brands', 'Font Awesome 5 regular', 'Font Awesome 5 solid'
     p  
         margin-top 16px
-        line-height 30px
         code 
             background-color rgba(254,250,199,1)
             color #e67474
@@ -33,24 +29,18 @@
             font-size 16px
             padding 5px
             display inline
-            &:after
-                content ''
-            &:before
-                content ''
+            font-weight 600
     h1 
-        color #404040
         display block
-        font-size 32px
+        font-size 2em
         font-weight bold
     h2
-        color #404040
         display block
-        font-size 24px
+        font-size 1.5em
         font-weight bold
     h3 
-        color #404040
         display block
-        font-size 16px
+        font-size 1.25em
         font-weight bold
     ul  
         display block
@@ -62,10 +52,6 @@
             padding 5px
             text-shadow none
             border-radius 5px
-            &:after
-                content ''
-            &:before
-                content ''
     ol  
         display block
         li 
@@ -76,10 +62,6 @@
             padding 5px
             text-shadow none
             border-radius 5px
-            &:after
-                content ''
-            &:before
-                content ''
     a 
         color #e67474
         text-decoration underline dotted rgba(0,0,0,.1)
@@ -89,17 +71,29 @@
             text-decoration underline orange
     strong, b
         font-weight 600
-        color #404040
         em
             font-weight 600 
             font-style italic
     i, cite, em, var, address, dfn
         font-style italic
+    table
+        margin 0 0 24px 0
+        width 100%
+        border-spacing 0
+        th,td
+            color #404040
+            text-align right
+            display table-cell
+            vertical-align inherit
+        th 
+            font-weight 600
     pre 
         position relative
         padding-top 30px
+        background-color #1d1f21
         box-shadow 0 10px 30px 0px rgba(0,0,0,.4)
-        border-radius 0 0 5px 5px
+        border-radius 5px
+        display flex
         .copy-code
             color #FFFFFF
             position absolute
@@ -114,7 +108,7 @@
             top 8px
             cursor pointer
             font-style normal
-        code  
+        code
             background-color #1d1f21
             color #FFFFFF
             padding 8px 5px
@@ -122,8 +116,9 @@
             word-break break-word
             font-weight normal
             border-radius 0 0 5px 5px
+            width 100%
             &:before
-                color #fff
+                color #FFFFFF
                 content attr(data-lang)
                 height 30px
                 line-height 30px
@@ -148,8 +143,7 @@
                 user-select none
                 text-align center
                 color #888f96
-                background #1d1f21
-                // font-family 'Merriweather Sans', 'Source Code Pro', 'Ubuntu', 'Noto Serif SC', 'Noto Serif', 'PT Serif', Microsoft YaHei, monospace, sans-serif, serif
+                background-color #1d1f21
                 vertical-align top
                 left 0
                 width 30px
@@ -193,21 +187,31 @@
         border 0
         height 1px
         border-top 1px solid #CCCCCC
-    table
-        margin 0 0 24px
-        width 100%
-        border-collapse collapse
-        border-spacing 0
-        th,td
-            color #404040
-            text-align right
-            display table-cell
-            vertical-align inherit
-        th 
-            font-weight 600
     img
         max-width 100%
         height auto
+
+.markdown
+    line-height 1.5
+    blockquote
+        padding 24px 30px
+        position relative
+        &:before
+            content '\f10d'
+            position absolute
+            font-size 1.5rem
+            color #69d2e7
+            top 0
+            left 0 
+            font-family 'Font Awesome 5 Brands', 'Font Awesome 5 regular', 'Font Awesome 5 solid'
+        &:after
+            content '\f10e'
+            position absolute
+            font-size 1.5rem
+            color #69d2e7
+            bottom 0
+            right 0
+            font-family 'Font Awesome 5 Brands', 'Font Awesome 5 regular', 'Font Awesome 5 solid'
 
 .html-fullscreen
     overflow hidden
