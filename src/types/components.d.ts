@@ -105,7 +105,8 @@ export interface UserArchives {
     id: number | string
     title: string
     subtitle: string
-    tag: string
+    tag: string[]
+    categories: string
     tagName: string
     image: string
     pageView: number
@@ -113,3 +114,5 @@ export interface UserArchives {
     introduction: string
     create: number
 }
+
+export type UserReward = Omit<UserInformation, 'icon'>

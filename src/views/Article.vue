@@ -1,6 +1,11 @@
 <template lang="pug">
     main(:class="[prefixCls + '-wrap']")
-        article(:class="[prefixCls + 'article', 'markdown']" ref="article" v-html="content")
+        article(:class="[prefixCls + '-article', 'markdown']" ref="article" v-html="content")
+        div(:class="[prefixCls + '-reward']")
+            Poptip(trigger="hover")
+                div.reward 赏
+                template(v-slot:content)
+                    | 这是 hover 展示内容
         div
 </template>
 
@@ -15,6 +20,7 @@ import 'highlight.js/styles/atom-one-light.css'
 @Component({
     components: {
         Icon,
+        Poptip,
     },
 })
 export default class Article extends Vue {
@@ -31,7 +37,6 @@ export default class Article extends Vue {
 <h3 id="toc-head-3">h3 Heading</h3>
 <h4 id="toc-head-4">h4 Heading</h4>
 <h5 id="toc-head-5">h5 Heading</h5>
-<h6>h6 Heading</h6>
 <h2 id="toc-head-6">Horizontal Rules</h2>
 <hr>
 <hr>
@@ -235,4 +240,8 @@ We are all in the gutter, but some of us are looking at the stars.
 .main-wrap
     margin 40px auto
     max-width 800px
+
+.main-article
+    position relative
+
 </style>

@@ -25,8 +25,13 @@ const routes: RouteConfig[] = [
         component: () => import('@/views/Article.vue'),
       },
       {
-        path: '/archives/:tag',
-        name: 'archives',
+        path: '/categories/:categories',
+        name: 'categories',
+        component: () => import('@/views/Categories.vue'),
+      },
+      {
+        path: '/tags/:tag',
+        name: 'tags',
         component: () => import('@/views/Tag.vue'),
       },
     ],

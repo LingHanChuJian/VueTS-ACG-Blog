@@ -1,4 +1,4 @@
-import { MenuItemData, UserInformation } from '@/types/components'
+import { MenuItemData, UserInformation, UserReward } from '@/types/components'
 
 // site 首页标题
 export const title: string = 'Hi,Wanderer!'
@@ -40,7 +40,7 @@ export const menuData: MenuItemData[] = [
             {
                 name: 'archives-hacking',
                 to: {
-                    name: 'archives',
+                    name: 'categories',
                     params: {
                         tag: 'hacking',
                     },
@@ -54,7 +54,7 @@ export const menuData: MenuItemData[] = [
             {
                 name: 'archives-whatever',
                 to: {
-                    name: 'archives',
+                    name: 'categories',
                     params: {
                         tag: 'whatever',
                     },
@@ -68,7 +68,7 @@ export const menuData: MenuItemData[] = [
             {
                 name: 'archives-record',
                 to: {
-                    name: 'archives',
+                    name: 'categories',
                     params: {
                         tag: 'record',
                     },
@@ -236,5 +236,17 @@ export const userInformation: UserInformation[] = [
         },
         link: 'mailto:linghanchujian@gmail.com',
         title: 'email',
+    },
+]
+
+// 赞赏
+export const reward: UserReward[] = [
+    {
+        image: '',
+        title: '支付宝',
+    },
+    {
+        image: '',
+        title: '微信',
     },
 ]

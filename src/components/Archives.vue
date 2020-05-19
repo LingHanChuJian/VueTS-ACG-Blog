@@ -19,7 +19,7 @@
                         router-link(:to="getArticleLink(item, '#comments')")
                             Icon(type="comment-dots")
                             | {{ item.comments }} 条评论
-                    span.meta-tag
+                    span.meta-categories
                         router-link(:to="getTagLink(item)")
                             Icon(type="folder")
                             | {{ item.tagName }}
@@ -68,9 +68,9 @@ export default class Archives extends Vue {
 
     private getTagLink(item: UserArchives): RawLocation {
         return {
-            name: 'archives',
+            name: 'categories',
             params: {
-                tag: item.tag,
+                categories: item.categories,
             },
         }
     }
