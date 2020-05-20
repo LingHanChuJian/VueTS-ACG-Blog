@@ -20,6 +20,11 @@ const routes: RouteConfig[] = [
         component: () => import('@/views/Search.vue'),
       },
       {
+        path: '/archives',
+        name: 'archives',
+        component: () => import('@/views/Archives.vue'),
+      },
+      {
         path: '/article/:year/:month/:day/:subtitle',
         name: 'article',
         component: () => import('@/views/Article.vue'),

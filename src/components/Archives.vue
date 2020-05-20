@@ -20,7 +20,7 @@
                             Icon(type="comment-dots")
                             | {{ item.comments }} 条评论
                     span.meta-categories
-                        router-link(:to="getTagLink(item)")
+                        router-link(:to="getCategoriesLink(item)")
                             Icon(type="folder")
                             | {{ item.tagName }}
                 div(:class="[prefixCls + '-info-introduction']")
@@ -66,7 +66,7 @@ export default class Archives extends Vue {
         }
     }
 
-    private getTagLink(item: UserArchives): RawLocation {
+    private getCategoriesLink(item: UserArchives): RawLocation {
         return {
             name: 'categories',
             params: {
@@ -149,4 +149,22 @@ multi-line(line)
 
 .archive-info-introduction
     multi-line(3)
+
+@media screen and (max-width 860px)
+    .archive
+        display block
+        height auto
+        box-shadow none
+        &:hover
+            box-shadow none
+    
+    .archive-image
+        width auto
+        max-width auto
+        min-width auto
+
+    .archive-info
+        width auto
+        text-align left !important
+        padding 10px !important
 </style>

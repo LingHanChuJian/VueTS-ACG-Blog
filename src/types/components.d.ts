@@ -111,7 +111,9 @@ export interface UserArchives {
     image: string
     pageView: number
     comments: number
-    introduction: string
+    introduction?: string
+    content?: string
+    m3u8?: string
     create: number
 }
 

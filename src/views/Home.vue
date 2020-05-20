@@ -110,4 +110,10 @@ export default class Home extends Vue {
         margin-bottom 20px
         padding-bottom 10px
         border-bottom 1px dashed $font-color
+
+@media screen and (max-width 860px)
+    .home-wrap
+        padding 20px 15px
+    .home-strat
+        display none
 </style>

@@ -5,9 +5,9 @@
         :target="target"
         :class="classes"
         :style="liStyle"
-        @click.exact="handleClickItem(event, false)"
-        @click.ctrl="handleClickItem(event, true)"
-        @click.meta="handleClickItem(event, true)"
+        @click.exact="handleClickItem($event, false)"
+        @click.ctrl="handleClickItem($event, true)"
+        @click.meta="handleClickItem($event, true)"
     )
         slot
     li(

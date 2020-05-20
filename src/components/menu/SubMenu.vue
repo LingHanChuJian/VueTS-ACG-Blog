@@ -4,9 +4,9 @@
         :href="linkUrl"
         :target="target"
         :class="classes"
-        @click.exact="handleClickItem(event, false)"
-        @click.ctrl="handleClickItem(event, true)"
-        @click.meta="handleClickItem(event, true)"
+        @click.exact="handleClickItem($event, false)"
+        @click.ctrl="handleClickItem($event, true)"
+        @click.meta="handleClickItem($event, true)"
         @mouseenter="handleMouseenter"
         @mouseleave="handleMouseleave"
     )

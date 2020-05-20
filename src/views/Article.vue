@@ -1,18 +1,34 @@
 <template lang="pug">
     main(:class="[prefixCls + '-wrap']")
         article(:class="[prefixCls + '-article', 'markdown']" ref="article" v-html="content")
-        div(:class="[prefixCls + '-reward']")
-            Poptip(trigger="hover")
+        div(:class="[prefixCls + '-mark']")
+            | Q.E.D.
+            Icon(type="dragon" size="14")
+        div(v-if="handleReward.length !== 0" :class="[prefixCls + '-reward']")
+            Poptip(trigger="hover" placement="bottom")
                 div.reward 赏
                 template(v-slot:content)
-                    | 这是 hover 展示内容
-        div
+                    ul.reward-ul
+                        li(v-for="item in handleReward" :key="item.title")
+                            img(:src="item.image")
+                            p {{ item.title }}
+        div(:class="[prefixCls + '-protocol']")
+            div(:class="[prefixCls + '-lincenses']")
+                a(href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="license")
+                    Icon(type="creative-commons")
+                    | 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议
+            div(v-if="tags.length !== 0" :class="[prefixCls + '-tags']")
+                Icon(type="tags")
+                router-link(v-for="item, index in tags" :key="index" :to="getTagLink(item)") {{ item }}
 </template>
 
 <script lang="ts">
+import { reward } from '@/config'
+import { RawLocation } from 'vue-router'
 import { Icon } from '@/components/icon'
 import { hljsCode } from '@/utils/markdown'
 import { Poptip } from '@/components/poptip'
+import { UserReward } from '@/types/components'
 import { Component, Vue } from 'vue-property-decorator'
 
 import 'highlight.js/styles/atom-one-light.css'
@@ -25,6 +41,8 @@ import 'highlight.js/styles/atom-one-light.css'
 })
 export default class Article extends Vue {
     private prefixCls: string = 'main'
+
+    private tags: string[] = ['GraphQL', 'JavaScript', 'WordPress']
 
     private content: string =
 `<p></p><div class="has-toc have-toc"></div><span class="begin">B</span>igger data and more intelligent algorithms are being processed and analyzed faster in an API-enabled, open source environment. J.P. Morgan is committed to understanding how this technology-driven landscape could differentiate your stock, sector, portfolio, and asset class strategies.<a href="https://www.jpmorgan.com/global/research/machine-learning" target="_blank" rel="nofollow">Here</a>, J.P. Morgan summarizes key research in machine learning, big data and artificial intelligence, highlighting exciting trends that impact the financial community.<p></p>
@@ -227,6 +245,20 @@ We are all in the gutter, but some of us are looking at the stars.
 </div>
 `
 
+    // 跳转 tags
+    private getTagLink(item: string): RawLocation {
+        return {
+            name: 'tags',
+            params: {
+                tag: item,
+            },
+        }
+    }
+
+    private get handleReward(): UserReward[] {
+        return reward.filter((item) => item.image)
+    }
+
     private mounted() {
         this.$nextTick(() => { hljsCode((this.$refs.article as HTMLElement)) })
     }
@@ -244,4 +276,51 @@ We are all in the gutter, but some of us are looking at the stars.
 .main-article
     position relative
 
+.main-reward
+    margin 35px 0
+    text-align center
+
+.main-mark
+    i
+        margin-left 6px
+        color $font-color-hover
+
+.main-protocol
+    padding 20px 0
+    border-bottom 1px dashed $font-color
+    border-top 1px dashed $font-color
+
+.main-lincenses
+.main-tags
+    text-align center
+    i
+        margin-right 6px
+
+.main-lincenses
+    margin-bottom 10px
+
+.main-tags
+    a
+        margin 0 5px
+        text-transform uppercase
+
+.reward-ul
+    li
+        padding 0 12px
+        display inline-block
+        img
+            max-width 130px
+        p
+            margin 5px 0
+
+.reward
+    cursor pointer
+    margin 0 auto
+    width 40px
+    height 40px
+    text-align center
+    line-height 40px
+    background-color #d34836
+    border-radius 100%
+    color #FFFFFF
 </style>

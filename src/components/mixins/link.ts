@@ -28,8 +28,7 @@ export default class LinkMixins extends Vue {
         if (isNewWindow) {
             let to = this.to
             if (router) {
-                const current: Route = this.$route
-                const route = router.resolve((this.to as RawLocation), current, this.append)
+                const route = router.resolve((this.to as RawLocation), this.$route, this.append)
                 to = route ? route.href : this.to
             }
             window.open((to as string))
@@ -58,9 +57,11 @@ export default class LinkMixins extends Vue {
         if (type !== 'string') {
             return null
         }
+
         if ((this.to as string).includes('//')) {
             return this.to
         }
+
         const router: VueRouter = this.$router
         if (router) {
             const route = router.resolve((this.to as RawLocation), this.$route, this.append)

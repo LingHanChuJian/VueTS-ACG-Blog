@@ -1,6 +1,6 @@
 <template lang="pug">
     div.logo
-        router-link(to="home")
+        router-link(:to="{ name: 'home'}")
             span.logo-title
                 ruby 凌
                     rt こん

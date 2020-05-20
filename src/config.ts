@@ -19,7 +19,7 @@ export const playerLink: string = 'http://img.cdn.myrove.cn/test/video.m3u8'
 export const menuData: MenuItemData[] = [
     {
         name: 'home',
-        to: 'home',
+        to: { name: 'home' },
         content: '首页',
         className: 'home',
         icon: {
@@ -29,7 +29,7 @@ export const menuData: MenuItemData[] = [
     },
     {
         name: 'archives',
-        to: 'archives',
+        to: { name: 'archives' },
         content: '归档',
         className: 'archives',
         icon: {
@@ -92,7 +92,7 @@ export const menuData: MenuItemData[] = [
         children: [
             {
                 name: 'list-anime',
-                to: 'anime',
+                to: { name: 'anime' },
                 content: '番剧',
                 icon: {
                     type: 'film',
@@ -101,7 +101,7 @@ export const menuData: MenuItemData[] = [
             },
             {
                 name: 'list-music',
-                to: 'music',
+                to: { name: 'music' },
                 content: '歌单',
                 icon: {
                     type: 'headphones',
@@ -110,7 +110,7 @@ export const menuData: MenuItemData[] = [
             },
             {
                 name: 'list-boy',
-                to: 'boy',
+                to: { name: 'boy' },
                 content: '男孩',
                 icon: {
                     type: 'grin-wink',
@@ -121,7 +121,7 @@ export const menuData: MenuItemData[] = [
     },
     {
         name: 'comment',
-        to: 'comment',
+        to: { name: 'comment' },
         content: '留言版',
         className: 'comment',
         icon: {
@@ -131,7 +131,7 @@ export const menuData: MenuItemData[] = [
     },
     {
         name: 'friends',
-        to: 'friends',
+        to: { name: 'friends' },
         content: '友人帐',
         className: 'friends',
         icon: {
@@ -141,7 +141,7 @@ export const menuData: MenuItemData[] = [
     },
     {
         name: 'feed',
-        to: 'feed',
+        to: { name: 'feed' },
         content: '投食',
         className: 'feed',
         icon: {
@@ -151,7 +151,7 @@ export const menuData: MenuItemData[] = [
     },
     {
         name: 'about',
-        to: 'about',
+        to: { name: 'about' },
         content: '关于',
         className: 'about',
         icon: {
@@ -161,7 +161,7 @@ export const menuData: MenuItemData[] = [
         children: [
             {
                 name: 'about-me',
-                to: 'me',
+                to: { name: 'me' },
                 content: '我?',
                 icon: {
                     type: 'dragon',
@@ -170,7 +170,7 @@ export const menuData: MenuItemData[] = [
             },
             {
                 name: 'about-statistics',
-                to: 'statistics',
+                to: { name: 'statistics' },
                 content: '统计',
                 icon: {
                     type: 'chart-area',
@@ -179,7 +179,7 @@ export const menuData: MenuItemData[] = [
             },
             {
                 name: 'about-theme',
-                to: 'theme',
+                to: { name: 'theme' },
                 content: '主题',
                 icon: {
                     type: 'snowflake',
@@ -242,11 +242,11 @@ export const userInformation: UserInformation[] = [
 // 赞赏
 export const reward: UserReward[] = [
     {
-        image: '',
+        image: 'http://img.cdn.myrove.cn/test/Alipay.jpg',
         title: '支付宝',
     },
     {
-        image: '',
+        image: 'http://img.cdn.myrove.cn/test/WeChat.jpg',
         title: '微信',
     },
 ]

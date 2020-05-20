@@ -32,15 +32,6 @@ import { Component, Prop, Mixins, Vue } from 'vue-property-decorator'
     },
 })
 export default class AcgHeader extends Mixins(AdaptiveMixins) {
-    @Prop({
-        type: String,
-        default: 'acg-header',
-        validator(value: string) {
-            return oneOf(value, ['acg-header', 'blog-header'])
-        },
-    })
-    private name!: string
-
     private playerLink: string = playerLink
 
     private playerIcon: string = 'play-circle'
