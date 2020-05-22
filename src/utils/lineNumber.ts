@@ -2,6 +2,7 @@
  * {@link https://github.com/wcoder/highlightjs-line-numbers.js}
  */
 
+import { stringFormat } from '@/utils'
 import { LineNumbersOptions } from '@/types/utils'
 
 const TABLE_NAME: string = 'hljs-ln'
@@ -222,11 +223,4 @@ export const getLines = (text: string): string[] => {
 
 export const getLinesCount = (text: string): number => {
     return (text.trim().match(BREAK_LINE_REGEXP) || []).length
-}
-
-/**
- * {@link https://wcoder.github.io/notes/string-format-for-string-formating-in-javascript}
- */
-export const stringFormat = (format: string, args: any[]): string => {
-    return format.replace(/\{(\d+)\}/g, (m, n) => args[n] || m)
 }

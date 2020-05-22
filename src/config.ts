@@ -1,6 +1,6 @@
-import { MenuItemData, UserInformation, UserReward } from '@/types/components'
+import { MenuItemData, UserInformation, UserReward, UserExpression, ExpressionParam } from '@/types/components'
 
-// site 首页标题
+// site 首页标题   标题有了 author不显示
 export const title: string = 'Hi,Wanderer!'
 
 // 首页 author 图片链接
@@ -248,5 +248,40 @@ export const reward: UserReward[] = [
     {
         image: 'http://img.cdn.myrove.cn/test/WeChat.jpg',
         title: '微信',
+    },
+]
+
+//  表情分类
+//  emoticon 颜文字  emoji 表情符号  sticker 贴图
+export const expression: UserExpression[] = [
+    {
+        type: 'sticker',
+        template: 'f(x)=∫({0})sec²xdx',
+        titile: 'bilibili~',
+        description: '贴图',
+        expression: [],
+    },
+    {
+        type: 'emoticon',
+        template: '`{0}`',
+        titile: '(✪ω✪)',
+        description: '颜文字',
+        expression: [{ value: '(⌒▽⌒)' }, { value: '(￣▽￣)' }, { value: '(=・ω・=)' }, { value: '(｀・ω・´)' },
+        { value: '(〜￣△￣)〜' }, { value: '(･∀･)' }, { value: '(°∀°)ﾉ' }, { value: '(￣3￣)' }, { value: '╮(￣▽￣)╭' },
+        { value: '(´_ゝ｀)' }, { value: '←_←' }, { value: '→_→' }, { value: '(<_<)' }, { value: '(>_>)' }, { value: '(;¬_¬)' },
+        { value: '("▔□▔)/' }, { value: '(ﾟДﾟ≡ﾟдﾟ)!?' }, { value: 'Σ(ﾟдﾟ;)' }, { value: 'Σ(￣□￣||)' }, { value: '(’；ω；‘)' },
+        { value: '(/TДT)/' }, { value: '(^・ω・^' }, { value: ')' }, { value: '(｡･ω･｡)' }, { value: '(●￣(ｴ)￣●)' },
+        { value: 'ε=ε=(ノ≧∇≦)ノ' }, { value: '(’･_･‘)' }, { value: '(-_-#)' }, { value: '（￣へ￣）' }, { value: '(￣ε(#￣)Σ' },
+        { value: 'ヽ(‘Д’)ﾉ' }, { value: '(#-_-)┯━┯' }, { value: '(╯°口°)╯(┴—┴' }, { value: '←◡←' }, { value: '(' },
+        { value: '♥д♥)' }, { value: '_(:3」∠)_' }, { value: 'Σ>―(〃°ω°〃)♡→' }, { value: '⁄(⁄' }, { value: '⁄•⁄ω⁄•⁄' },
+        { value: '⁄)⁄' }, { value: '(╬ﾟдﾟ)▄︻┻┳═一' }, { value: '･*･:≡(　ε:)' }, { value: '(笑)' }, { value: '(汗)' },
+        { value: '(泣)' }, { value: '(苦笑)' }, { value: 'OωO' }, { value: 'ヾ(≧∇≦*)ゝ' }],
+    },
+    {
+        type: 'emoji',
+        template: ':{0}:',
+        titile: 'Tieba',
+        description: '表情符号',
+        expression: [],
     },
 ]

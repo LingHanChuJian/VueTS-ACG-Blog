@@ -6,7 +6,7 @@
 import { Component, Vue } from 'vue-property-decorator'
 
 @Component
-export default class Comments extends Vue {}
+export default class List extends Vue {}
 </script>
 
 <style lang="stylus" scoped>

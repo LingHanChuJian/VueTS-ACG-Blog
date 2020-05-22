@@ -180,3 +180,10 @@ export const throttle = (fn: Func, delay: number): EventListenerOrEventListenerO
         }
     }
 }
+
+/**
+ * {@link https://wcoder.github.io/notes/string-format-for-string-formating-in-javascript}
+ */
+export const stringFormat = (format: string, args: any[]): string => {
+    return format.replace(/\{(\d+)\}/g, (m, n) => args[n] || m)
+}

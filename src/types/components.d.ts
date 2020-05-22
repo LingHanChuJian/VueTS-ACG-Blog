@@ -93,6 +93,33 @@ export interface UserInformation {
     fn?: () => void
 }
 
+// Comments
+export interface User {
+    id: number | string
+    image: string
+    userName: string
+    site?: string
+    email: string
+    mark: string
+    isAuthor: boolean
+}
+
+export interface Comments {
+    id: number | string
+    parent?: User
+    user: User
+    content: string
+    create: number
+    userAgent: string
+    location: string
+    children?: Comments[]
+}
+
+export interface UserComments {
+    total: number
+    comments: Comments[]
+}
+
 // components
 export interface UserRecommend {
     link: string
@@ -115,6 +142,27 @@ export interface UserArchives {
     content?: string
     m3u8?: string
     create: number
+    previous?: UserArchives
+    next?: UserArchives
 }
 
 export type UserReward = Omit<UserInformation, 'icon'>
+
+//  type emoticon 颜文字  emoji 表情符号  sticker 贴图
+export interface ExpressionParam {
+    image?: string
+    value: string
+    step?: string
+    width?: string
+    height?: string
+    translateY?: number
+    delay?: number
+}
+
+export interface UserExpression {
+    type: 'sticker' | 'emoticon' | 'emoji'
+    template?: string
+    titile: string
+    description?: string
+    expression: ExpressionParam[]
+}
