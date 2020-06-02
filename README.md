@@ -105,7 +105,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
         |   |   |-- acg-header      
         |   |   |   |-- AcgHeader.vue          header 组件
         |   |   |   |-- index.ts
-        |   |   |   |-- Player.vue             APlayer组件
+        |   |   |   |-- Player.vue             DPlayer组件
         |   |   |-- anchor
         |   |   |   |-- Anchor.vue             锚点组件
         |   |   |   |-- index.ts

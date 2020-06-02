@@ -23,6 +23,8 @@
 </template>
 
 <script lang="ts">
+import APlayer from 'aplayer'
+import DPlayer from 'dplayer'
 import { reward } from '@/config'
 import { RawLocation } from 'vue-router'
 import { Icon } from '@/components/icon'
@@ -31,7 +33,10 @@ import { Poptip } from '@/components/poptip'
 import { UserReward } from '@/types/components'
 import { Component, Vue } from 'vue-property-decorator'
 
+import 'aplayer/dist/APlayer.min.css'
 import 'highlight.js/styles/atom-one-light.css'
+
+declare var window: Window & { APlayer?: APlayer, DPlayer?: DPlayer }
 
 @Component({
     components: {
@@ -241,7 +246,45 @@ Definition 2<p></p>
 <blockquote><p>
 We are all in the gutter, but some of us are looking at the stars.
 </p></blockquote>
-<h1 id="toc-head-27">Aplayer Support</h1>
+<div id="aplayer"></div>
+<script>
+new APlayer({
+    container: document.getElementById('aplayer'),
+    mini: false,
+    autoplay: false,
+    theme: '#FADFA3',
+    loop: 'all',
+    order: 'random',
+    preload: 'auto',
+    volume: 0.7,
+    mutex: true,
+    listFolded: false,
+    listMaxHeight: 90,
+    lrcType: 3,
+    audio: [{
+            name: '光るなら',
+            artist: 'Goose house',
+            url: 'https://cn-south-17-aplayer-46154810.oss.dogecdn.com/hikarunara.mp3',
+            cover: 'https://cn-south-17-aplayer-46154810.oss.dogecdn.com/hikarunara.jpg',
+            lrc: 'https://cn-south-17-aplayer-46154810.oss.dogecdn.com/hikarunara.lrc',
+            theme: '#ebd0c2'
+        }, {
+            name: 'トリカゴ',
+            artist: 'XX:me',
+            url: 'https://cn-south-17-aplayer-46154810.oss.dogecdn.com/darling.mp3',
+            cover: 'https://cn-south-17-aplayer-46154810.oss.dogecdn.com/darling.jpg',
+            lrc: 'https://cn-south-17-aplayer-46154810.oss.dogecdn.com/darling.lrc',
+            theme: '#46718b'
+        }, {
+            name: '前前前世',
+            artist: 'RADWIMPS',
+            url: 'https://cn-south-17-aplayer-46154810.oss.dogecdn.com/yourname.mp3',
+            cover: 'https://cn-south-17-aplayer-46154810.oss.dogecdn.com/yourname.jpg',
+            lrc: 'https://cn-south-17-aplayer-46154810.oss.dogecdn.com/yourname.lrc',
+            theme: '#505d6b'
+        }]
+})
+<\/script>
 </div>
 `
 
@@ -260,7 +303,11 @@ We are all in the gutter, but some of us are looking at the stars.
     }
 
     private mounted() {
-        this.$nextTick(() => { hljsCode((this.$refs.article as HTMLElement)) })
+        this.$nextTick(() => {
+            window.APlayer = (APlayer as any)
+            window.DPlayer = (DPlayer as any)
+            hljsCode((this.$refs.article as HTMLElement))
+        })
     }
 
     // 导航更新

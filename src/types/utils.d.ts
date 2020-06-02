@@ -2,8 +2,8 @@ import Vue from 'vue'
 import { StoreOptions } from 'vuex'
 
 export interface ObjectBase {
-    [key: string]: string
-    [key: number]: string
+    [key: string]: any
+    [key: number]: any
 }
 
 export interface Details {
