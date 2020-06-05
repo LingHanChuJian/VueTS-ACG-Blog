@@ -181,17 +181,6 @@ export const throttle = (fn: Func, delay: number): EventListenerOrEventListenerO
     }
 }
 
-// 将json对象转化为 url参数 ?name=name
-export const searchParams = (obj: ObjectBase): string => {
-    const params: string[] = []
-    for (const key in obj) {
-        if (obj.hasOwnProperty(key)) {
-            params.push(key + '=' + obj[key])
-        }
-    }
-    return params.join('&')
-}
-
 /**
  * {@link https://wcoder.github.io/notes/string-format-for-string-formating-in-javascript}
  */

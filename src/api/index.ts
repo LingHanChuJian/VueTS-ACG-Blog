@@ -1,9 +1,13 @@
 import http from '@/api/http'
 import * as API from '@/types/api'
-import { searchParams } from '@/utils'
+import { AxiosResponse } from 'axios'
 
 /**
- * 获取歌单 aplayer?songs=md5(fixed + songs_id)
- * 获取歌曲 aplayer?song=md5(fixed + id)
+ * 获取歌单 /aplayer?type={song | songs}&song={base64(fixed + id)}
  */
-export const song = (data: API.SongData): Promise<API.ResponseBase> => http.get(`aplayer?${searchParams(data)}`)
+export const song = (data: API.SongData): Promise<AxiosResponse> => http.get('aplayer', { params: data })
+
+/**
+ * 获取视频 /dplayer?type={video | videos}&video=base64(fixed + id)
+ */
+export const video = (data: API.VideoData): Promise<AxiosResponse> => http.get('dplayer', { params: data })

@@ -282,6 +282,6 @@ export const expression: UserExpression[] = [
         template: ':{0}:',
         titile: 'Tieba',
         description: '表情符号',
-        expression: [],
+        expression: [{ image: '', value: '' }],
     },
 ]

@@ -23,8 +23,6 @@
 </template>
 
 <script lang="ts">
-import APlayer from 'aplayer'
-import DPlayer from 'dplayer'
 import { reward } from '@/config'
 import { RawLocation } from 'vue-router'
 import { Icon } from '@/components/icon'
@@ -32,11 +30,12 @@ import { hljsCode } from '@/utils/markdown'
 import { Poptip } from '@/components/poptip'
 import { UserReward } from '@/types/components'
 import { Component, Vue } from 'vue-property-decorator'
+import { handleAPlayer, destroyAPlayer } from '@/utils/aplayer'
 
 import 'aplayer/dist/APlayer.min.css'
 import 'highlight.js/styles/atom-one-light.css'
 
-declare var window: Window & { APlayer?: APlayer, DPlayer?: DPlayer }
+// declare var window: Window & { APlayer?: APlayer, DPlayer?: DPlayer }
 
 @Component({
     components: {
@@ -303,10 +302,10 @@ new APlayer({
     }
 
     private mounted() {
-        this.$nextTick(() => {
-            window.APlayer = (APlayer as any)
-            window.DPlayer = (DPlayer as any)
+        this.$nextTick(async () => {
+
             hljsCode((this.$refs.article as HTMLElement))
+            const player = await handleAPlayer((this.$refs.article as HTMLElement))
         })
     }
 

@@ -1,10 +1,16 @@
-export interface ResponseBase {
-    status: number
-    result: any
-    msg: string
-}
+// requests
+export type SongType = 'songs' | 'song'
 
 export interface SongData {
-    song?: string
-    songs?: string
+    type: SongType
+    song: string
+}
+
+export interface VideoData {
+    video: string
+}
+
+export interface ResponseError {
+    status: number
+    message: string
 }

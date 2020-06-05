@@ -9,8 +9,8 @@
 
 <script lang="ts">
 import { UserComments } from '@/types/components'
-import CommentsList from '@/components/comments/List.vue'
-import CommentsReply from '@/components/comments/Reply.vue'
+import CommentsList from '@/components/comments/CommentsList.vue'
+import CommentsReply from '@/components/comments/CommentsReply.vue'
 import { Component, Prop, Vue } from 'vue-property-decorator'
 
 @Component({

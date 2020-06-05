@@ -7,7 +7,7 @@
         )
             a(:href="item.link" target="_blank")
                 div(:class="[prefixCls + '-image']")
-                    img(:src="item.image")
+                    img(v-lazy="item.image")
                 div(:class="[prefixCls + '-info']")
                     h3 {{ item.title }}
                     p  {{ item.description }}
@@ -37,6 +37,7 @@ export default class Recommend extends Vue {
     justify-content space-between
 
 .recommend
+    min-width 32.5%
     max-width 32.5%
     height 160px
     overflow hidden
