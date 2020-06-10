@@ -11,23 +11,24 @@
  * data-loop="all"
  * data-order="list"
  * data-listmaxheight="349px"></div>
+ * 参数: data-aplayer  data-type data-song  必须才能获取数据
  */
 import { song } from '@/api'
-import { typeOf } from '@/utils/assist'
 import { AxiosResponse } from 'axios'
+import { typeOf } from '@/utils/assist'
 import { SongData, SongType } from '@/types/api'
 import APlayer, { APlayerOptions, LoopMode, OrderMode, Preload } from 'aplayer'
 
 export const handleAPlayer = (el: HTMLElement): Array<Promise<APlayer>> => {
     const aplayer: NodeListOf<HTMLElement> = el.querySelectorAll('div[data-aplayer]')
 
-    const arrayAplayer: Array<Promise<APlayer>> = []
+    const arrayAPlayer: Array<Promise<APlayer>> = []
 
     for (let i = 0, len = aplayer.length; i < len; i++) {
-        arrayAplayer.push(createAPlayer(aplayer[i]))
+        arrayAPlayer.push(createAPlayer(aplayer[i]))
     }
 
-    return arrayAplayer
+    return arrayAPlayer
 }
 
 export const createAPlayer = async (el: HTMLElement): Promise<APlayer> => {
@@ -63,10 +64,11 @@ export const createAPlayer = async (el: HTMLElement): Promise<APlayer> => {
 }
 
 // 销毁 APlayer
-export const destroyAPlayer = (aplayer: APlayer | APlayer[]): void => {
-    if (typeOf(aplayer) === 'object') { aplayer = [(aplayer as APlayer)] }
+export const destroyAPlayer = (aplayer: Promise<APlayer> | Array<Promise<APlayer>>): void => {
 
-    for (let i = 0, len = (aplayer as APlayer[]).length; i < len; i++) {
-        (aplayer as APlayer[])[i].destroy()
+    if (typeOf(aplayer) === 'object') { aplayer = [(aplayer as Promise<APlayer>)] }
+
+    for (let i = 0, len = (aplayer as Array<Promise<APlayer>>).length; i < len; i++) {
+        (aplayer as Array<Promise<APlayer>>)[i].then((item) => item.destroy())
     }
 }
