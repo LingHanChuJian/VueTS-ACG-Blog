@@ -61,7 +61,7 @@ export interface DPlayerVideoQuality {
 }
 
 export interface DPlayerVideo {
-  url: string
+  url?: string
   pic?: string
   thumbnails?: string
   type?: VideoType | string
