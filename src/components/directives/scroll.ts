@@ -64,7 +64,7 @@ const isAttached = (element: HTMLElement): boolean => {
 
 const directives: DirectiveOptions = {
     bind(el: HTMLElement, { value }, vnode: VNode) {
-                // 滚动目标元素
+        // 滚动目标元素
         const scrollElemntTarget: HTMLElement | Window = getScrollEventTarget(el)
 
         const scrollData: ScrollData = {

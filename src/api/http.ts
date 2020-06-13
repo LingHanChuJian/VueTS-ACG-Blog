@@ -1,5 +1,5 @@
 import { ResponseError } from '@/types/api'
-import axios, { AxiosInstance, AxiosError, AxiosResponse } from 'axios'
+import axios, { AxiosInstance, AxiosError, AxiosResponse, AxiosRequestConfig } from 'axios'
 
 const responseError: ResponseError[] = [
     {
@@ -52,6 +52,14 @@ const instance: AxiosInstance = axios.create({
     baseURL: process.env.VUE_APP_BASE_URL,
     withCredentials: true,
     timeout: 10000,
+})
+
+instance.interceptors.request.use((config: AxiosRequestConfig): AxiosRequestConfig | Promise<AxiosRequestConfig> => {
+    if (config.method === 'POST') {
+        if (!config.headers) { config.headers = {} }
+        config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    }
+    return config
 })
 
 instance.interceptors.response.use((response: AxiosResponse) => response, (error: AxiosError) => {

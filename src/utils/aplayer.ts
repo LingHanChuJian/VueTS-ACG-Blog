@@ -19,13 +19,13 @@ import { typeOf } from '@/utils/assist'
 import { SongData, SongType } from '@/types/api'
 import APlayer, { APlayerOptions, LoopMode, OrderMode, Preload } from 'aplayer'
 
-export const handleAPlayer = (el: HTMLElement): Array<Promise<APlayer>> => {
+export const handleAPlayer = async (el: HTMLElement): Promise<APlayer[]> => {
     const aplayer: NodeListOf<HTMLElement> = el.querySelectorAll('div[data-aplayer]')
 
-    const arrayAPlayer: Array<Promise<APlayer>> = []
+    const arrayAPlayer: APlayer[] = []
 
     for (let i = 0, len = aplayer.length; i < len; i++) {
-        arrayAPlayer.push(createAPlayer(aplayer[i]))
+        arrayAPlayer.push(await createAPlayer(aplayer[i]))
     }
 
     return arrayAPlayer
@@ -64,11 +64,8 @@ export const createAPlayer = async (el: HTMLElement): Promise<APlayer> => {
 }
 
 // 销毁 APlayer
-export const destroyAPlayer = (aplayer: Promise<APlayer> | Array<Promise<APlayer>>): void => {
-
-    if (typeOf(aplayer) === 'object') { aplayer = [(aplayer as Promise<APlayer>)] }
-
-    for (let i = 0, len = (aplayer as Array<Promise<APlayer>>).length; i < len; i++) {
-        (aplayer as Array<Promise<APlayer>>)[i].then((item) => item.destroy())
+export const destroyAPlayer = (aplayer: APlayer[]): void => {
+    for (let i = 0, len = aplayer.length; i < len; i++) {
+        aplayer[i].destroy()
     }
 }

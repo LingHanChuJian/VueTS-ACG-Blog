@@ -23,6 +23,8 @@
 </template>
 
 <script lang="ts">
+import APlayer from 'aplayer'
+import DPlayer from 'dplayer'
 import { reward } from '@/config'
 import { RawLocation } from 'vue-router'
 import { Icon } from '@/components/icon'
@@ -31,6 +33,7 @@ import { Poptip } from '@/components/poptip'
 import { UserReward } from '@/types/components'
 import { Component, Vue } from 'vue-property-decorator'
 import { handleAPlayer, destroyAPlayer } from '@/utils/aplayer'
+import { handleDPlayer, destroyDPlayer } from '@/utils/dplayer'
 
 import 'aplayer/dist/APlayer.min.css'
 import 'highlight.js/styles/atom-one-light.css'
@@ -47,6 +50,10 @@ export default class Article extends Vue {
     private prefixCls: string = 'main'
 
     private tags: string[] = ['GraphQL', 'JavaScript', 'WordPress']
+
+    private musicPlayer: APlayer[] = []
+
+    private videoPlayer: DPlayer[] = []
 
     private content: string =
 `<p></p><div class="has-toc have-toc"></div><span class="begin">B</span>igger data and more intelligent algorithms are being processed and analyzed faster in an API-enabled, open source environment. J.P. Morgan is committed to understanding how this technology-driven landscape could differentiate your stock, sector, portfolio, and asset class strategies.<a href="https://www.jpmorgan.com/global/research/machine-learning" target="_blank" rel="nofollow">Here</a>, J.P. Morgan summarizes key research in machine learning, big data and artificial intelligence, highlighting exciting trends that impact the financial community.<p></p>
@@ -245,7 +252,7 @@ Definition 2<p></p>
 <blockquote><p>
 We are all in the gutter, but some of us are looking at the stars.
 </p></blockquote>
-<div id="aplayer"></div>
+<div data-aplayer data-type="song" data-song=""></div>
 <script>
 new APlayer({
     container: document.getElementById('aplayer'),
@@ -303,14 +310,20 @@ new APlayer({
 
     private mounted() {
         this.$nextTick(async () => {
-
             hljsCode((this.$refs.article as HTMLElement))
-            const player = await handleAPlayer((this.$refs.article as HTMLElement))
+            this.musicPlayer = await handleAPlayer((this.$refs.article as HTMLElement))
+            this.videoPlayer = await handleDPlayer((this.$refs.article as HTMLElement))
         })
     }
 
-    // 导航更新
-    // private beforeRouteUpdate () {}
+    private beforeRouteUpdate() {
+        // 导航更新
+    }
+
+    private beforeDestroy() {
+        destroyAPlayer(this.musicPlayer)
+        destroyDPlayer(this.videoPlayer)
+    }
 }
 </script>
 

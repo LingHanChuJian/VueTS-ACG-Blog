@@ -1,7 +1,7 @@
 import AcgHeader from '@/components/acg-header/AcgHeader.vue'
-import Player from '@/components/acg-header/Player.vue'
+import VideoPlayer from '@/components/acg-header/VideoPlayer.vue'
 
 export {
     AcgHeader,
-    Player,
+    VideoPlayer,
 }

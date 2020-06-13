@@ -13,7 +13,7 @@ export const description: string = 'If the heart does not have a destination, th
 export const randomImagesLink: string = 'https://api.2heng.xin/cover'
 
 // 首页播放 视频链接
-export const playerLink: string = 'http://img.cdn.myrove.cn/test/video.m3u8'
+export const videoPlayerLink: string = 'http://img.cdn.myrove.cn/test/video.m3u8'
 
 // menu 菜单
 export const menuData: MenuItemData[] = [

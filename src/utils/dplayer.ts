@@ -13,17 +13,16 @@
 import Hls from 'hls.js'
 import { video } from '@/api'
 import { AxiosResponse } from 'axios'
-import { typeOf } from '@/utils/assist'
 import { VideoData } from '@/types/api'
 import DPlayer, { DPlayerOptions, Preload } from 'dplayer'
 
-export const handleDPlayer = (el: HTMLElement) => {
+export const handleDPlayer = async (el: HTMLElement): Promise<DPlayer[]> => {
     const dplayer: NodeListOf<HTMLElement> = el.querySelectorAll('div[data-dplayer]')
 
-    const arrayDPlayer: Array<Promise<DPlayer>> = []
+    const arrayDPlayer: DPlayer[] = []
 
     for (let i = 0, len = dplayer.length; i < len; i++) {
-        arrayDPlayer.push(createDplayer(dplayer[i]))
+        arrayDPlayer.push(await createDplayer(dplayer[i]))
     }
 
     return arrayDPlayer
@@ -42,6 +41,7 @@ export const createDplayer = async (el: HTMLElement): Promise<DPlayer> => {
         hotkey: data.hotkey ? Boolean(data.hotkey) : true,
         airplay: data.airplay ? Boolean(data.airplay) : true,
         preload: data.preload ? (data.preload as Preload) : 'auto',
+        mutex: data.mutex ? Boolean(data.mutex) : true,
         video: {},
     }
 
@@ -67,11 +67,8 @@ export const createDplayer = async (el: HTMLElement): Promise<DPlayer> => {
 }
 
 // 销毁 DPlayer
-export const destroyDPlayer = (dplayer: Promise<DPlayer> | Array<Promise<DPlayer>>): void => {
-
-    if (typeOf(dplayer) === 'object') { dplayer = [(dplayer as Promise<DPlayer>)] }
-
-    for (let i = 0, len = (dplayer as Array<Promise<DPlayer>>).length; i < len; i++) {
-        (dplayer as Array<Promise<DPlayer>>)[i].then((item) => item.destroy())
+export const destroyDPlayer = (dplayer: DPlayer[]): void => {
+    for (let i = 0, len = dplayer.length; i < len; i++) {
+        dplayer[i].destroy()
     }
 }

@@ -2,37 +2,37 @@
     div.header-container(:style="headerContainerStyle")
         Information(mode="horizontal" :isPlayer="isPlayer")
         div.player-container
-            Player(
+            VideoPlayer(
                 ref="dplayer"
                 :style="{ zIndex: isShowPlayer? '5' : '-5'  }"
-                :src="playerLink"
-                @ended="playerEnded"
+                :src="videoPlayerLink"
+                @ended="videoPlayerEnded"
             )
             transition(name="player-message")
                 div.player-message(v-show="playerMessage") {{ playerMessage }}
-            Icon.player-icon(:type="playerIcon" size="32" @click="playerIconClick")
+            Icon.player-icon(:type="playerIcon" size="32" @click="videoPlayerIconClick")
 </template>
 
 <script lang="ts">
 import DPlayer from 'dplayer'
 import { oneOf } from '@/utils'
-import { playerLink } from '@/config'
 import { Icon } from '@/components/icon'
+import { videoPlayerLink } from '@/config'
 import { Information } from '@/components/nav'
-import Player from '@/components/acg-header/Player.vue'
 import AdaptiveMixins from '@/components/mixins/adaptive'
 import { CSSStyles, UserInformation } from '@/types/components'
+import VideoPlayer from '@/components/acg-header/VideoPlayer.vue'
 import { Component, Prop, Mixins, Vue } from 'vue-property-decorator'
 
 @Component({
     components: {
-        Player,
         Icon,
+        VideoPlayer,
         Information,
     },
 })
 export default class AcgHeader extends Mixins(AdaptiveMixins) {
-    private playerLink: string = playerLink
+    private videoPlayerLink: string = videoPlayerLink
 
     private playerIcon: string = 'play-circle'
 
@@ -44,8 +44,8 @@ export default class AcgHeader extends Mixins(AdaptiveMixins) {
     // player是否显示
     private isShowPlayer: boolean = false
 
-    private playerIconClick(): void {
-        const dp: DPlayer | undefined = (this.$refs.dplayer as Player).getDPlayer()
+    private videoPlayerIconClick(): void {
+        const dp: DPlayer | undefined = (this.$refs.dplayer as VideoPlayer).getDPlayer()
         if (!dp) { return }
         this.isShowPlayer = true
         this.isPlayer = dp.video.paused
@@ -54,8 +54,8 @@ export default class AcgHeader extends Mixins(AdaptiveMixins) {
         dp.toggle()
     }
 
-    private playerEnded(): void {
-        const dp: DPlayer | undefined = (this.$refs.dplayer as Player).getDPlayer()
+    private videoPlayerEnded(): void {
+        const dp: DPlayer | undefined = (this.$refs.dplayer as VideoPlayer).getDPlayer()
         if (!dp) { return }
         dp.pause()
         this.isShowPlayer = false

@@ -1,6 +1,6 @@
 <template lang="pug">
     div(
-        :class="wrapClasses"
+        :class="[prefixCls + '-wrap']"
         ref="dplayer"
     )
 </template>
@@ -12,7 +12,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
 import DPlayer, { DPlayerOptions, DPlayerEvents, VideoType } from 'dplayer'
 
 @Component
-export default class Player extends Vue {
+export default class VideoPlayer extends Vue {
     @Prop({ type: String, default: '' })
     private src!: string
 
@@ -36,7 +36,7 @@ export default class Player extends Vue {
     })
     private options!: DPlayerOptions
 
-    private prefixCls: string = 'dplayer-wrap'
+    private prefixCls: string = 'dplayer'
 
     private dp?: DPlayer
 
