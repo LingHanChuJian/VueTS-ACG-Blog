@@ -64,38 +64,38 @@ export interface APlayerOptions {
     mutex?: boolean
     lrcType?: LrcType
     listFolded?: boolean
-    listMaxHeight?: number
+    listMaxHeight?: string
     storageName?: string
 }
 
 
 export default class APlayer {
-    lrc: AudioLrc
-    list: AudioList
-    mode: AudioMode
-    audio: HTMLAudioElement
+    public lrc: AudioLrc
+    public list: AudioList
+    public mode: AudioMode
+    public audio: HTMLAudioElement
 
     constructor(options: APlayerOptions)
 
-    play(): void
+    public play(): void
 
-    pause(): void
-  
-    seek(time: number): void
+    public pause(): void
 
-    toggle(): void
+    public seek(time: number): void
 
-    on(event: APlayerEvents, handler: () => void): void
+    public toggle(): void
 
-    theme(color: string, index: number): void
+    public on(event: APlayerEvents, handler: () => void): void
 
-    setMode(mode: AudioMode): void
+    public theme(color: string, index: number): void
 
-    notice(text: string, time: number, opacity: number): void
+    public setMode(mode: AudioMode): void
 
-    skipBack(): void
+    public notice(text: string, time: number, opacity: number): void
 
-    skipForward(): void
+    public skipBack(): void
 
-    destroy(): void
+    public skipForward(): void
+
+    public destroy(): void
 }
