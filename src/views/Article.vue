@@ -294,6 +294,7 @@ We are all in the gutter, but some of us are looking at the stars.
 .main-wrap
     margin 40px auto
     max-width 800px
+    padding 0 10px
 
 .main-article
     position relative

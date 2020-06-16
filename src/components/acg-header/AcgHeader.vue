@@ -1,5 +1,5 @@
 <template lang="pug">
-    div.header-container(:style="headerContainerStyle")
+    div.header-container(:style="{ height: clientHeight + 'px' }")
         Information(mode="horizontal" :isPlayer="isPlayer")
         div.player-container
             VideoPlayer(
@@ -9,8 +9,8 @@
                 @ended="videoPlayerEnded"
             )
             transition(name="player-message")
-                div.player-message(v-show="playerMessage") {{ playerMessage }}
-            Icon.player-icon(:type="playerIcon" size="32" @click="videoPlayerIconClick")
+                div.player-message(v-show="videoPlayerMessage") {{ videoPlayerMessage }}
+            Icon.player-icon(:type="videoPlayerIcon" size="32" @click="videoPlayerIconClick")
 </template>
 
 <script lang="ts">
@@ -19,10 +19,10 @@ import { oneOf } from '@/utils'
 import { Icon } from '@/components/icon'
 import { videoPlayerLink } from '@/config'
 import { Information } from '@/components/nav'
+import { UserInformation } from '@/types/components'
 import AdaptiveMixins from '@/components/mixins/adaptive'
-import { CSSStyles, UserInformation } from '@/types/components'
+import { Component, Prop, Mixins } from 'vue-property-decorator'
 import VideoPlayer from '@/components/acg-header/VideoPlayer.vue'
-import { Component, Prop, Mixins, Vue } from 'vue-property-decorator'
 
 @Component({
     components: {
@@ -34,9 +34,9 @@ import { Component, Prop, Mixins, Vue } from 'vue-property-decorator'
 export default class AcgHeader extends Mixins(AdaptiveMixins) {
     private videoPlayerLink: string = videoPlayerLink
 
-    private playerIcon: string = 'play-circle'
+    private videoPlayerIcon: string = 'play-circle'
 
-    private playerMessage: string = ''
+    private videoPlayerMessage: string = ''
 
     // player是否暂停
     private isPlayer: boolean = false
@@ -49,8 +49,8 @@ export default class AcgHeader extends Mixins(AdaptiveMixins) {
         if (!dp) { return }
         this.isShowPlayer = true
         this.isPlayer = dp.video.paused
-        this.playerIcon = !dp.video.paused ? 'play-circle' : 'pause-circle'
-        this.playerMessage = !dp.video.paused ? '已暂停' : ''
+        this.videoPlayerIcon = !dp.video.paused ? 'play-circle' : 'pause-circle'
+        this.videoPlayerMessage = !dp.video.paused ? '已暂停' : ''
         dp.toggle()
     }
 
@@ -60,13 +60,7 @@ export default class AcgHeader extends Mixins(AdaptiveMixins) {
         dp.pause()
         this.isShowPlayer = false
         this.isPlayer = false
-        this.playerIcon = 'play-circle'
-    }
-
-    private get headerContainerStyle(): CSSStyles<CSSStyleDeclaration> {
-        const style: CSSStyles<CSSStyleDeclaration> = {}
-        style.height = `${this.clientHeight}px`
-        return style
+        this.videoPlayerIcon = 'play-circle'
     }
 
 }

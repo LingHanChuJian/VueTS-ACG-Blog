@@ -12,7 +12,8 @@
                 NavBarMobile(:isCollapsed="isCollapsed" @on-menu-click="setDrawer")
             Layout.acg-layout(:class="{ 'collapsed-opened': isCollapsed }")
                 Header.acg-header(v-show="isHeader")
-                    Acg-Header
+                    keep-alive(include="AcgHeader")
+                        component(:is="activeComponent")
                 Content
                     keep-alive
                         router-view
@@ -27,8 +28,8 @@ import { Route } from 'vue-router'
 import { menuData } from '@/config'
 import GoTop from '@/components/GoTop.vue'
 import AcgFooter from '@/components/AcgFooter.vue'
-import { AcgHeader } from '@/components/acg-header'
 import ScrollMixins from '@/components/mixins/scroll'
+import { AcgHeader, ArticleHeader } from '@/components/acg-header'
 import { Component, Mixins, Watch, Vue } from 'vue-property-decorator'
 import { NavBar, NavDrawer, NavBarMobile, NavSearch } from '@/components/nav'
 import { Layout, Header, Content, Footer, Drawer } from '@/components/layout'
@@ -45,8 +46,9 @@ import { WrapClasses, MenuItemData, UserInformation } from '@/types/components'
         NavDrawer,
         NavSearch,
         NavBarMobile,
-        AcgFooter,
+        ArticleHeader,
         AcgHeader,
+        AcgFooter,
         GoTop,
     },
 })
@@ -90,6 +92,10 @@ export default class Index extends Mixins(ScrollMixins) {
                 ['toggle-header-navbar']: this.isMenu,
             },
         ]
+    }
+
+    private get activeComponent(): string {
+        return this.$route.name === 'home' ?  'AcgHeader' : 'ArticleHeader'
     }
 
     @Watch('scrollTop')
