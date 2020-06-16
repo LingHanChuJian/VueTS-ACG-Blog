@@ -12,8 +12,7 @@
  */
 import Hls from 'hls.js'
 import { video } from '@/api'
-import { AxiosResponse } from 'axios'
-import { VideoData } from '@/types/api'
+import { VideoData, ResponseSuccess } from '@/types/api'
 import DPlayer, { DPlayerOptions, Preload } from 'dplayer'
 
 export const handleDPlayer = async (el: HTMLElement): Promise<DPlayer[]> => {
@@ -43,16 +42,23 @@ export const createDplayer = async (el: HTMLElement): Promise<DPlayer> => {
         preload: data.preload ? (data.preload as Preload) : 'auto',
         mutex: data.mutex ? Boolean(data.mutex) : true,
         video: {},
+        contextmenu: [
+            {
+                text: '关于我?',
+                link: 'https://github.com/LingHanChuJian',
+            },
+        ],
     }
 
     const videoData: VideoData = {
         video: data.video ? data.video : '',
     }
 
-    const response: AxiosResponse = await video(videoData)
+    const response: ResponseSuccess = await video(videoData)
 
     if (response.status === 200) {
         options.video = Object.assign({
+            type: 'customHls',
             customType: {
                 customHls: (curVideo: HTMLVideoElement) => {
                     const hls: Hls = new Hls()

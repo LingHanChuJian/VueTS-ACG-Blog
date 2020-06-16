@@ -6,6 +6,7 @@ icon-font(content, size = 16px, color = $font-color)
 
 .markdown
     line-height 1.5
+    margin 10px 0
     h1
         font-size 2em
     h2
@@ -192,6 +193,12 @@ icon-font(content, size = 16px, color = $font-color)
         td
             padding 8px 16px
             border 1px solid rgb(233, 233, 233)
+    div[data-aplayer]
+    div[data-dplayer]
+        margin 10px 0 15px 0
+        a:after
+            transition none
+            background-color transparent 
 
 .hljs-ln-numbers
     user-select none

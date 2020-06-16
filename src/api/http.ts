@@ -1,4 +1,4 @@
-import { ResponseError } from '@/types/api'
+import { ResponseError, ResponseSuccess } from '@/types/api'
 import axios, { AxiosInstance, AxiosError, AxiosResponse, AxiosRequestConfig } from 'axios'
 
 const responseError: ResponseError[] = [
@@ -50,7 +50,7 @@ const responseError: ResponseError[] = [
 
 const instance: AxiosInstance = axios.create({
     baseURL: process.env.VUE_APP_BASE_URL,
-    withCredentials: true,
+    // withCredentials: true,
     timeout: 10000,
 })
 
@@ -62,7 +62,9 @@ instance.interceptors.request.use((config: AxiosRequestConfig): AxiosRequestConf
     return config
 })
 
-instance.interceptors.response.use((response: AxiosResponse) => response, (error: AxiosError) => {
+instance.interceptors.response.use((response: AxiosResponse): Promise<AxiosResponse<ResponseSuccess>> => {
+    return response.status === 200 ? Promise.resolve(response.data) : Promise.reject(response)
+}, (error: AxiosError) => {
     if (error && error.response) {
         const itemError: ResponseError | undefined = responseError.find((item) => item.status === (error.response as AxiosResponse).status)
         error.message = itemError ? itemError.message : `连接出错(${error.response.status})!`

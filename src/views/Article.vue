@@ -252,45 +252,8 @@ Definition 2<p></p>
 <blockquote><p>
 We are all in the gutter, but some of us are looking at the stars.
 </p></blockquote>
-<div data-aplayer data-type="song" data-song=""></div>
-<script>
-new APlayer({
-    container: document.getElementById('aplayer'),
-    mini: false,
-    autoplay: false,
-    theme: '#FADFA3',
-    loop: 'all',
-    order: 'random',
-    preload: 'auto',
-    volume: 0.7,
-    mutex: true,
-    listFolded: false,
-    listMaxHeight: 90,
-    lrcType: 3,
-    audio: [{
-            name: '光るなら',
-            artist: 'Goose house',
-            url: 'https://cn-south-17-aplayer-46154810.oss.dogecdn.com/hikarunara.mp3',
-            cover: 'https://cn-south-17-aplayer-46154810.oss.dogecdn.com/hikarunara.jpg',
-            lrc: 'https://cn-south-17-aplayer-46154810.oss.dogecdn.com/hikarunara.lrc',
-            theme: '#ebd0c2'
-        }, {
-            name: 'トリカゴ',
-            artist: 'XX:me',
-            url: 'https://cn-south-17-aplayer-46154810.oss.dogecdn.com/darling.mp3',
-            cover: 'https://cn-south-17-aplayer-46154810.oss.dogecdn.com/darling.jpg',
-            lrc: 'https://cn-south-17-aplayer-46154810.oss.dogecdn.com/darling.lrc',
-            theme: '#46718b'
-        }, {
-            name: '前前前世',
-            artist: 'RADWIMPS',
-            url: 'https://cn-south-17-aplayer-46154810.oss.dogecdn.com/yourname.mp3',
-            cover: 'https://cn-south-17-aplayer-46154810.oss.dogecdn.com/yourname.jpg',
-            lrc: 'https://cn-south-17-aplayer-46154810.oss.dogecdn.com/yourname.lrc',
-            theme: '#505d6b'
-        }]
-})
-<\/script>
+<div data-aplayer data-type="song" data-song="base64(fiexd + id)"></div>
+<div data-dplayer data-video="base64(fiexd + id)"></div>
 </div>
 `
 

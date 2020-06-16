@@ -14,9 +14,8 @@
  * 参数: data-aplayer  data-type data-song  必须才能获取数据
  */
 import { song } from '@/api'
-import { AxiosResponse } from 'axios'
 import { typeOf } from '@/utils/assist'
-import { SongData, SongType } from '@/types/api'
+import { SongData, SongType, ResponseSuccess } from '@/types/api'
 import APlayer, { APlayerOptions, LoopMode, OrderMode, Preload } from 'aplayer'
 
 export const handleAPlayer = async (el: HTMLElement): Promise<APlayer[]> => {
@@ -45,7 +44,7 @@ export const createAPlayer = async (el: HTMLElement): Promise<APlayer> => {
         mutex: data.mutex ? Boolean(data.mutex) : true,
         lrcType: data.lrcType ? Number(data.lrcType) : 3,
         listFolded: data.listFolded ? Boolean(data.listFolded) : false,
-        listMaxHeight: data.listMaxHeight ? Number(data.listMaxHeight) : 350,
+        listMaxHeight: data.listMaxHeight ? data.listMaxHeight : '350px',
         audio: [],
     }
 
@@ -54,7 +53,7 @@ export const createAPlayer = async (el: HTMLElement): Promise<APlayer> => {
         song: data.song ? data.song : '',
     }
 
-    const response: AxiosResponse = await song(songData)
+    const response: ResponseSuccess = await song(songData)
 
     if (response.status === 200) {
         options.audio = typeOf(response.data) === 'array' ? response.data : [response.data]
