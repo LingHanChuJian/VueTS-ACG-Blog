@@ -252,6 +252,10 @@ export const reward: UserReward[] = [
         image: 'http://img.cdn.myrove.cn/test/WeChat.jpg',
         title: '微信',
     },
+    {
+        title: 'paypal',
+        link: 'https://paypal.me/linghanchujian?locale.x=zh_XC',
+    },
 ]
 
 //  表情分类

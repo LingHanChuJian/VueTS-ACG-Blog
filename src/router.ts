@@ -39,6 +39,11 @@ const routes: RouteConfig[] = [
         name: 'tags',
         component: () => import('@/views/Tag.vue'),
       },
+      {
+        path: '/feed',
+        name: 'feed',
+        component: () => import('@/views/Feed.vue'),
+      },
     ],
   },
   {
