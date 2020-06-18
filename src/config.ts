@@ -245,14 +245,17 @@ export const userInformation: UserInformation[] = [
 // 赞赏
 export const reward: UserReward[] = [
     {
+        name: 'Alipay',
         image: 'http://img.cdn.myrove.cn/test/Alipay.jpg',
         title: '支付宝',
     },
     {
+        name: 'WeChat',
         image: 'http://img.cdn.myrove.cn/test/WeChat.jpg',
         title: '微信',
     },
     {
+        name: 'PayPal',
         title: 'paypal',
         link: 'https://paypal.me/linghanchujian?locale.x=zh_XC',
     },

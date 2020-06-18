@@ -1,6 +1,6 @@
 <template lang="pug">
     main(:class="[prefixCls + '-wrap']")
-        article(:class="[prefixCls + '-article', 'markdown']" ref="article" v-html="content")
+        Markdown(:content="content")
         div(:class="[prefixCls + '-mark']")
             | Q.E.D.
             Icon(type="dragon" size="14")
@@ -23,20 +23,13 @@
 </template>
 
 <script lang="ts">
-import APlayer from 'aplayer'
-import DPlayer from 'dplayer'
 import { reward } from '@/config'
 import { RawLocation } from 'vue-router'
 import { Icon } from '@/components/icon'
-import { hljsCode } from '@/utils/markdown'
 import { Poptip } from '@/components/poptip'
 import { UserReward } from '@/types/components'
+import Markdown from '@/components/Markdown.vue'
 import { Component, Vue } from 'vue-property-decorator'
-import { handleAPlayer, destroyAPlayer } from '@/utils/aplayer'
-import { handleDPlayer, destroyDPlayer } from '@/utils/dplayer'
-
-import 'aplayer/dist/APlayer.min.css'
-import 'highlight.js/styles/atom-one-light.css'
 
 // declare var window: Window & { APlayer?: APlayer, DPlayer?: DPlayer }
 
@@ -44,16 +37,13 @@ import 'highlight.js/styles/atom-one-light.css'
     components: {
         Icon,
         Poptip,
+        Markdown,
     },
 })
 export default class Article extends Vue {
-    private prefixCls: string = 'main'
+    private prefixCls: string = 'article'
 
     private tags: string[] = ['GraphQL', 'JavaScript', 'WordPress']
-
-    private musicPlayer: APlayer[] = []
-
-    private videoPlayer: DPlayer[] = []
 
     private content: string =
 `<p></p><div class="has-toc have-toc"></div><span class="begin">B</span>igger data and more intelligent algorithms are being processed and analyzed faster in an API-enabled, open source environment. J.P. Morgan is committed to understanding how this technology-driven landscape could differentiate your stock, sector, portfolio, and asset class strategies.<a href="https://www.jpmorgan.com/global/research/machine-learning" target="_blank" rel="nofollow">Here</a>, J.P. Morgan summarizes key research in machine learning, big data and artificial intelligence, highlighting exciting trends that impact the financial community.<p></p>
@@ -271,58 +261,38 @@ We are all in the gutter, but some of us are looking at the stars.
         return reward.filter((item) => item.image)
     }
 
-    private mounted() {
-        this.$nextTick(async () => {
-            hljsCode((this.$refs.article as HTMLElement))
-            this.musicPlayer = await handleAPlayer((this.$refs.article as HTMLElement))
-            this.videoPlayer = await handleDPlayer((this.$refs.article as HTMLElement))
-        })
-    }
-
     private beforeRouteUpdate() {
         // 导航更新
     }
 
-    private beforeDestroy() {
-        destroyAPlayer(this.musicPlayer)
-        destroyDPlayer(this.videoPlayer)
-    }
 }
 </script>
 
 <style lang="stylus" scoped>
-.main-wrap
-    margin 40px auto
-    max-width 800px
-    padding 0 10px
-
-.main-article
-    position relative
-
-.main-reward
+.article-reward
     margin 35px 0
     text-align center
 
-.main-mark
+.article-mark
     i
         margin-left 6px
         color $font-color-hover
 
-.main-protocol
+.article-protocol
     padding 20px 0
     border-bottom 1px dashed $font-color
     border-top 1px dashed $font-color
 
-.main-lincenses
-.main-tags
+.article-lincenses
+.article-tags
     text-align center
     i
         margin-right 6px
 
-.main-lincenses
+.article-lincenses
     margin-bottom 10px
 
-.main-tags
+.article-tags
     a
         margin 0 5px
         text-transform uppercase

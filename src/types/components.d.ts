@@ -87,6 +87,7 @@ export interface MenuItemData {
 
 export interface UserInformation {
     icon?: MenuIcon
+    name?: string
     link?: string
     image?: string
     title?: string
