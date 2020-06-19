@@ -44,6 +44,11 @@ const routes: RouteConfig[] = [
         name: 'donate',
         component: () => import('@/views/Donate.vue'),
       },
+      {
+        path: '/friends',
+        name: 'friends',
+        component: () => import('@/views/Friends.vue'),
+      },
     ],
   },
   {
