@@ -46,7 +46,7 @@ export default class Donate extends Vue {
     }
 
     private handleAnimationend(): void {
-        this.isDonateCoffee = this.isAnimationDonateCoffee || false
+        this.isDonateCoffee = this.isAnimationDonateCoffee
     }
 
     private donateCoffeeClick(): void {
