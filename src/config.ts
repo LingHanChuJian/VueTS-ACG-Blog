@@ -1,4 +1,4 @@
-import { MenuItemData, UserInformation, UserReward, UserExpression } from '@/types/components'
+import { MenuItemData, UserInformation, UserDonate, UserExpression } from '@/types/components'
 
 // site 首页标题   标题有了 author不显示
 export const title: string = 'Hi,Wanderer!'
@@ -143,13 +143,13 @@ export const menuData: MenuItemData[] = [
         },
     },
     {
-        name: 'feed',
-        to: { name: 'feed' },
+        name: 'donate',
+        to: { name: 'donate' },
         content: '投食',
-        className: 'feed',
+        className: 'donate',
         icon: {
             type: 'coffee',
-            className: 'animation-feed',
+            className: 'animation-donate',
         },
     },
     {
@@ -243,7 +243,7 @@ export const userInformation: UserInformation[] = [
 ]
 
 // 赞赏
-export const reward: UserReward[] = [
+export const donate: UserDonate[] = [
     {
         name: 'Alipay',
         image: 'http://img.cdn.myrove.cn/test/Alipay.jpg',

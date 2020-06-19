@@ -4,12 +4,12 @@
         div(:class="[prefixCls + '-mark']")
             | Q.E.D.
             Icon(type="dragon" size="14")
-        div(v-if="handleReward.length !== 0" :class="[prefixCls + '-reward']")
+        div(v-if="handleDonate.length !== 0" :class="[prefixCls + '-donate']")
             Poptip(trigger="hover" placement="bottom")
-                div.reward 赏
+                div.donate 赏
                 template(v-slot:content)
-                    ul.reward-ul
-                        li(v-for="item in handleReward" :key="item.title")
+                    ul.donate-ul
+                        li(v-for="item in handleDonate" :key="item.title")
                             img(:src="item.image")
                             p {{ item.title }}
         div(:class="[prefixCls + '-protocol']")
@@ -23,11 +23,11 @@
 </template>
 
 <script lang="ts">
-import { reward } from '@/config'
+import { donate } from '@/config'
 import { RawLocation } from 'vue-router'
 import { Icon } from '@/components/icon'
 import { Poptip } from '@/components/poptip'
-import { UserReward } from '@/types/components'
+import { UserDonate } from '@/types/components'
 import Markdown from '@/components/Markdown.vue'
 import { Component, Vue } from 'vue-property-decorator'
 
@@ -257,8 +257,8 @@ We are all in the gutter, but some of us are looking at the stars.
         }
     }
 
-    private get handleReward(): UserReward[] {
-        return reward.filter((item) => item.image)
+    private get handleDonate(): UserDonate[] {
+        return donate.filter((item) => item.image)
     }
 
     private beforeRouteUpdate() {
@@ -269,7 +269,7 @@ We are all in the gutter, but some of us are looking at the stars.
 </script>
 
 <style lang="stylus" scoped>
-.article-reward
+.article-donate
     margin 35px 0
     text-align center
 
@@ -297,7 +297,7 @@ We are all in the gutter, but some of us are looking at the stars.
         margin 0 5px
         text-transform uppercase
 
-.reward-ul
+.donate-ul
     li
         padding 0 12px
         display inline-block
@@ -306,7 +306,7 @@ We are all in the gutter, but some of us are looking at the stars.
         p
             margin 5px 0
 
-.reward
+.donate
     cursor pointer
     margin 0 auto
     width 40px

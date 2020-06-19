@@ -40,9 +40,9 @@ const routes: RouteConfig[] = [
         component: () => import('@/views/Tag.vue'),
       },
       {
-        path: '/feed',
-        name: 'feed',
-        component: () => import('@/views/Feed.vue'),
+        path: '/donate',
+        name: 'donate',
+        component: () => import('@/views/Donate.vue'),
       },
     ],
   },

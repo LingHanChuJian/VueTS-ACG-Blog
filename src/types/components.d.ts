@@ -147,7 +147,7 @@ export interface UserArchives {
     next?: UserArchives
 }
 
-export type UserReward = Omit<UserInformation, 'icon'>
+export type UserDonate = Omit<UserInformation, 'icon'>
 
 //  type emoticon 颜文字  emoji 表情符号  sticker 贴图
 export interface ExpressionParam {
