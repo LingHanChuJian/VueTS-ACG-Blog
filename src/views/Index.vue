@@ -76,9 +76,9 @@ export default class Index extends Mixins(ScrollMixins) {
         this.setDrawer()
     }
 
-    private handleToggle(): void {
+    private handleToggle(mouseEvents: Event): void {
         if (this.scrollTop !== 0) { return }
-        this.isMenu = !this.isMenu
+        this.isMenu = mouseEvents.type === 'mouseenter'
     }
 
     private search(): void {

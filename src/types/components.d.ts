@@ -147,7 +147,23 @@ export interface UserArchives {
     next?: UserArchives
 }
 
+// 赞赏
 export type UserDonate = Omit<UserInformation, 'icon'>
+
+// 友链
+export interface Friends {
+    name: string
+    description: string
+    link: string
+    avatar: string
+    color?: string
+}
+
+export interface UserFriends {
+    title: string
+    description: string
+    children: Friends[]
+}
 
 //  type emoticon 颜文字  emoji 表情符号  sticker 贴图
 export interface ExpressionParam {
