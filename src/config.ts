@@ -15,7 +15,7 @@ export const randomImagesLink: string = 'https://api.2heng.xin/cover'
 // 首页播放 视频链接
 export const videoPlayerLink: string = 'http://img.cdn.myrove.cn/test/video.m3u8'
 
-// 404背景图片
+// 404页面 背景图片
 export const images404: string = 'http://img.cdn.myrove.cn/test/404.jpg'
 
 // menu 菜单
@@ -154,7 +154,6 @@ export const menuData: MenuItemData[] = [
     },
     {
         name: 'about',
-        to: { name: 'about' },
         content: '关于',
         className: 'about',
         icon: {

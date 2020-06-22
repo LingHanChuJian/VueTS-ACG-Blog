@@ -49,6 +49,11 @@ const routes: RouteConfig[] = [
         name: 'friends',
         component: () => import('@/views/Friends.vue'),
       },
+      {
+        path: '/me',
+        name: 'me',
+        component: () => import('@/views/Me.vue'),
+      },
     ],
   },
   {

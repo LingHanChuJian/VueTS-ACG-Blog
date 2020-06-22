@@ -6,13 +6,14 @@
                 h2(:class="[prefixCls + '-title']") {{ item.title }}
                 p(:class="[prefixCls + '-description']") {{ item.description }}
                 ul(v-if="item.children.length" :class="[prefixCls + '-link-items']")
-                    li(v-for="link in item.children" :key="link.name" :class="[prefixCls + '-link-item']" :style="{ '--friends-color': item.color ? item.color : '#6c5b7c' }")
+                    li(v-for="link, index in item.children" :key="index" :class="[prefixCls + '-link-item']" :style="{ '--friends-color': link.color ? link.color : '#6c5b7c' }")
                         a(:class="[prefixCls + '-link-url']" :href="link.link" target="_blank")
-                            img(:class="[prefixCls + '-link-avatar']" :src="link.avatar" lazy="error")
+                            img(:class="[prefixCls + '-link-avatar']" :src="link.avatar" lazy)
                             div(:class="[prefixCls + '-link-info']")
                                 div(:class="[prefixCls + '-link-name']") {{ link.name }}
                                 div(:class="[prefixCls + '-link-description']") {{ link.description }}
                 div(v-else :class="[prefixCls + '-empty']")
+        //- 评论
 </template>
 
 <script lang="ts">
@@ -34,19 +35,33 @@ export default class Friends extends Vue {
         {
             title: '后宫佳丽',
             description: '你们都是我的翅膀',
+            children: [],
+        },
+        {
+            title: '神隐',
+            description: '挂了的小伙伴们，下次清理时未恢复的将移除哦 (￣o￣)',
             children: [
+                {
+                    name: '超能小紫',
+                    description: '素笺淡墨染流年',
+                    link: 'http://www.white-letter.xyz',
+                    avatar: 'http://img.cdn.myrove.cn/media/static/images/friend/sujian.png',
+                },
+                {
+                    name: 'sujian',
+                    description: '素笺淡墨染流年',
+                    link: 'http://www.white-letter.xyz',
+                    avatar: 'https://s3-view.2heng.xin/aws_cached/2018/05/09/d62a6059252dd42a77bcdf1d0b3b5bb5c8eab8cbe9ebd74fa6f84714.jpg',
+                    color: '#FF779A',
+                },
                 {
                     name: 'sujian',
                     description: '素笺淡墨染流年',
                     link: 'http://www.white-letter.xyz',
                     avatar: 'http://img.cdn.myrove.cn/media/static/images/friend/sujian.png',
+                    color: '#4fbff9',
                 },
             ],
-        },
-        {
-            title: '神隐',
-            description: '挂了的小伙伴们，下次清理时未恢复的将移除哦 (￣o￣)',
-            children: [],
         },
     ]
 
@@ -60,11 +75,11 @@ export default class Friends extends Vue {
 .friends-link-items
     display flex
     text-align center
-    justify-content center
+    justify-content space-between
     flex-wrap wrap
 
 .friends-link-item
-    margin 8px
+    margin 10px 0
     width 250px
     text-align center
     color var(--friends-color, #6c5b7c)
@@ -75,13 +90,13 @@ export default class Friends extends Vue {
         background-color var(--friends-color, #6c5b7c)
         box-shadow 0 2px 20px var(--friends-color, #6c5b7c)
         .friends-link-url
+        .friends-link-name
+        .friends-link-description
             color #FFFFFF
 
 .friends-link-url
     display block
     padding 8px 10px
-    width 100%
-    height 100%
 
 .friends-link-avatar
     width 65px
@@ -93,10 +108,31 @@ export default class Friends extends Vue {
     display inline-block
     vertical-align middle
 
+.friends-link-avatar[lazy=loading]
+    background url(./../assets/images/none.jpg) no-repeat
+
+.friends-link-avatar[lazy=error]
+    background url(./../assets/images/none.jpg) no-repeat
+
 .friends-link-info
     display inline-block
     vertical-align middle
+    width calc(100% - 70px)
+
+.friends-link-name
+    margin 10px 0
+    font-size 18px
+    font-weight bold
+    color var(--friends-color, #6c5b7c)
+
+.friends-link-description
+    margin 10px 0
     padding-left 10px
+    font-size 14px
+    white-space nowrap
+    text-overflow ellipsis
+    overflow hidden
+    color var(--friends-color, #6c5b7c)
 
 .friends-empty
     width 150px

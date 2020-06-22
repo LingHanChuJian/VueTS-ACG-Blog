@@ -4,10 +4,11 @@
 </template>
 
 <script lang="ts">
+import AdaptiveMixins from '@/components/mixins/adaptive'
 import { Component, Mixins, Vue } from 'vue-property-decorator'
 
 @Component
-export default class ArticleHeader extends Vue {
+export default class ArticleHeader extends Mixins(AdaptiveMixins) {
 
 }
 </script>
