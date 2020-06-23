@@ -109,8 +109,6 @@ export default class Friends extends Vue {
     vertical-align middle
 
 .friends-link-avatar[lazy=loading]
-    background url(./../assets/images/none.jpg) no-repeat
-
 .friends-link-avatar[lazy=error]
     background url(./../assets/images/none.jpg) no-repeat
 
