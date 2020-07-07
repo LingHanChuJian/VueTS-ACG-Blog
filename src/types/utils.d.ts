@@ -30,11 +30,6 @@ export interface TransferData {
     isMove: boolean
 }
 
-export interface Coordinate {
-    x: number
-    y: number
-}
-
 export type Func = (...arg: IArguments[]) => void
 
 export interface ScrollData {

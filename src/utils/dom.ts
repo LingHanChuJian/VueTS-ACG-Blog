@@ -1,4 +1,4 @@
-import { K, S, Coordinate } from '@/types/utils'
+import { K, S } from '@/types/utils'
 
 export const addEvent = (element: Document | HTMLElement | Window, event: K, handler: EventListenerOrEventListenerObject, useCapture: boolean = false): void => {
     if (element && event && handler) {

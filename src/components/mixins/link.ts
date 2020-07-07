@@ -65,10 +65,8 @@ export default class LinkMixins extends Vue {
         const router: VueRouter = this.$router
         if (router) {
             const route = router.resolve((this.to as RawLocation), this.$route, this.append)
-            console.log(route)
             return route ? route.href : this.to
         }
-        console.log(this.to)
         return this.to
     }
 

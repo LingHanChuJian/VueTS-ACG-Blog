@@ -31,13 +31,6 @@ export interface IconStyles {
     'color'?: string
 }
 
-// Menu
-export interface MarkData {
-    oldPaddingTop: string | null
-    oldPaddingBottom: string | null
-    oldOverflow: string | null
-}
-
 // Messgae
 export interface MessageOptions {
     name?: string | number
@@ -182,4 +175,19 @@ export interface UserExpression {
     titile: string
     description?: string
     expression: ExpressionParam[]
+}
+
+// 机器人
+export interface QuickReplies {
+    title: string
+    payload: string
+}
+
+export interface UserDiscuss {
+    type: string
+    html: string
+    text: string
+    link_title?: string
+    open_link?: string
+    quick_replies: string | QuickReplies[]
 }
