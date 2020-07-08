@@ -182,7 +182,7 @@ export const throttle = (fn: Func, delay: number): EventListenerOrEventListenerO
 }
 
 // 生成4位数的随机字符
-export const randomString = (): string => Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1)
+export const randomCharacter = (): string => Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1)
 
 // 添加本地存储
 export const addStore = (key: string, value: string): void => localStorage.setItem(key, value)

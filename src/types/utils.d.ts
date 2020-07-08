@@ -40,3 +40,15 @@ export interface ScrollData {
     delay: number
     listener?: EventListenerOrEventListenerObject
 }
+
+export interface Botkit {
+    getSocket(): WebSocket
+}
+
+export interface BotkitMessage {
+    type: string
+    text?: string
+    user: string
+    channel: string
+    user_profile?: string | null
+}

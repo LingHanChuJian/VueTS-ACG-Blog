@@ -14,7 +14,7 @@
 <script lang="ts">
 import { UserDiscuss } from '@/types/components'
 import Markdown from '@/components/Markdown.vue'
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue } from 'vue-property-decorator'
 
 @Component({
     components: {
