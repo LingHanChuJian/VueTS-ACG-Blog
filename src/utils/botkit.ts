@@ -1,28 +1,31 @@
 // 凌寒初见 机器人
-import { Botkit, BotkitMessage } from '@/types/utils'
+import { Botkit, BotkitMessage, BotkitOptions } from '@/types/utils'
 import { addStore, getStore, randomCharacter } from '@/utils'
 
 
 export default class BotkitHelper implements Botkit {
-
     public static instance?: BotkitHelper
-    public static getInstance(wsUrl: string) {
+    public static getInstance(options: BotkitOptions): BotkitHelper {
         if (!this.instance) {
-            this.instance = new BotkitHelper(wsUrl)
+            this.instance = new BotkitHelper(options)
         }
         return this.instance
     }
 
-    private wsUrl: string
+    public static isSocket(): boolean {
+        return typeof WebSocket !== undefined
+    }
+
     private socket: WebSocket
+    private options: BotkitOptions
     private maxReconnect: number = 3
     private reconnectCount: number = 0
     private reconnectTimeout: number = 3000
     private connectEvent: string = 'welcome_back'
 
-    constructor(wsUrl: string) {
-        this.wsUrl = wsUrl
-        this.socket = new WebSocket(wsUrl)
+    constructor(options: BotkitOptions) {
+        this.options = options
+        this.socket = new WebSocket(options.wsUrl)
         this.monitor()
     }
 
@@ -42,17 +45,21 @@ export default class BotkitHelper implements Botkit {
     }
 
     public close(): void {
+        this.socket.removeEventListener('open', this.open)
+        this.socket.removeEventListener('message', this.options.onMessage)
+        this.socket.removeEventListener('error', this.options.onError)
         this.socket.removeEventListener('close', this.reconnect)
         this.socket.close()
     }
 
     private monitor(): void {
         this.socket.addEventListener('open', this.open)
-
+        this.socket.addEventListener('message', this.options.onMessage)
+        this.socket.addEventListener('error', this.options.onError)
         this.socket.addEventListener('close', this.reconnect)
     }
 
-    private open() {
+    private open(event: Event) {
         this.reconnectCount = 0
         const message: BotkitMessage = {
             type: this.connectEvent,
@@ -61,16 +68,18 @@ export default class BotkitHelper implements Botkit {
             user_profile: null,
         }
         this.send(JSON.stringify(message))
+        if (this.options.onOpen) { this.options.onOpen(event) }
     }
 
     // 重新连接
-    private reconnect() {
+    private reconnect(event: CloseEvent) {
         if (this.reconnectCount < this.maxReconnect) {
             setTimeout(() => {
                 this.reconnectCount += 1
-                BotkitHelper.instance = new BotkitHelper(this.wsUrl)
+                BotkitHelper.instance = new BotkitHelper(this.options)
             }, this.reconnectTimeout)
         }
+        if (this.options.onClose) { this.options.onClose(event) }
     }
 
     private get UUID(): string {

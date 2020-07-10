@@ -5,7 +5,7 @@
                 Icon(type="anchor" fixed)
                 |  START:RUSHING!!!
             Recommend(:recommend="recommend")
-        div(:class="[prefixCls + '-discovery']" v-scroll="loadScroll" :data-disabled="isLoadData")
+        div(:class="[prefixCls + '-discovery']" v-scroll:router="loadScroll" :data-disabled="isLoadData")
             h3
                 Icon(type="envira" fixed)
                 |  DISCOVERY

@@ -2,7 +2,8 @@
  * {@link https://github.com/ElemeFE/vue-infinite-scroll/blob/master/src/directive.js}
  */
 
-import { ScrollData, Func } from '@/types/utils'
+import { Route } from 'vue-router'
+import { ScrollData } from '@/types/utils'
 import Vue, { DirectiveOptions, VNode } from 'vue'
 import { addEvent, removeEvent, scrollTop, clientHeight, throttle, getStyle } from '@/utils'
 
@@ -63,7 +64,7 @@ const isAttached = (element: HTMLElement): boolean => {
 }
 
 const directives: DirectiveOptions = {
-    bind(el: HTMLElement, { value }, vnode: VNode) {
+    bind(el: HTMLElement, { value, arg }, vnode: VNode) {
         // 滚动目标元素
         const scrollElemntTarget: HTMLElement | Window = getScrollEventTarget(el)
 
@@ -84,14 +85,22 @@ const directives: DirectiveOptions = {
 
         if (vm) {
             vm.$on('hook:mounted', () => {
-                vm.$nextTick(() => {
-                    if (isAttached(el)) {
-                        addEvent(scrollElemntTarget, 'scroll', scrollListener)
-                    }
-                })
+                vm.$nextTick(() => { if (isAttached(el)) { addEvent(scrollElemntTarget, 'scroll', scrollListener) } })
             })
 
             vm.$on('hook:beforeDestroy', () => removeEvent(scrollElemntTarget, 'scroll', scrollListener))
+
+            // 使用 keep-alive 将无法触发 beforeDestroy 导致再其他页面也会监听 srcoll 事件 导致滚动一直加载中
+            if (arg && arg === 'router') {
+                const name: string | undefined = vm.$route.name
+                vm.$watch('$route', (to: Route, from: Route) => {
+                    if (to.name === name) {
+                        addEvent(scrollElemntTarget, 'scroll', scrollListener)
+                    } else {
+                        removeEvent(scrollElemntTarget, 'scroll', scrollListener)
+                    }
+                })
+            }
         }
 
         if (!(el as HTMLElement & { scrollData: ScrollData }).scrollData) {

@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import { StoreOptions } from 'vuex'
+import { RawLocation } from 'vue-router'
 
 export interface ObjectBase {
     [key: string]: any
@@ -41,6 +42,9 @@ export interface ScrollData {
     listener?: EventListenerOrEventListenerObject
 }
 
+//  router next
+export type routerNext = (to?: RawLocation | false | ((vm: Vue) => any) | void) => void
+
 export interface Botkit {
     getSocket(): WebSocket
 }
@@ -51,4 +55,12 @@ export interface BotkitMessage {
     user: string
     channel: string
     user_profile?: string | null
+}
+
+export interface BotkitOptions {
+    wsUrl: string
+    onOpen?: (event: Event) => any
+    onError: (this: WebSocket, event: Event) => any
+    onClose?: (event: CloseEvent) => any
+    onMessage: (this: WebSocket, event: MessageEvent) => any
 }

@@ -37,6 +37,8 @@ export default class AcgFooter extends Vue {
 <style lang="stylus" scoped>
 .footer-center
     text-align center
+    p
+      margin 10px 0
 
 .snow
     animation csnow 12s infinite linear
