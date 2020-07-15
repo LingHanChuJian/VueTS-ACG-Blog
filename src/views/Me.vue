@@ -6,8 +6,12 @@
                 ruby 凌寒初见
                     rt こんにちは
                 | 对话中...
-            div(:class="[prefixCls + '-discuss-message-container']")
-                div(v-for="item, index in discuss" :key="index" :class="[prefixCls + '-discuss-message', prefixCls + '-' + item.type]" v-html="item.html")
+            div(:class="[prefixCls + '-discuss-message-wrap']")
+                div(:class="[prefixCls + '-discuss-message-container']" v-for="item, index in discuss" :key="index")
+                    div(:class="[prefixCls + '-discuss-message', prefixCls + '-' + item.type]" v-html="item.html")
+                    div(v-if="item.quick_replies" :class="[prefixCls + '-action-container']")
+                        button(:class="[prefixCls + '-action-button']" v-for="actionItem in item.quick_replies" :key="actionItem.title" @click="") {{ actionItem.title }}
+                div(:class="[prefixCls + '-discuss-input']")
         Markdown(:content="content")
 </template>
 
@@ -52,7 +56,7 @@ export default class Me extends Vue {
     text-align center
     font-size 20px
 
-.me-discuss-message-container
+.me-discuss-message-wrap
     padding 10px 0
     min-height 300px
 
