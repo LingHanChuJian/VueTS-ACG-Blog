@@ -1,6 +1,6 @@
 
 import { oneOf } from '@/utils'
-import VueRouter, { RawLocation, Route } from 'vue-router'
+import VueRouter, { RawLocation } from 'vue-router'
 import { Component, Prop, Vue } from 'vue-property-decorator'
 
 @Component
