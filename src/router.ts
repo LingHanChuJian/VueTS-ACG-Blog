@@ -86,6 +86,11 @@ const routes: RouteConfig[] = [
         name: 'message',
         component: () => import('@/docs/MessageDoc.vue'),
       },
+      {
+        path: '/docs/input',
+        name: 'input',
+        component: () => import('@/docs/InputDoc.vue'),
+      },
     ],
   },
   {

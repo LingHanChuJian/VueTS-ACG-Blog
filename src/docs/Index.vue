@@ -27,6 +27,9 @@
                     MenuItem(name="message" to="message")
                         Icon(type="exclamation-circle" fixed)
                         | Message 消息
+                    MenuItem(name="input" to="input")
+                        Icon(type="edit" fixed)
+                        | Input 输入
             Content.content-doc
                 keep-alive
                     router-view

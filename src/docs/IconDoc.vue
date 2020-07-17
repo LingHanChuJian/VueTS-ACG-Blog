@@ -149,4 +149,6 @@ export default class IconDoc extends Vue {
         width 145px
         cursor pointer
         transition all .2s ease
+        p
+            margin 15px 0
 </style>
