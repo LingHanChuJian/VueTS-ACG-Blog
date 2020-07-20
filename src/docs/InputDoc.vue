@@ -3,7 +3,8 @@
         Anchor(title="input 输入框")
         Example.simple(title="基础用法")
             template(v-slot:dome)
-                Input
+                div(style="width: 350px")
+                    Input(placeholder="我是提示语句")
 </template>
 
 <script lang="ts">

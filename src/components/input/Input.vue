@@ -7,6 +7,7 @@
                 ref="input"
                 :class="inputClasses"
                 :type="type"
+                :style="inputStyles"
                 :value="curValue"
                 :placeholder="placeholder"
                 :disabled="disabled"
@@ -16,6 +17,17 @@
                 :maxlength="max"
                 :name="name"
                 :autofocus="autofocus"
+                @keyup.enter="handleEnter"
+                @keyup="handleKeyup"
+                @keypress="handleKeypress"
+                @keydown="handleKeydown"
+                @focus="handleFocus"
+                @blur="handleBlur"
+                @compositionstart="handleComposition"
+                @compositionupdate="handleComposition"
+                @compositionend="handleComposition"
+                @input="handleInput"
+                @change="handleChange"
             )
             div(v-if="clearable && curValue && !disabled" :class="[prefixCls + '-clearable']")
                 Icon(type="times-circle" @click="clearClick")
@@ -32,7 +44,7 @@
                 :value="curValue"
                 :autocomplete="autocomplete"
                 :spellcheck="spellcheck"
-                :style="textareaStyles"
+                :style="inputStyles"
                 :rows="rows"
                 :disabled="disabled"
                 :placeholder="placeholder"
@@ -40,8 +52,18 @@
                 :name="name"
                 :readonly="readonly"
                 :autofocus="autofocus"
+                @keyup.enter="handleEnter"
+                @keyup="handleKeyup"
+                @keypress="handleKeypress"
+                @keydown="handleKeydown"
+                @focus="handleFocus"
+                @blur="handleBlur"
+                @compositionstart="handleComposition"
+                @compositionupdate="handleComposition"
+                @compositionend="handleComposition"
+                @input="handleInput"
             )
-        label(v-if="placeholder" :class="[prefixCls + '-label']") {{ placeholder }}
+        label(v-if="placeholder" :class="[prefixCls + '-label']" :style="labelStyle") {{ placeholder }}
 </template>
 
 <script lang="ts">
@@ -128,13 +150,17 @@ export default class Input extends Vue {
             return {}
         },
     })
-    private style!: CSSStyles<CSSStyleDeclaration>
+    private inputStyles!: CSSStyles<CSSStyleDeclaration>
 
     private prefixCls: string = 'input'
 
     private prepend: boolean = false
 
     private append: boolean = false
+
+    private isOnComposition: boolean = false
+
+    private isFocus: boolean = this.autofocus
 
     private curValue: string | number = this.value
 
@@ -166,6 +192,10 @@ export default class Input extends Vue {
         ]
     }
 
+    private get labelStyle(): CSSStyles<CSSStyleDeclaration> {
+        return {}
+    }
+
     private setCurValue(value: string | number): void {
         if (this.value === this.curValue) { return }
         this.curValue = value
@@ -184,6 +214,59 @@ export default class Input extends Vue {
         this.setCurValue('')
         this.$emit('on-change', { target: { value: '' } })
         this.$emit('on-clear')
+    }
+
+    private handleEnter(event: Event): void {
+        this.$emit('on-enter', event)
+    }
+
+    private handleKeyup(event: Event): void {
+        this.$emit('on-keyup', event)
+    }
+
+    private handleKeypress(event: Event): void {
+        this.$emit('on-keypress', event)
+    }
+
+    private handleKeydown(event: Event): void {
+        this.$emit('on-keydown', event)
+    }
+
+    private handleFocus(event: Event): void {
+        this.isFocus = true
+        this.$emit('on-focus', event)
+    }
+
+    private handleBlur(event: Event): void {
+        this.isFocus = false
+        this.$emit('on-blur', event)
+    }
+
+    private handleComposition(event: Event): void {
+        switch (event.type) {
+            case 'compositionstart':
+                this.isOnComposition = true
+                break
+            case 'compositionend':
+                this.isOnComposition = false
+                this.handleInput(event)
+                break
+        }
+    }
+
+    private handleInput(event: Event): void {
+        if (this.isOnComposition) { return }
+        let value: string | number = (event.target as HTMLInputElement).value
+        if (this.type === 'number' && value !== '') {
+            value = isNaN(Number(value)) ? value : Number(value)
+        }
+        this.setCurValue(value)
+        this.$emit('input', value)
+        this.$emit('on-change', event)
+    }
+
+    private handleChange(event: Event): void {
+        this.$emit('on-input-change', event)
     }
 
     private mounted(): void {
