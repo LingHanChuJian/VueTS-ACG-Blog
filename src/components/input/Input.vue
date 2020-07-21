@@ -1,5 +1,5 @@
 <template lang="pug">
-    div(:class="wrapClasses")
+    div(:class="wrapClasses" :style="wrapStyle")
         template(v-if="type !=='textarea'")
             div(v-if="prepend" :class="[prefixCls + '-prepend']")
                 solt(name="prepend")
@@ -9,7 +9,7 @@
                 :type="type"
                 :style="inputStyles"
                 :value="curValue"
-                :placeholder="placeholder"
+                :placeholder="!animationPlaceholder? placeholder : ''"
                 :disabled="disabled"
                 :autocomplete="autocomplete"
                 :spellcheck="spellcheck"
@@ -34,7 +34,7 @@
             div(v-if="append" :class="[prefixCls + 'append']")
                 solt(name="append")
         template(v-else)
-            pre
+            pre(:class="[prefixCls + '-pre']" :style="inputStyles")
                 span {{ curValue }}
                 br
             textarea(
@@ -47,7 +47,7 @@
                 :style="inputStyles"
                 :rows="rows"
                 :disabled="disabled"
-                :placeholder="placeholder"
+                :placeholder="!animationPlaceholder? placeholder : ''"
                 :maxlength="max"
                 :name="name"
                 :readonly="readonly"
@@ -63,14 +63,14 @@
                 @compositionend="handleComposition"
                 @input="handleInput"
             )
-        label(v-if="placeholder" :class="[prefixCls + '-label']" :style="labelStyle") {{ placeholder }}
+        label(v-if="placeholder && animationPlaceholder" :class="[prefixCls + '-label']" :style="labelStyle") {{ placeholder }}
 </template>
 
 <script lang="ts">
 import { oneOf } from '@/utils'
 import { Icon } from '@/components/icon'
 import { WrapClasses, CSSStyles } from '@/types/components'
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Component, Prop, Watch, Vue } from 'vue-property-decorator'
 
 @Component({
     components: {
@@ -152,6 +152,9 @@ export default class Input extends Vue {
     })
     private inputStyles!: CSSStyles<CSSStyleDeclaration>
 
+    @Prop({ type: Boolean, default: true })
+    private animationPlaceholder!: boolean
+
     private prefixCls: string = 'input'
 
     private prepend: boolean = false
@@ -163,6 +166,8 @@ export default class Input extends Vue {
     private isFocus: boolean = this.autofocus
 
     private curValue: string | number = this.value
+
+    private curStyles: CSSStyleDeclaration | null = null
 
     private get wrapClasses(): Array<string | WrapClasses> {
         return [
@@ -187,13 +192,34 @@ export default class Input extends Vue {
         return [
             `${this.prefixCls}-container`,
             {
+                'auto-textarea': this.auto,
                 [`${this.prefixCls}-disabled`]: this.disabled,
             },
         ]
     }
 
+    private get wrapStyle(): CSSStyles<CSSStyleDeclaration> {
+        const style: CSSStyles<CSSStyleDeclaration> = {}
+        if (this.curStyles && this.type === 'textarea') {
+            style.minHeight = `${this.handlePixel((this.curStyles.fontSize as string)) * this.rows + this.handlePixel((this.curStyles.paddingTop as string)) + 15}px`
+        }
+        return style
+    }
+
     private get labelStyle(): CSSStyles<CSSStyleDeclaration> {
-        return {}
+        const style: CSSStyles<CSSStyleDeclaration> = {}
+        if (this.curStyles) {
+            style.padding = this.curStyles.padding
+            if (this.type !== 'textarea') {
+                style.top = `${Math.round((this.handlePixel((this.curStyles.height as string)) - this.handlePixel((this.curStyles.fontSize as string))) / 2)}px`
+            }
+        }
+        return style
+    }
+
+    @Watch('value')
+    private valueChange(newVal: string | number) {
+        this.setCurValue(newVal)
     }
 
     private setCurValue(value: string | number): void {
@@ -214,6 +240,10 @@ export default class Input extends Vue {
         this.setCurValue('')
         this.$emit('on-change', { target: { value: '' } })
         this.$emit('on-clear')
+    }
+
+    private handlePixel(value: string) {
+        return Number(value.replace('px', ''))
     }
 
     private handleEnter(event: Event): void {
@@ -277,6 +307,11 @@ export default class Input extends Vue {
             this.prepend = false
             this.append = false
         }
+
+        this.$nextTick(() => {
+            const element: Vue | Element | Vue[] | Element[] = this.type === 'textarea' ? this.$refs.textarea : this.$refs.input
+            this.curStyles = getComputedStyle((element as Element))
+        })
     }
 
 }

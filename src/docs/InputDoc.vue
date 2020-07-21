@@ -3,8 +3,8 @@
         Anchor(title="input 输入框")
         Example.simple(title="基础用法")
             template(v-slot:dome)
-                div(style="width: 350px")
-                    Input(placeholder="我是提示语句")
+                div(style="width: 350px; margin-bottom: 20px;")
+                    Input(v-model="inputValue" placeholder="我是提示语句" type="textarea" :auto="true")
 </template>
 
 <script lang="ts">
@@ -26,7 +26,7 @@ import { Component, Vue } from 'vue-property-decorator'
     },
 })
 export default class InputDoc extends Vue {
-
+    private inputValue: string = ''
 }
 </script>
 
