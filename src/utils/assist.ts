@@ -191,7 +191,7 @@ export const addStore = (key: string, value: string): void => localStorage.setIt
 export const getStore = (key: string): string | null => localStorage.getItem(key)
 
 // 移除本地存储
-export const removeStore = (key: string) => localStorage.removeItem(key)
+export const removeStore = (key: string): void => localStorage.removeItem(key)
 
 /**
  * {@link https://wcoder.github.io/notes/string-format-for-string-formating-in-javascript}
