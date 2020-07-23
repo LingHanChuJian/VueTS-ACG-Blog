@@ -29,12 +29,12 @@
                 @input="handleInput"
                 @change="handleChange"
             )
-            div(v-if="clearable && curValue && !disabled" :class="[prefixCls + '-clearable']")
+            div(v-if="clearable && curValue && !disabled" :class="[prefixCls + '-clearable']" :style="clearableStyle")
                 Icon(type="times-circle" @click="clearClick")
             div(v-if="append" :class="[prefixCls + 'append']")
                 solt(name="append")
         template(v-else)
-            pre(:class="[prefixCls + '-pre']" :style="inputStyles")
+            pre(v-if="auto" :class="[prefixCls + '-pre']" :style="inputStyles")
                 span {{ curValue }}
                 br
             textarea(
@@ -90,8 +90,14 @@ export default class Input extends Vue {
     @Prop({ type: [String, Number], default: '' })
     private value!: string | number
 
-    @Prop({ type: [String, Number], default: 'default' })
-    private size!: string | number
+    @Prop({
+        type: String,
+        default: 'default',
+        validator(value: string) {
+            return oneOf(value, ['small', 'default', 'large'])
+        },
+    })
+    private size!: string
 
     @Prop({ type: String, default: '' })
     private placeholder!: string
@@ -183,6 +189,7 @@ export default class Input extends Vue {
         return [
             `${this.prefixCls}-container`,
             {
+                [`${this.prefixCls}-${this.size}`]: !!this.size,
                 [`${this.prefixCls}-disabled`]: this.disabled,
             },
         ]
@@ -190,6 +197,7 @@ export default class Input extends Vue {
 
     private get textareaClasses(): Array<string | WrapClasses> {
         return [
+            'textarea-container',
             `${this.prefixCls}-container`,
             {
                 'auto-textarea': this.auto,
@@ -206,20 +214,38 @@ export default class Input extends Vue {
         return style
     }
 
+    private get clearableStyle(): CSSStyles<CSSStyleDeclaration> {
+        const style: CSSStyles<CSSStyleDeclaration> = {}
+        if (this.curStyles) {
+            const height: string = `${this.handlePixel((this.curStyles.height as string)) + this.handlePixel((this.curStyles.paddingTop as string)) * 2}px`
+            style.height = height
+            style.lineHeight = height
+        }
+        return style
+    }
+
     private get labelStyle(): CSSStyles<CSSStyleDeclaration> {
         const style: CSSStyles<CSSStyleDeclaration> = {}
         if (this.curStyles) {
-            style.padding = this.curStyles.padding
-            if (this.type !== 'textarea') {
-                style.top = `${Math.round((this.handlePixel((this.curStyles.height as string)) - this.handlePixel((this.curStyles.fontSize as string))) / 2)}px`
+            if (this.isFocus || this.value) {
+                style.padding = '3px'
+                style.color = '#FFFFFF'
+                style.backgroundColor = '#29d'
+                style.borderRadius = '3px'
+                style.transform = `scale(.75) translate(10px, -${Math.round(this.handlePixel((this.curStyles.fontSize as string)) / 2) + 3}px)`
+            } else {
+                style.padding = this.curStyles.padding
+                if (this.type !== 'textarea') {
+                    style.top = `${Math.round((this.handlePixel((this.curStyles.height as string)) - this.handlePixel((this.curStyles.fontSize as string))) / 2)}px`
+                }
             }
         }
         return style
     }
 
     @Watch('value')
-    private valueChange(newVal: string | number) {
-        this.setCurValue(newVal)
+    private valueChange(newValue: string | number) {
+        this.setCurValue(newValue)
     }
 
     private setCurValue(value: string | number): void {

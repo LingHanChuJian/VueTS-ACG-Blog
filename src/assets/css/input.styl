@@ -21,8 +21,7 @@
 .input-container::-moz-placeholder
 .input-container:-ms-input-placeholder
 .input-container::-webkit-input-placeholder
-    color $font-color
-    opacity 0
+    color $placeholder-color
 
 .input-container:hover
 .input-container:focus
@@ -32,10 +31,14 @@
     outline 0
     box-shadow 0 0 0 1px rgba(34, 153, 221, .4)
 
+.input:hover .input-clearable
+.input:focus .input-clearable
+    display inline-block
+
 .input-label
     top 0
     position absolute
-    color $font-color
+    color $placeholder-color
     transition all .25s
     pointer-events none
     transform-origin 0 0
@@ -43,11 +46,26 @@
 .input-pre
     margin 0
     width 100%
-    padding 4px 7px
+    padding 12px 10px 0 10px
     white-space pre-wrap
     word-wrap break-word
     font-family inherit
     visibility hidden
+
+.input-large
+    padding 6px 7px
+    height 40px
+
+.input-small
+    padding 1px 7px
+    height 24px
+
+.input-clearable
+    display none
+    position absolute
+    right 0
+    top 0
+    cursor pointer
 
 .auto-textarea
     top 0
@@ -58,3 +76,5 @@
     overflow hidden
     resize none
 
+.textarea-container
+    padding 12px 10px 0 10px
