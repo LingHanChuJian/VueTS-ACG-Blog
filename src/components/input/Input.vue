@@ -1,8 +1,8 @@
 <template lang="pug">
     div(:class="wrapClasses" :style="wrapStyle")
         template(v-if="type !=='textarea'")
-            div(v-if="prepend" :class="[prefixCls + '-prepend']")
-                solt(name="prepend")
+            div(v-if="prepend" ref="prepend" :class="[prefixCls + '-group-prepend']" :style="slotGroupStyle")
+                slot(name="prepend")
             input(
                 ref="input"
                 :class="inputClasses"
@@ -31,8 +31,8 @@
             )
             div(v-if="clearable && curValue && !disabled" :class="[prefixCls + '-clearable']" :style="clearableStyle")
                 Icon(type="times-circle" @click="clearClick")
-            div(v-if="append" :class="[prefixCls + 'append']")
-                solt(name="append")
+            div(v-if="append" ref="append" :class="[prefixCls + '-group-append']" :style="slotGroupStyle")
+                slot(name="append")
         template(v-else)
             pre(v-if="auto" :class="[prefixCls + '-pre']" :style="inputStyles")
                 span {{ curValue }}
@@ -173,7 +173,11 @@ export default class Input extends Vue {
 
     private curValue: string | number = this.value
 
-    private curStyles: CSSStyleDeclaration | null = null
+    private curInputStyles: CSSStyleDeclaration | null = null
+
+    private curPrependStyles: CSSStyleDeclaration | null = null
+
+    private curAppendStyles: CSSStyleDeclaration | null = null
 
     private get wrapClasses(): Array<string | WrapClasses> {
         return [
@@ -208,38 +212,60 @@ export default class Input extends Vue {
 
     private get wrapStyle(): CSSStyles<CSSStyleDeclaration> {
         const style: CSSStyles<CSSStyleDeclaration> = {}
-        if (this.curStyles && this.type === 'textarea') {
-            style.minHeight = `${this.handlePixel((this.curStyles.fontSize as string)) * this.rows + this.handlePixel((this.curStyles.paddingTop as string)) + 15}px`
+        if (this.curInputStyles && this.type === 'textarea') {
+            style.minHeight = `${this.handlePixel((this.curInputStyles.fontSize as string)) * this.rows + this.handlePixel((this.curInputStyles.paddingTop as string)) + 15}px`
         }
         return style
     }
 
     private get clearableStyle(): CSSStyles<CSSStyleDeclaration> {
         const style: CSSStyles<CSSStyleDeclaration> = {}
-        if (this.curStyles) {
-            const height: string = `${this.handlePixel((this.curStyles.height as string)) + this.handlePixel((this.curStyles.paddingTop as string)) * 2}px`
-            style.height = height
-            style.lineHeight = height
+        if (this.curInputStyles) {
+            const height: number = this.handlePixel((this.curInputStyles.height as string)) + this.handlePixel((this.curInputStyles.paddingTop as string)) + this.handlePixel((this.curInputStyles.paddingBottom as string))
+            style.height = `${height}px`
+            style.lineHeight = `${height}px`
+        }
+
+        if (this.curAppendStyles) {
+            const appendWidth: number = this.handlePixel((this.curAppendStyles.width as string)) + this.handlePixel((this.curAppendStyles.paddingLeft as string)) + this.handlePixel((this.curAppendStyles.paddingRight as string))
+            style.right = `${appendWidth}px`
+        }
+
+        return style
+    }
+
+    private get slotGroupStyle(): CSSStyles<CSSStyleDeclaration> {
+        const style: CSSStyles<CSSStyleDeclaration> = {}
+        if (this.curInputStyles) {
+            const height: number = this.handlePixel((this.curInputStyles.height as string))
+            style.height = `${height}px`
+            style.lineHeight = `${height}px`
         }
         return style
     }
 
     private get labelStyle(): CSSStyles<CSSStyleDeclaration> {
         const style: CSSStyles<CSSStyleDeclaration> = {}
-        if (this.curStyles) {
+        if (this.curInputStyles) {
             if (this.isFocus || this.value) {
                 style.padding = '3px'
                 style.color = '#FFFFFF'
                 style.backgroundColor = '#29d'
                 style.borderRadius = '3px'
-                style.transform = `scale(.75) translate(10px, -${Math.round(this.handlePixel((this.curStyles.fontSize as string)) / 2) + 3}px)`
+                style.transform = `scale(.75) translate(10px, -${Math.round(this.handlePixel((this.curInputStyles.fontSize as string)) / 2) + 3}px)`
             } else {
-                style.padding = this.curStyles.padding
+                style.padding = this.curInputStyles.padding
                 if (this.type !== 'textarea') {
-                    style.top = `${Math.round((this.handlePixel((this.curStyles.height as string)) - this.handlePixel((this.curStyles.fontSize as string))) / 2)}px`
+                    style.top = `${Math.round((this.handlePixel((this.curInputStyles.height as string)) - this.handlePixel((this.curInputStyles.fontSize as string))) / 2)}px`
                 }
             }
         }
+
+        if (this.curPrependStyles) {
+            const prependWidth: number = this.handlePixel((this.curPrependStyles.width as string)) + this.handlePixel((this.curPrependStyles.paddingLeft as string)) + this.handlePixel((this.curPrependStyles.paddingRight as string))
+            style.left = `${Math.round(prependWidth)}px`
+        }
+
         return style
     }
 
@@ -336,7 +362,9 @@ export default class Input extends Vue {
 
         this.$nextTick(() => {
             const element: Vue | Element | Vue[] | Element[] = this.type === 'textarea' ? this.$refs.textarea : this.$refs.input
-            this.curStyles = getComputedStyle((element as Element))
+            this.curInputStyles = getComputedStyle((element as Element))
+            if (this.prepend) { this.curPrependStyles = getComputedStyle((this.$refs.prepend as Element)) }
+            if (this.append) { this.curAppendStyles = getComputedStyle((this.$refs.append as Element)) }
         })
     }
 

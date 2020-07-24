@@ -34,6 +34,26 @@
                     Input(v-model="inputValue7" placeholder="可清空" clearable)
             template(v-slot:description)
                 p 开启属性 clearable 可显示清空按钮.
+            template(v-slot:code)
+                Block(:content="dome3" lang="VUE" :custom="['language-pug']")
+        Example.simple(title="禁用状态")
+            template(v-slot:dome)
+                div.row
+                    div.column
+                        Input(v-model="inputValue8" placeholder="已禁用" disabled)
+                    div.column
+                        Input(v-model="inputValue9" type="textarea" placeholder="已禁用" disabled)
+            template(v-slot:description)
+                p 通过添加disabled属性可设置为不可用状态.
+            template(v-slot:code)
+                Block(:content="dome4" lang="VUE" :custom="['language-pug']")
+        Example.simple(title="复合型输入框")
+            template(v-slot:dome)
+                div.row
+                    div.column2
+                        Input(v-model="inputValue10" placeholder="复合型输入框")
+                            span(slot="prepend") https://
+                            span(slot="append") .com
 </template>
 
 <script lang="ts">
@@ -68,6 +88,10 @@ export default class InputDoc extends Vue {
     private inputValue6: string = ''
 
     private inputValue7: string = '凌寒初见'
+
+    private inputValue8: string = ''
+
+    private inputValue9: string = ''
 
     private dome1: string =
 `<template lang="pug">
@@ -110,7 +134,7 @@ export default class InputDoc extends Vue {
 </style>
 `
 
-private dome2: string =
+    private dome2: string =
 `
 <template lang="pug">
     div.row
@@ -152,6 +176,73 @@ export default class InputDoc extends Vue {
 </style>
 `
 
+    private dome3: string =
+`
+<template lang="pug">
+    div.column
+        Input(v-model="inputValue7" placeholder="可清空" clearable)
+</template>
+
+<script lang="ts">
+import { Input } from '@/components/input'
+import { Component, Vue } from 'vue-property-decorator'
+
+@Component({
+    components: {
+        Input,
+    },
+})
+export default class InputDoc extends Vue {
+    private inputValue7: string = ''
+}
+<\/script>
+
+<style lang="stylus" scoped>
+.column
+    margin 0 20px
+    width 350px
+    display inline-block
+    vertical-align top
+</style>
+`
+
+    private dome4: string =
+`
+<template lang="pug">
+    div.row
+        div.column
+            Input(v-model="inputValue8" placeholder="已禁用" disabled)
+        div.column
+            Input(v-model="inputValue9" type="textarea" placeholder="已禁用" disabled)
+</template>
+
+<script lang="ts">
+import { Input } from '@/components/input'
+import { Component, Vue } from 'vue-property-decorator'
+
+@Component({
+    components: {
+        Input,
+    },
+})
+export default class InputDoc extends Vue {
+    private inputValue8: string = ''
+
+    private inputValue9: string = ''
+}
+<\/script>
+
+<style lang="stylus" scoped>
+.row
+    margin-bottom 20px
+
+.column
+    margin 0 20px
+    width 350px
+    display inline-block
+    vertical-align top
+</style>
+`
 }
 </script>
 
@@ -163,6 +254,12 @@ export default class InputDoc extends Vue {
 .column
     margin 0 20px
     width 350px
+    display inline-block
+    vertical-align top
+
+.column2
+    margin 0 20px
+    width 500px
     display inline-block
     vertical-align top
 </style>

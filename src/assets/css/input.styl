@@ -67,6 +67,39 @@
     top 0
     cursor pointer
 
+.input-disabled
+    cursor not-allowed
+    background-color #f3f3f3
+    color #CCCCCC
+    &:hover
+    &:focus
+        border-color #e3e5e8
+
+.input-group
+    display flex
+    .input-group-prepend
+    .input-container
+        border-top-right-radius 0
+        border-bottom-right-radius 0
+    .input-group-append
+    .input-container
+        border-bottom-left-radius 0
+        border-top-left-radius 0
+
+.input-group-append
+.input-group-prepend
+    padding 4px 7px
+    font-size inherit
+    border-radius 4px
+    border 1px solid $border-color
+    text-align center
+
+.input-group-prepend
+    border-right 0
+
+.input-group-append
+    border-left 0
+
 .auto-textarea
     top 0
     left 0

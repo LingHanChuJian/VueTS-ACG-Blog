@@ -22,7 +22,7 @@
 <script lang="ts">
 import { WrapClasses } from '@/types/components'
 import MenuMixins from '@/components/mixins/menu'
-import { Component, Prop, Mixins, Vue } from 'vue-property-decorator'
+import { Component, Mixins, Vue } from 'vue-property-decorator'
 
 @Component
 export default class MenuItem extends Mixins(MenuMixins) {
