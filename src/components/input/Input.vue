@@ -193,6 +193,8 @@ export default class Input extends Vue {
         return [
             `${this.prefixCls}-container`,
             {
+                [`${this.prefixCls}-exist-prepend`]: this.prepend,
+                [`${this.prefixCls}-exist-append`]: this.append,
                 [`${this.prefixCls}-${this.size}`]: !!this.size,
                 [`${this.prefixCls}-disabled`]: this.disabled,
             },

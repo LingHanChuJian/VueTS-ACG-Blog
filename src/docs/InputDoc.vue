@@ -54,9 +54,15 @@
                         Input(v-model="inputValue10" placeholder="复合型输入框")
                             span(slot="prepend") https://
                             span(slot="append") .com
+                    br
+                    div.column2
+                        Input(v-model="inputValue11" placeholder="复合型输入框")
+                            Icon(type="dollar-sign" slot="prepend")
+                            
 </template>
 
 <script lang="ts">
+import { Icon } from '@/components/icon'
 import { Input } from '@/components/input'
 import { Table } from '@/components/table'
 import { Anchor } from '@/components/anchor'
@@ -67,6 +73,7 @@ import { Component, Vue } from 'vue-property-decorator'
 
 @Component({
     components: {
+        Icon,
         Input,
         Table,
         Anchor,
@@ -92,6 +99,10 @@ export default class InputDoc extends Vue {
     private inputValue8: string = ''
 
     private inputValue9: string = ''
+
+    private inputValue10: string = ''
+
+    private inputValue11: string = ''
 
     private dome1: string =
 `<template lang="pug">
@@ -260,6 +271,5 @@ export default class InputDoc extends Vue {
 .column2
     margin 0 20px
     width 500px
-    display inline-block
     vertical-align top
 </style>
