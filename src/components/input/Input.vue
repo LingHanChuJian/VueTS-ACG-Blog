@@ -183,7 +183,7 @@ export default class Input extends Vue {
         return [
             this.prefixCls,
             {
-                [`${this.prefixCls}-${this.size}`]: !!this.size,
+                [`${this.prefixCls}-size-${this.size}`]: !!this.size,
                 [`${this.prefixCls}-group`]: this.prepend || this.append,
             },
         ]

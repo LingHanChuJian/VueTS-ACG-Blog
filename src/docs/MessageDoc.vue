@@ -218,6 +218,8 @@ export default class MessageDoc extends Vue {
             border 1px solid $font-color-hover
 
 .api
+    p
+        margin 10px 0
     li
         margin 5px 0
 </style>

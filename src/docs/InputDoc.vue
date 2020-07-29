@@ -58,7 +58,14 @@
                     div.column2
                         Input(v-model="inputValue11" placeholder="复合型输入框")
                             Icon(type="dollar-sign" slot="prepend")
-                            
+                    br
+                    div.column2
+                        Input(v-model="inputValue12" placeholder="复合型输入框")
+                            Icon(type="dollar-sign" slot="append")
+            template(v-slot:description)
+                p 通过前置和后置的 slot 可以实现复合型的输入框.
+            template(v-slot:code)
+                Block(:content="dome5" lang="VUE" :custom="['language-pug']")      
 </template>
 
 <script lang="ts">
@@ -218,8 +225,7 @@ export default class InputDoc extends Vue {
 `
 
     private dome4: string =
-`
-<template lang="pug">
+`<template lang="pug">
     div.row
         div.column
             Input(v-model="inputValue8" placeholder="已禁用" disabled)
@@ -254,6 +260,51 @@ export default class InputDoc extends Vue {
     vertical-align top
 </style>
 `
+
+    private dome5: string =
+`<template lang="pug">
+    div.row
+        div.column2
+            Input(v-model="inputValue10" placeholder="复合型输入框")
+                span(slot="prepend") https://
+                span(slot="append") .com
+        br
+        div.column2
+            Input(v-model="inputValue11" placeholder="复合型输入框")
+                Icon(type="dollar-sign" slot="prepend")
+        br
+        div.column2
+            Input(v-model="inputValue12" placeholder="复合型输入框")
+                Icon(type="dollar-sign" slot="append")
+</template>
+
+<script lang="ts">
+import { Input } from '@/components/input'
+import { Component, Vue } from 'vue-property-decorator'
+
+@Component({
+    components: {
+        Input,
+    },
+})
+export default class InputDoc extends Vue {
+    private inputValue10: string = ''
+
+    private inputValue11: string = ''
+
+    private inputValue12: string = ''
+}
+<\/script>
+
+<style lang="stylus" scoped>
+.row
+    margin-bottom 20px
+
+.column2
+    margin 0 20px
+    width 500px
+</style>
+`
 }
 </script>
 
@@ -271,5 +322,4 @@ export default class InputDoc extends Vue {
 .column2
     margin 0 20px
     width 500px
-    vertical-align top
 </style>
