@@ -33,30 +33,24 @@ export default class BotkitHelper implements Botkit {
         return this.socket
     }
 
-    public send(text: string): void {
-        const message: BotkitMessage = {
-            type: 'message',
-            text,
-            user: this.UUID,
-            channel: 'websocket',
-        }
-
+    public send(text: string | BotkitMessage): void {
+        const message: BotkitMessage = typeof text === 'object' ? text : { type: 'message', text, user: this.UUID, channel: 'socket' }
         this.socket.send(JSON.stringify(message))
     }
 
     public close(): void {
-        this.socket.removeEventListener('open', this.open)
+        this.socket.removeEventListener('open', this.open.bind(this))
         this.socket.removeEventListener('message', this.options.onMessage)
         this.socket.removeEventListener('error', this.options.onError)
-        this.socket.removeEventListener('close', this.reconnect)
+        this.socket.removeEventListener('close', this.reconnect.bind(this))
         this.socket.close()
     }
 
     private monitor(): void {
-        this.socket.addEventListener('open', this.open)
+        this.socket.addEventListener('open', this.open.bind(this))
         this.socket.addEventListener('message', this.options.onMessage)
         this.socket.addEventListener('error', this.options.onError)
-        this.socket.addEventListener('close', this.reconnect)
+        this.socket.addEventListener('close', this.reconnect.bind(this))
     }
 
     private open(event: Event) {
@@ -67,7 +61,7 @@ export default class BotkitHelper implements Botkit {
             user: this.UUID,
             user_profile: null,
         }
-        this.send(JSON.stringify(message))
+        this.send(message)
         if (this.options.onOpen) { this.options.onOpen(event) }
     }
 

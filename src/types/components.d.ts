@@ -177,17 +177,3 @@ export interface UserExpression {
     expression: ExpressionParam[]
 }
 
-// 机器人
-export interface QuickReplies {
-    title: string
-    payload: string
-}
-
-export interface UserDiscuss {
-    type: string
-    html: string
-    text: string
-    link_title?: string
-    open_link?: string
-    quick_replies: string | QuickReplies[]
-}

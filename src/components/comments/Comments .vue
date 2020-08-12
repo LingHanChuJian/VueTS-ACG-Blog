@@ -1,7 +1,7 @@
 <template lang="pug">
     div(:class="[prefixCls + '-wrap']")
-        h3 Comments | 
-            span(v-if="data.total !== 0") {{ data.total }} 评论数
+        h3 Comments
+            span(v-if="data.total !== 0") | {{ data.total }} 评论数
         div(:class="[prefixCls + '-container']")
             comment-list(v-if="data.total !== 0" :data="data.comment")
             div(v-else) 暂无评论

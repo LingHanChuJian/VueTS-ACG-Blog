@@ -64,3 +64,15 @@ export interface BotkitOptions {
     onClose?: (event: CloseEvent) => any
     onMessage: (this: WebSocket, event: MessageEvent) => any
 }
+
+// 机器人
+export interface QuickReplies {
+    title: string
+    payload: string
+}
+
+export interface UserDiscuss {
+    type: string
+    text: string
+    options?: QuickReplies[]
+}
