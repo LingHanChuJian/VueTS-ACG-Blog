@@ -76,3 +76,10 @@ export interface UserDiscuss {
     text: string
     options?: QuickReplies[]
 }
+
+// useragent 解析
+export interface UserAgentParser {
+    expression: RegExp | RegExp[]
+    title: number | string | Array<string | number>
+    image: string
+}

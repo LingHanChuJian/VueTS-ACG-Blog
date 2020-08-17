@@ -1,9 +1,10 @@
-import List from '@/components/comments/List.vue'
-import Reply from '@/components/comments/Reply.vue'
 import Comments from '@/components/comments/Comments.vue'
+import CommentsList from '@/components/comments/CommentsList.vue'
+import CommentsReply from '@/components/comments/CommentsReply.vue'
+
 
 export {
-    List,
-    Reply,
     Comments,
+    CommentsList,
+    CommentsReply,
 }
