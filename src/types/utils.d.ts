@@ -76,3 +76,8 @@ export interface UserDiscuss {
     text: string
     options?: QuickReplies[]
 }
+
+// useragent 解析
+export interface UserAgentParser {
+    [key: string]: string | string[]
+}
