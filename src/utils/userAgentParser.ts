@@ -94,54 +94,15 @@ const osVersion = (userAgent: string): string => {
     return ''
 }
 
-// browsers parser
-// const browsers: UserAgentParser = {
-//     IE: /MSIE ([a-zA-Z0-9.]+)/i,
-//     EDGE: /Edge?\/([a-zA-Z0-9.]+)/i,
-//     BROWSER360: /360([a-zA-Z0-9.]+)/i,
-//     SOGOU: /SE 2([a-zA-Z0-9.]+)/i,
-//     LBBROWSER: /LBBROWSER/i,
-//     WECHAT: /MicroMessenger\/([a-zA-Z0-9.]+)/i,
-//     QQBROWSER: /QQBrowser\/([a-zA-Z0-9.]+)/i,
-//     BAIDU: /BIDUBrowser\/([a-zA-Z0-9.]+)/i,
-//     UC: /UCWEB([a-zA-Z0-9.]+)/i,
-//     FIREFOX: /Firefox\/([a-zA-Z0-9.]+)/i,
-//     CRIOS: /CriOS\/([a-zA-Z0-9.]+)/i,
-//     CHROME: /Chrome\/([a-zA-Z0-9.]+)/i,
-//     OPERA: /Opera.*Version[ /]([a-zA-Z0-9.]+)|OPR\/([a-zA-Z0-9.]+)/i,  // 1 2
-//     OPERAMINI: /Opera mini/i,
-//     SAFARI: /Safari\/([a-zA-Z0-9.]+)/i,
-//     MAXTHON: /Maxthon( |\/)([a-zA-Z0-9.]+)/i,
-//     WORDPRESS: /wp-(iphone|android)\/([a-zA-Z0-9.]+)/i,
-// }
-
-// // os parser
-// const os: UserAgentParser = {
-//     WINDOWS10: /Windows NT 10.0/i,
-//     WINDOWS81: /Windows NT 6.3/i,
-//     WINDOWS8: /Windows NT 6.2/i,
-//     WINDOWS7: /Windows NT 6.1/i,
-//     WINDOWSVISTA: /Windows NT 6.0/i,
-//     WINDOWSXP: /Windows NT 5.1/i,
-//     WINDOWSSERVER2003: /Windows NT 5.2/i,
-//     WINDOWS2000: /Windows NT 5.0/i,
-//     WINDOWSPHONE: /Windows Phone/i,
-//     IPOD: /iPod.*.CPU.([a-zA-Z0-9.( _)]+)/i,
-//     IPHONE: /iPhone OS ([a-zA-Z0-9.( _)]+)/i,
-//     IPAD: /iPad.*.CPU.([a-zA-Z0-9.( _)]+)/i,
-//     ANDROID: /Android.([0-9. _]+)/i,
-//     MACOSX: /Mac OS X.([0-9. _]+)/i,
-//     MACOS: /Macintosh/i,
-//     CROS: /CrOS/i,
-//     LINUX: /Linux/i,
-//     UBUNTU: /Ubuntu/i,
-//     DEBIAN: /Debian/i,
-//     FEDORA: /Fedora/i,
-// }
-
-
-// export const userAgentParser = (userAgent: string): void => {
-//     for (let browsersItem in browsers) {
-//         console.log(browsersItem)
-//     }
-// }
+export const uaParser = (userAgent: string): UserAgentParser => {
+    const userAgentInformation: UserAgentParser = {}
+    for (const informationItem of Object.keys(information)) {
+        for (let i = 0, len = information[informationItem].length; i < len; i ++) {
+            const value: string = information[informationItem][i]
+            const userAgentParserValue: string | string[] = userAgentParser[value]
+            const isUserAgentParser: boolean = Array.isArray(userAgentParserValue) ? userAgentParserValue.some((item) => userAgent.indexOf(item) > -1) : userAgent.indexOf(userAgentParserValue) > -1
+            if (isUserAgentParser) { userAgentInformation[informationItem] = userAgentParserValue }
+        }
+    }
+    return userAgentInformation
+}
