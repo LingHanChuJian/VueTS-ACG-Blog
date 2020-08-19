@@ -14,8 +14,7 @@
                         div(:class="[prefixCls + '-information-description']")
                             span(:class="[prefixCls + '-information-description-time']") {{ item.create | diff }}
                             span(:class="[prefixCls + '-information-description-useragent']")
-                                
-                            span(:class="[prefixCls + '-information-description-location']") {{ item.location }}
+                            span(:class="[prefixCls + '-information-description-location']") 来自: {{ item.location }}
                     div(:class="[prefixCls + '-information-reply']") reply
                 div(:class="[prefixCls + '-body']")
                     Markdown(:content="item.content")
