@@ -12,8 +12,14 @@
                             span(v-if="item.user.isAuthor") 博主
                             span {{ item.user.userName }}
                         div(:class="[prefixCls + '-information-description']")
-                            span(:class="[prefixCls + '-information-description-time']") {{ item.create | diff }}
+                            span(:class="[prefixCls + '-information-description-time']") 发布于 {{ item.create | diff }}
                             span(:class="[prefixCls + '-information-description-useragent']")
+                                | ( 
+                                img(:src="userAgentInformation(item.userAgent).browserIcon")
+                                | {{ userAgentInformation(item.userAgent).browserTitle }}
+                                img(:src="userAgentInformation(item.userAgent).osIcon")
+                                | {{ userAgentInformation(item.userAgent).osTitle }}
+                                | )
                             span(:class="[prefixCls + '-information-description-location']") 来自: {{ item.location }}
                     div(:class="[prefixCls + '-information-reply']") reply
                 div(:class="[prefixCls + '-body']")
@@ -24,7 +30,9 @@
 
 <script lang="ts">
 import { Comments } from '@/types/components'
+import { UserAgentParser } from '@/types/utils'
 import Markdown from '@/components/Markdown.vue'
+import { uaParser } from '@/utils/userAgentParser'
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import CommentsReply from '@/components/comments/CommentsReply.vue'
 
@@ -49,6 +57,14 @@ export default class CommentsList extends Vue {
     private isChildren!: boolean
 
     private prefixCls: string = 'comments-list'
+
+    private userAgentImagePath(): string {
+        return ''
+    }
+
+    private userAgentInformation(userAgent: string): UserAgentParser {
+        return uaParser(userAgent)
+    }
 }
 </script>
 

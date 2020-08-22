@@ -3,6 +3,7 @@
  */
 
 import { UserAgentParser } from '@/types/utils'
+import { Icon } from '@/components/icon'
 
 const userAgentParser: UserAgentParser = {
     // 内核
@@ -61,12 +62,13 @@ const userAgentParser: UserAgentParser = {
     'Vivo': 'VivoBrowser',
     // 系统或者平台
     'Windows': 'Windows',
+    'Ubuntu': 'Ubuntu',
+    'Debian': 'Debian',
+    'Fedora': 'Fedora',
     'Linux': ['Linux', 'X11'],
     'Mac OS': 'Macintosh',
     'Android': ['Android', 'Adr'],
-    'Ubuntu': 'Ubuntu',
     'FreeBSD': 'FreeBSD',
-    'Debian': 'Debian',
     'Windows Phone': ['Windows Phone', 'IEMobile'],
     'BlackBerry': ['BlackBerry', 'RIM'],
     'MeeGo': 'MeeGo',
@@ -82,12 +84,14 @@ const userAgentParser: UserAgentParser = {
 const information: UserAgentParser = {
     engine: ['WebKit', 'Trident', 'Gecko', 'Presto', 'KHTML'],
     browser: ['Safari', 'Chrome', 'Edge', 'IE', 'Firefox', 'Firefox Focus', 'Chromium', 'Opera', 'Vivaldi', 'Yandex', 'Arora', 'Lunascape', 'QupZilla', 'Coc Coc', 'Kindle', 'Iceweasel', 'Konqueror', 'Iceape', 'SeaMonkey', 'Epiphany', 'XiaoMi', 'Vivo', '360', '360SE', '360EE', 'UC', 'QQBrowser', 'QQ', 'Huawei', 'Baidu', 'Maxthon', 'Sogou', 'LBBROWSER', '2345Explorer', '115Browser', 'TheWorld', 'Quark', 'Qiyu', 'Wechat', 'WechatWork', 'Taobao', 'Alipay', 'Weibo', 'Douban', 'Suning', 'iQiYi', 'DingTalk'],
-    os: ['Windows', 'Linux', 'Mac OS', 'Android', 'Ubuntu', 'FreeBSD', 'Debian', 'iOS', 'Windows Phone', 'BlackBerry', 'MeeGo', 'Symbian', 'Chrome OS', 'WebOS'],
+    os: ['Windows', 'Debian', 'Ubuntu', 'Fedora', 'Linux', 'Mac OS', 'Android', 'FreeBSD', 'iOS', 'Windows Phone', 'BlackBerry', 'MeeGo', 'Symbian', 'Chrome OS', 'WebOS'],
     device: ['Mobile', 'Tablet'],
 }
 
-const osVersion = (userAgent: string, osName: string): string => {
-    let version: string = ''
+const iconPath = (path: string): string => require(`@/assets/images/useragent/${path}.svg`)
+
+const os = (userAgent: string, osName: string): string[] => {
+    let [title, icon, version] = ['unknow', 'unknow', '']
     switch (osName) {
         case 'Windows':
             version = userAgent.replace(/^Mozilla\/\d.0 \(Windows NT ([\d.]+);.*$/, '$1')
@@ -103,63 +107,118 @@ const osVersion = (userAgent: string, osName: string): string => {
                 5.0: '2000',
             }
             version = (hash[version] as string) || version
+            title = `Windows ${version}`
+            const hashIcon: UserAgentParser = {
+                10: 'os/windows_win10',
+                8.1: 'os/windows_win8',
+                8: 'os/windows_win8',
+                7: 'os/windows_win7',
+                Vista: 'os/windows_vista',
+                XP: 'os/windows',
+                2000: 'os/windows',
+            }
+            icon = (hashIcon[version] as string) || icon
             break
         case 'Android':
             version = userAgent.replace(/^.*Android ([\d.]+);.*$/, '$1')
+            title = `Android ${version}`
+            icon = 'os/android'
             break
         case 'iOS':
             version = userAgent.replace(/^.*OS ([\d_]+) like.*$/, '$1').replace(/_/g, '.')
+            title = `Iphone ${version}`
+            icon = 'os/iphone'
+            break
+        case 'Ubuntu':
+            title = 'Ubuntu Linux'
+            icon = 'os/ubuntu'
             break
         case 'Debian':
             version = userAgent.replace(/^.*Debian\/([\d.]+).*$/, '$1')
+            title = `Debian GNU/Linux ${version}`
+            icon = 'os/debian'
+            break
+        case 'Linux':
+            title = 'Linux'
+            icon = 'os/linux'
             break
         case 'Windows Phone':
             version = userAgent.replace(/^.*Windows Phone( OS)? ([\d.]+);.*$/, '$2')
+            title = `Windows Phone ${version}`
+            icon = 'os/windows_phone'
             break
         case 'Mac OS':
             version = userAgent.replace(/^.*Mac OS X ([\d_]+).*$/, '$1').replace(/_/g, '.')
+            title = `Mac OSX ${version}`
+            icon = 'os/macos'
+            break
+        case 'Chrome OS':
+            title = 'Google Chrome OS'
+            icon = 'os/chrome'
             break
         case 'WebOS':
             version = userAgent.replace(/^.*hpwOS\/([\d.]+);.*$/, '$1')
+            title = `WebOS ${version}`
+            icon = 'os/linux'
             break
     }
-    return version
+    return [title, icon, version]
 }
 
-const browserVersion = (userAgent: string, browserName: string): string => {
-    let version: string = ''
+const browser = (userAgent: string, browserName: string): string[] => {
+    let [title, icon, version] = ['unknow', 'unknow', '']
     let hash: UserAgentParser = {}
     let chromeVision: string = ''
     switch (browserName) {
         case 'Safari':
             version = userAgent.replace(/^.*Version\/([\d.]+).*$/, '$1')
+            title = `Safari ${version}`
+            icon = 'browser/safari'
             break
         case 'Chrome':
             version = userAgent.replace(/^.*Chrome\/([\d.]+).*$/, '$1').replace(/^.*CriOS\/([\d.]+).*$/, '$1')
+            title = `Google Chrome ${version}`
+            icon = 'browser/chrome'
             break
         case 'IE':
             version = userAgent.replace(/^.*MSIE ([\d.]+).*$/, '$1').replace(/^.*rv:([\d.]+).*$/, '$1')
+            title = `Internet Explorer ${version}`
+            icon = 'browser/ie'
             break
         case 'Edge':
             version = userAgent.replace(/^.*Edge\/([\d.]+).*$/, '$1').replace(/^.*Edg\/([\d.]+).*$/, '$1')
+            title = /^.*Edge\/([\d.]+).*$/i.test(userAgent) ? `Edge ${version}` : `Edge Dev (Chromium) ${version}`
+            icon = 'browser/edge'
             break
         case 'Firefox':
             version = userAgent.replace(/^.*Firefox\/([\d.]+).*$/, '$1').replace(/^.*FxiOS\/([\d.]+).*$/, '$1')
+            title = `Firefox ${version}`
+            icon = 'browser/firefox'
             break
         case 'Firefox Focus':
             version = userAgent.replace(/^.*Focus\/([\d.]+).*$/, '$1')
+            title = `Firefox Focus ${version}`
+            icon = 'browser/firefox'
             break
         case 'Chromium':
             version = userAgent.replace(/^.*Chromium\/([\d.]+).*$/, '$1')
+            title = `Chromium ${version}`
+            icon = 'browser/Chromium'
             break
         case 'Opera':
             version = userAgent.replace(/^.*Opera\/([\d.]+).*$/, '$1').replace(/^.*OPR\/([\d.]+).*$/, '$1')
+            title = /Opera Mini/i.test(userAgent) ? `Opera Mini ${version}` : `Opera ${version}`
+            icon = 'browser/opera'
             break
         case 'Vivaldi':
             version = userAgent.replace(/^.*Vivaldi\/([\d.]+).*$/, '$1')
+            title = `Vivaldi ${version}`
+            icon = 'browser/vivaldi'
             break
         case 'Yandex':
             version = userAgent.replace(/^.*YaBrowser\/([\d.]+).*$/, '$1')
+            title = `YaBrowser ${version}`
+            icon = 'browser/yandex'
             break
         case 'Arora':
             version = userAgent.replace(/^.*Arora\/([\d.]+).*$/, '$1')
@@ -196,6 +255,8 @@ const browserVersion = (userAgent: string, browserName: string): string => {
             break
         case '360':
             version = userAgent.replace(/^.*QihooBrowser\/([\d.]+).*$/, '$1')
+            title = `360 Browser ${version}`
+            icon = 'browser/360'
             break
         case '360SE':
             hash = {
@@ -210,6 +271,8 @@ const browserVersion = (userAgent: string, browserName: string): string => {
             }
             chromeVision = userAgent.replace(/^.*Chrome\/([\d]+).*$/, '$1')
             version = (hash[chromeVision] as string) || ''
+            title = `360SE Browser ${version}`
+            icon = 'browser/360se'
             break
         case '360EE':
             hash = {
@@ -222,24 +285,38 @@ const browserVersion = (userAgent: string, browserName: string): string => {
             }
             chromeVision = userAgent.replace(/^.*Chrome\/([\d]+).*$/, '$1')
             version = (hash[chromeVision] as string) || ''
+            title = `360EE Browser ${version}`
+            icon = 'browser/360se'
             break
         case 'Maxthon':
             version = userAgent.replace(/^.*Maxthon\/([\d.]+).*$/, '$1')
+            title = `Maxthon ${version}`
+            icon = 'browser/maxthon'
             break
         case 'QQBrowser':
             version = userAgent.replace(/^.*QQBrowser\/([\d.]+).*$/, '$1')
+            title = `QQBrowser ${version}`
+            icon = 'browser/QQBrowser'
             break
         case 'QQ':
             version = userAgent.replace(/^.*QQ\/([\d.]+).*$/, '$1')
+            title = `QQ ${version}`
+            icon = 'browser/QQBrowser'
             break
         case 'Baidu':
             version = userAgent.replace(/^.*BIDUBrowser[\s\/]([\d.]+).*$/, '$1').replace(/^.*baiduboxapp\/([\d.]+).*$/, '$1')
+            title = `Baidu Browser ${version}`
+            icon = 'browser/baidu'
             break
         case 'UC':
             version = userAgent.replace(/^.*UC?Browser\/([\d.]+).*$/, '$1')
+            title = `UCWeb ${version}`
+            icon = 'browser/ucweb'
             break
         case 'Sogou':
             version = userAgent.replace(/^.*SE ([\d.X]+).*$/, '$1').replace(/^.*SogouMobileBrowser\/([\d.]+).*$/, '$1')
+            title = `Sogou ${version}`
+            icon = 'browser/sogou'
             break
         case 'LBBROWSER':
             hash = {
@@ -254,6 +331,8 @@ const browserVersion = (userAgent: string, browserName: string): string => {
             }
             chromeVision = userAgent.replace(/^.*Chrome\/([\d]+).*$/, '$1')
             version = (hash[chromeVision] as string) || ''
+            title = `CM Browser ${version}`
+            icon = 'browser/LBBROWSER'
             break
         case '2345Explorer':
             hash = {
@@ -262,6 +341,8 @@ const browserVersion = (userAgent: string, browserName: string): string => {
             }
             chromeVision = userAgent.replace(/^.*Chrome\/([\d]+).*$/, '$1')
             version = (hash[chromeVision] as string) || userAgent.replace(/^.*2345Explorer\/([\d.]+).*$/, '$1').replace(/^.*Mb2345Browser\/([\d.]+).*$/, '$1')
+            title = `2345Explorer ${version}`
+            icon = 'browser/2345Explorer'
             break
         case '115Browser':
             version = userAgent.replace(/^.*115Browser\/([\d.]+).*$/, '$1')
@@ -283,6 +364,8 @@ const browserVersion = (userAgent: string, browserName: string): string => {
             break
         case 'Wechat':
             version = userAgent.replace(/^.*MicroMessenger\/([\d.]+).*$/, '$1')
+            title = `Built-in Browser of WeChat ${version}`
+            icon = 'browser/wechat'
             break
         case 'WechatWork':
             version = userAgent.replace(/^.*wxwork\/([\d.]+).*$/, '$1')
@@ -312,7 +395,7 @@ const browserVersion = (userAgent: string, browserName: string): string => {
             version = userAgent.replace(/^.*Version\/([\d.]+).*$/, '$1').replace(/^.*HuaweiBrowser\/([\d.]+).*$/, '$1')
             break
     }
-    return version
+    return [title, icon, version]
 }
 
 export const uaParser = (userAgent: string): UserAgentParser => {
@@ -326,16 +409,24 @@ export const uaParser = (userAgent: string): UserAgentParser => {
             if (isUserAgentParser) { userAgentInformation[informationItem] = value }
         }
     }
-    userAgentInformation.osVersion = osVersion(userAgent, (userAgentInformation.os as string))
-    userAgentInformation.browserVersion = browserVersion(userAgent, (userAgentInformation.browser as string))
+
+    const [osTitle, osIcon, osVersion] = os(userAgent, (userAgentInformation.os as string))
+    userAgentInformation.osTitle = osTitle
+    userAgentInformation.osIcon = iconPath(osIcon)
+    userAgentInformation.osVersion = osVersion
+
+    const [browserTitle, browserIcon, browserVersion] = browser(userAgent, (userAgentInformation.browser as string))
+    userAgentInformation.browserTitle = browserTitle
+    userAgentInformation.browserIcon = iconPath(browserIcon)
+    userAgentInformation.browserVersion = browserVersion
 
     // 修正一些 useragent
     if (userAgentInformation.osVersion === userAgent) { userAgentInformation.osVersion = '' }
     if (userAgentInformation.browserVersion === userAgent) { userAgentInformation.browserVersion = '' }
 
     if (userAgentInformation.browser === 'Chrome' && /\S+Browser/.test(userAgent)) {
-        const browser: RegExpMatchArray | null =  userAgent.match(/\S+Browser/)
-        userAgentInformation.browser = browser ? browser[0] : ''
+        const curBrowser: RegExpMatchArray | null =  userAgent.match(/\S+Browser/)
+        userAgentInformation.browser = curBrowser ? curBrowser[0] : ''
         userAgentInformation.browserVersion = userAgent.replace(/^.*Browser\/([\d.]+).*$/, '$1')
     }
 
@@ -343,7 +434,7 @@ export const uaParser = (userAgent: string): UserAgentParser => {
     const isChrome: boolean = Array.isArray(chrome) ? chrome.some((item) => userAgent.indexOf(item) > -1) : userAgent.indexOf(chrome) > -1
     if (userAgentInformation.browser === 'Edge') {
         userAgentInformation.engine = Number(userAgentInformation.browserVersion) > 75 ? 'Blink' : 'EdgeHTML'
-    } else if (isChrome && userAgentInformation.engine === 'WebKit' && parseInt(browserVersion(userAgent, 'Chrome'), 10) > 27) {
+    } else if (isChrome && userAgentInformation.engine === 'WebKit' && parseInt(browser(userAgent, 'Chrome')[2], 10) > 27) {
         userAgentInformation.engine = 'Blink'
     } else if (userAgentInformation.browser === 'Opera' && parseInt(userAgentInformation.browserVersion, 10) > 12) {
         userAgentInformation.engine = 'Blink'
