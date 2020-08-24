@@ -222,30 +222,43 @@ const browser = (userAgent: string, browserName: string): string[] => {
             break
         case 'Arora':
             version = userAgent.replace(/^.*Arora\/([\d.]+).*$/, '$1')
+            title = `Arora ${version}`
+            icon = 'browser/arora'
             break
         case 'Lunascape':
             version = userAgent.replace(/^.*Lunascape[\/\s]([\d.]+).*$/, '$1')
-            break
-        case 'Lunascape':
-            version = userAgent.replace(/^.*Lunascape[\/\s]([\d.]+).*$/, '$1')
+            title = `Lunascape ${version}`
+            icon = 'browser/lunascape'
             break
         case 'QupZilla':
             version = userAgent.replace(/^.*QupZilla[\/\s]([\d.]+).*$/, '$1')
+            title = `QupZilla ${version}`
+            icon = 'browser/QupZilla'
             break
         case 'Coc Coc':
             version = userAgent.replace(/^.*coc_coc_browser\/([\d.]+).*$/, '$1')
+            title = `Coc Coc Browser ${version}`
+            icon = 'browser/coccoc'
             break
         case 'Kindle':
             version = userAgent.replace(/^.*Version\/([\d.]+).*$/, '$1')
+            title = `Kindle ${version}`
+            icon = 'browser/ipad'
             break
         case 'Iceweasel':
             version = userAgent.replace(/^.*Iceweasel\/([\d.]+).*$/, '$1')
+            title = `Iceweasel ${version}`
+            icon = 'browser/iceweasel'
             break
         case 'Konqueror':
             version = userAgent.replace(/^.*Konqueror\/([\d.]+).*$/, '$1')
+            title = `Konqueror ${version}`
+            icon = 'browser/konqueror'
             break
         case 'Iceape':
             version = userAgent.replace(/^.*Iceape\/([\d.]+).*$/, '$1')
+            title = `Iceape ${version}`
+            // icon = 'browser/iceape'
             break
         case 'SeaMonkey':
             version = userAgent.replace(/^.*SeaMonkey\/([\d.]+).*$/, '$1')
