@@ -3,7 +3,6 @@
  */
 
 import { UserAgentParser } from '@/types/utils'
-import { Icon } from '@/components/icon'
 
 const userAgentParser: UserAgentParser = {
     // 内核
@@ -96,15 +95,15 @@ const os = (userAgent: string, osName: string): string[] => {
         case 'Windows':
             version = userAgent.replace(/^Mozilla\/\d.0 \(Windows NT ([\d.]+);.*$/, '$1')
             const hash: UserAgentParser = {
-                10: '10',
-                6.4: '10',
-                6.3: '8.1',
-                6.2: '8',
-                6.1: '7',
-                6.0: 'Vista',
-                5.2: 'XP',
-                5.1: 'XP',
-                5.0: '2000',
+                '10.0': '10',
+                '6.4': '10',
+                '6.3': '8.1',
+                '6.2': '8',
+                '6.1': '7',
+                '6.0': 'Vista',
+                '5.2': 'XP',
+                '5.1': 'XP',
+                '5.0': '2000',
             }
             version = (hash[version] as string) || version
             title = `Windows ${version}`
@@ -256,15 +255,19 @@ const browser = (userAgent: string, browserName: string): string[] => {
             icon = 'browser/konqueror'
             break
         case 'Iceape':
-            version = userAgent.replace(/^.*Iceape\/([\d.]+).*$/, '$1')
+            version = userAgent.replace(/^.*Iceape\/([\d.]+).*$/, ' $1')
             title = `Iceape ${version}`
-            // icon = 'browser/iceape'
+            icon = 'browser/iceape'
             break
         case 'SeaMonkey':
             version = userAgent.replace(/^.*SeaMonkey\/([\d.]+).*$/, '$1')
+            title = `SeaMonkey ${version}`
+            icon = 'browser/seaMonkey'
             break
         case 'Epiphany':
             version = userAgent.replace(/^.*Epiphany\/([\d.]+).*$/, '$1')
+            title = `Epiphany ${version}`
+            icon = 'browser/epiphany'
             break
         case '360':
             version = userAgent.replace(/^.*QihooBrowser\/([\d.]+).*$/, '$1')
@@ -359,21 +362,33 @@ const browser = (userAgent: string, browserName: string): string[] => {
             break
         case '115Browser':
             version = userAgent.replace(/^.*115Browser\/([\d.]+).*$/, '$1')
+            title = `115Browser ${version}`
+            icon = 'browser/115Browser'
             break
         case 'TheWorld':
             version = userAgent.replace(/^.*TheWorld ([\d.]+).*$/, '$1')
+            title = `TheWorld ${version}`
+            icon = 'browser/theWorld'
             break
         case 'XiaoMi':
             version = userAgent.replace(/^.*MiuiBrowser\/([\d.]+).*$/, '$1')
+            title = `MiuiBrowser ${version}`
+            icon = 'browser/xiaoMi'
             break
         case 'Vivo':
             version = userAgent.replace(/^.*VivoBrowser\/([\d.]+).*$/, '$1')
+            title = `VivoBrowser ${version}`
+            icon = 'browser/vivo'
             break
         case 'Quark':
             version = userAgent.replace(/^.*Quark\/([\d.]+).*$/, '$1')
+            title = `Quark ${version}`
+            icon = 'browser/quark'
             break
         case 'Qiyu':
             version = userAgent.replace(/^.*Qiyu\/([\d.]+).*$/, '$1')
+            title = `Qiyu ${version}`
+            icon = 'browser/qiyu'
             break
         case 'Wechat':
             version = userAgent.replace(/^.*MicroMessenger\/([\d.]+).*$/, '$1')
@@ -382,30 +397,48 @@ const browser = (userAgent: string, browserName: string): string[] => {
             break
         case 'WechatWork':
             version = userAgent.replace(/^.*wxwork\/([\d.]+).*$/, '$1')
+            title = `Built-in Browser of WechatWork ${version}`
+            icon = 'browser/wechat'
             break
         case 'Taobao':
             version = userAgent.replace(/^.*AliApp\(TB\/([\d.]+).*$/, '$1')
+            title = `Taobao ${version}`
+            // icon = 'browser/taobao'
             break
         case 'Alipay':
             version = userAgent.replace(/^.*AliApp\(AP\/([\d.]+).*$/, '$1')
+            title = `Alipay ${version}`
+            // icon = 'browser/alipay'
             break
         case 'Weibo':
             version = userAgent.replace(/^.*weibo__([\d.]+).*$/, '$1')
+            title = `Weibo ${version}`
+            // icon = 'browser/weibo'
             break
         case 'Douban':
             version = userAgent.replace(/^.*com.douban.frodo\/([\d.]+).*$/, '$1')
+            title = `Douban ${version}`
+            // icon = 'browser/douban'
             break
         case 'Suning':
             version = userAgent.replace(/^.*SNEBUY-APP([\d.]+).*$/, '$1')
+            title = `Suning ${version}`
+            // icon = 'browser/suning'
             break
         case 'iQiYi':
             version = userAgent.replace(/^.*IqiyiVersion\/([\d.]+).*$/, '$1')
+            title = `iQiYi ${version}`
+            // icon = 'browser/iQiYi'
             break
         case 'DingTalk':
             version = userAgent.replace(/^.*DingTalk\/([\d.]+).*$/, '$1')
+            title = `DingTalk ${version}}`
+            // icon = 'browser/dingTalk'
             break
         case 'Huawei':
             version = userAgent.replace(/^.*Version\/([\d.]+).*$/, '$1').replace(/^.*HuaweiBrowser\/([\d.]+).*$/, '$1')
+            title = `HuaweiBrowser ${version}`
+            // icon = 'browser/huawei'
             break
     }
     return [title, icon, version]
