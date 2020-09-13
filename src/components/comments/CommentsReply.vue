@@ -1,5 +1,6 @@
 <template lang="pug">
-    div(:class="[]")
+    div(:class="[prefixCls + '-wrap']")
+        |  这是评论
 </template>
 
 <script lang="ts">

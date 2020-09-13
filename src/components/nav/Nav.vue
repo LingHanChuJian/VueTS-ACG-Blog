@@ -31,7 +31,7 @@ import { typeOf, oneOf } from '@/utils'
 import { MenuItemData } from '@/types/components'
 import NavIcon from '@/components/nav/NavIcon.vue'
 import { MenuItem, SubMenu } from '@/components/menu'
-import { Component, Prop, Inject, Provide, Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue } from 'vue-property-decorator'
 
 @Component({
     components: {

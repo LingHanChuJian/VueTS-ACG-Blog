@@ -1,10 +1,10 @@
 <template lang="pug">
     main(:class="[prefixCls + '-wrap']")
         Markdown(:content="content")
-        div(:class="[prefixCls + '-mark']")
+        div(:class="[prefixCls + '-mark', prefixCls + '-spacing']")
             | Q.E.D.
             Icon(type="dragon" size="14")
-        div(v-if="handleDonate.length !== 0" :class="[prefixCls + '-donate']")
+        div(v-if="handleDonate.length !== 0" :class="[prefixCls + '-donate', prefixCls + '-spacing']")
             Poptip(trigger="hover" placement="bottom")
                 div.donate 赏
                 template(v-slot:content)
@@ -12,7 +12,7 @@
                         li(v-for="item in handleDonate" :key="item.title")
                             img(:src="item.image")
                             p {{ item.title }}
-        div(:class="[prefixCls + '-protocol']")
+        div(:class="[prefixCls + '-protocol', prefixCls + '-spacing']")
             div(:class="[prefixCls + '-lincenses']")
                 a(href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="license")
                     Icon(type="creative-commons")
@@ -20,6 +20,8 @@
             div(v-if="tags.length !== 0" :class="[prefixCls + '-tags']")
                 Icon(type="tags")
                 router-link(v-for="item, index in tags" :key="index" :to="getTagLink(item)") {{ item }}
+        div(:class="[prefixCls + '-comments', prefixCls + '-spacing']")
+            Comments(:data="commentsData")
 </template>
 
 <script lang="ts">
@@ -27,23 +29,59 @@ import { donate } from '@/config'
 import { RawLocation } from 'vue-router'
 import { Icon } from '@/components/icon'
 import { Poptip } from '@/components/poptip'
-import { UserDonate } from '@/types/components'
 import Markdown from '@/components/Markdown.vue'
+import { Comments } from '@/components/comments'
 import { Component, Vue } from 'vue-property-decorator'
-
-// declare var window: Window & { APlayer?: APlayer, DPlayer?: DPlayer }
+import { UserComments, UserDonate } from '@/types/components'
 
 @Component({
     components: {
         Icon,
         Poptip,
         Markdown,
+        Comments,
     },
 })
 export default class Article extends Vue {
     private prefixCls: string = 'article'
 
     private tags: string[] = ['GraphQL', 'JavaScript', 'WordPress']
+
+    private commentsData: UserComments = {
+        total: 2,
+        comments: [
+            {
+                id: 'xxxx',
+                user: {
+                    id: 'xxxxxx',
+                    email: '2739069093@qq.com',
+                    isAuthor: false,
+                    userName: '凌寒初见',
+                    mark: '',
+                    image: 'https://gravatar.loli.net/avatar/8195a7772cd06cfc4fa303770d577c97?s=80&d=mm&r=g',
+                },
+                content: '我们之间没啥好说的',
+                location: '广东省肇庆市 电信',
+                create: 1599646333369,
+                userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.102 Safari/537.36',
+            },
+            {
+                id: 'xxxx',
+                user: {
+                    id: 'xxxxxx',
+                    email: '2739069093@qq.com',
+                    isAuthor: false,
+                    userName: '凌寒初见',
+                    mark: '',
+                    image: 'https://gravatar.loli.net/avatar/8195a7772cd06cfc4fa303770d577c97?s=80&d=mm&r=g',
+                },
+                content: '我们之间没啥好说的',
+                location: '广东省肇庆市 电信',
+                create: 1599646333369,
+                userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.102 Safari/537.36',
+            },
+        ],
+    }
 
     private content: string =
 `<p></p><div class="has-toc have-toc"></div><span class="begin">B</span>igger data and more intelligent algorithms are being processed and analyzed faster in an API-enabled, open source environment. J.P. Morgan is committed to understanding how this technology-driven landscape could differentiate your stock, sector, portfolio, and asset class strategies.<a href="https://www.jpmorgan.com/global/research/machine-learning" target="_blank" rel="nofollow">Here</a>, J.P. Morgan summarizes key research in machine learning, big data and artificial intelligence, highlighting exciting trends that impact the financial community.<p></p>
@@ -269,8 +307,10 @@ We are all in the gutter, but some of us are looking at the stars.
 </script>
 
 <style lang="stylus" scoped>
+.article-spacing
+    margin-bottom 35px
+
 .article-donate
-    margin 35px 0
     text-align center
 
 .article-mark
@@ -316,4 +356,5 @@ We are all in the gutter, but some of us are looking at the stars.
     background-color #d34836
     border-radius 100%
     color #FFFFFF
+
 </style>

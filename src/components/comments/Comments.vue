@@ -1,5 +1,5 @@
 <template lang="pug">
-    div(:class="[prefixCls + '-wrap']")
+    section(:id="prefixCls" :class="[prefixCls + '-wrap']")
         h3 Comments | {{ data.total === 0 ? 'NOTHING' : `${data.total} 评论数` }}
         div(v-if="data.total !== 0" :class="[prefixCls + '-container']")
             comments-list(:data="data.comments")
@@ -32,7 +32,7 @@ export default class Comments extends Vue {
     @Prop({ type: Boolean, default: true })
     private accordion!: boolean
 
-    private prefixCls: string = 'comment'
+    private prefixCls: string = 'comments'
 }
 </script>
 

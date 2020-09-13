@@ -1,6 +1,6 @@
 <template lang="pug">
     ul(:class="[prefixCls + '-wrap', isChildren ? prefixCls + '-children' : '']")
-        li(v-for="item in data" :key="item.id")
+        li(v-for="item in handleData" :key="item.id")
             section(:class="[prefixCls + '-container']")
                 div(:class="[prefixCls + '-information']")
                     div(:class="[prefixCls + '-information-avatar']")
@@ -15,10 +15,10 @@
                             span(:class="[prefixCls + '-information-description-time']") 发布于 {{ item.create | diff }}
                             span(:class="[prefixCls + '-information-description-useragent']")
                                 | ( 
-                                img(:src="userAgentInformation(item.userAgent).browserIcon")
-                                | {{ userAgentInformation(item.userAgent).browserTitle }}
-                                img(:src="userAgentInformation(item.userAgent).osIcon")
-                                | {{ userAgentInformation(item.userAgent).osTitle }}
+                                img(:src="item.handleUserAgent.browserIcon")
+                                | {{ item.handleUserAgent.browserTitle }}
+                                img(:src="item.handleUserAgent.osIcon")
+                                | {{ item.handleUserAgent.osTitle }}
                                 | )
                             span(:class="[prefixCls + '-information-description-location']") 来自: {{ item.location }}
                     div(:class="[prefixCls + '-information-reply']") reply
@@ -58,13 +58,19 @@ export default class CommentsList extends Vue {
 
     private prefixCls: string = 'comments-list'
 
-    private userAgentImagePath(): string {
-        return ''
+    private handleUserAgent(commentsData: Comments[]): Comments[] {
+        for (let i = 0, len = commentsData.length; i < len; i++) {
+            const comments: Comments = commentsData[i]
+            comments.handleUserAgent = uaParser(comments.userAgent)
+            if (comments.children) { comments.children = this.handleUserAgent(comments.children) }
+        }
+        return commentsData
     }
 
-    private userAgentInformation(userAgent: string): UserAgentParser {
-        return uaParser(userAgent)
+    private get handleData(): Comments[] {
+        return this.handleUserAgent(this.data)
     }
+
 }
 </script>
 

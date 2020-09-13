@@ -1,4 +1,5 @@
 import { RawLocation } from 'vue-router'
+import { UserAgentParser } from './utils'
 import { Placement, VirtualElement } from '@popperjs/core'
 import { CreateElement, RenderContext, VNode } from 'vue'
 
@@ -106,6 +107,7 @@ export interface Comments {
     create: number
     userAgent: string
     location: string
+    handleUserAgent?: UserAgentParser
     children?: Comments[]
 }
 
