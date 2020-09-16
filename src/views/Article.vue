@@ -20,6 +20,8 @@
             div(v-if="tags.length !== 0" :class="[prefixCls + '-tags']")
                 Icon(type="tags")
                 router-link(v-for="item, index in tags" :key="index" :to="getTagLink(item)") {{ item }}
+        div(v-if="" :class="[prefixCls + '-next-pre', prefixCls + '-spacing']")
+            a(v-for="")
         div(:class="[prefixCls + '-comments', prefixCls + '-spacing']")
             Comments(:data="commentsData")
 </template>
@@ -58,22 +60,72 @@ export default class Article extends Vue {
                     isAuthor: false,
                     userName: '凌寒初见',
                     mark: '',
-                    image: 'https://gravatar.loli.net/avatar/8195a7772cd06cfc4fa303770d577c97?s=80&d=mm&r=g',
+                    image: 'https://q2.qlogo.cn/headimg_dl?dst_uin=2230831502&spec=100',
                 },
-                content: '我们之间没啥好说的',
+                content: '<p>我们之间没啥好说的</p>',
                 location: '广东省肇庆市 电信',
                 create: 1599646333369,
                 userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.102 Safari/537.36',
+                children: [
+                    {
+                        id: 'xxxxs',
+                        user: {
+                            id: 'xxxxxx',
+                            email: '2739069093@qq.com',
+                            isAuthor: false,
+                            userName: '凌寒@初见',
+                            mark: '风一样的男人',
+                            image: 'https://q2.qlogo.cn/headimg_dl?dst_uin=2230831502&spec=100',
+                        },
+                        parent: {
+                            id: 'xxxx',
+                            email: '3303214718@qq.com',
+                            isAuthor: false,
+                            userName: '凌寒初见',
+                            mark: '',
+                            image: 'https://q2.qlogo.cn/headimg_dl?dst_uin=2230831502&spec=100',
+                        },
+                        content: '<p>我们之间没啥好说的</p>',
+                        location: '广东省肇庆市 电信',
+                        create: 1599646333369,
+                        userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.102 Safari/537.36',
+                        children: [
+                            {
+                                id: 'xxsxxs',
+                                user: {
+                                    id: 'xxxxxx',
+                                    email: '2739069093@qq.com',
+                                    isAuthor: false,
+                                    userName: '凌寒@初见',
+                                    mark: '风一样的男人',
+                                    image: 'https://q2.qlogo.cn/headimg_dl?dst_uin=2230831502&spec=100',
+                                },
+                                parent: {
+                                    id: 'xxxx',
+                                    email: '3303214718@qq.com',
+                                    isAuthor: false,
+                                    userName: '凌寒初见',
+                                    mark: '',
+                                    image: 'https://q2.qlogo.cn/headimg_dl?dst_uin=2230831502&spec=100',
+                                },
+                                content: '<p>我们之间没啥好说的</p>',
+                                location: '广东省肇庆市 电信',
+                                create: 1599646333369,
+                                userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.102 Safari/537.36',
+                            },
+                        ],
+                    },
+                ],
             },
             {
-                id: 'xxxx',
+                id: 'xxxsx',
                 user: {
                     id: 'xxxxxx',
                     email: '2739069093@qq.com',
-                    isAuthor: false,
+                    isAuthor: true,
                     userName: '凌寒初见',
-                    mark: '',
-                    image: 'https://gravatar.loli.net/avatar/8195a7772cd06cfc4fa303770d577c97?s=80&d=mm&r=g',
+                    mark: '风一样的男人',
+                    image: 'https://q2.qlogo.cn/headimg_dl?dst_uin=2230831502&spec=100',
                 },
                 content: '我们之间没啥好说的',
                 location: '广东省肇庆市 电信',
@@ -336,6 +388,9 @@ We are all in the gutter, but some of us are looking at the stars.
     a
         margin 0 5px
         text-transform uppercase
+
+.article-next-pre
+    dispaly block
 
 .donate-ul
     li

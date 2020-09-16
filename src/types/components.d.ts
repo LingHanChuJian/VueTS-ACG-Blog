@@ -95,7 +95,7 @@ export interface User {
     userName: string
     site?: string
     email: string
-    mark: string
+    mark?: string
     isAuthor: boolean
 }
 

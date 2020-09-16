@@ -9,9 +9,10 @@
 
 <script lang="ts">
 import { UserComments } from '@/types/components'
+import EmitterMixins from '@/components/mixins/emitter'
 import CommentsList from '@/components/comments/CommentsList.vue'
 import CommentsReply from '@/components/comments/CommentsReply.vue'
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Component, Prop, Provide, Mixins, Vue } from 'vue-property-decorator'
 
 @Component({
     components: {
@@ -19,7 +20,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
         CommentsReply,
     },
 })
-export default class Comments extends Vue {
+export default class Comments extends Mixins(EmitterMixins) {
     @Prop({
         type: Object,
         default() {
@@ -32,7 +33,14 @@ export default class Comments extends Vue {
     @Prop({ type: Boolean, default: true })
     private accordion!: boolean
 
+    @Provide('accordion')
+    private isAccordion: boolean = this.accordion
+
     private prefixCls: string = 'comments'
+
+    private mounted() {
+        this.$on('on-reply', (parent: number | string) => this.broadcast('CommentsReply', 'on-reply-show', parent))
+    }
 }
 </script>
 

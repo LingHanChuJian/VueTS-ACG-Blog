@@ -82,7 +82,7 @@ export default class Input extends Vue {
         type: String,
         default: 'text',
         validator(value: string) {
-            return oneOf(value, ['text', 'textarea', 'password', 'email', 'url', 'number', 'search', 'tel'])
+            return oneOf(value, ['text', 'textarea', 'password', 'email', 'url', 'search', 'tel'])
         },
     })
     private type!: string
@@ -107,9 +107,6 @@ export default class Input extends Vue {
 
     @Prop({ type: Boolean, default: false })
     private disabled!: boolean
-
-    @Prop({ type: String })
-    private icon?: string
 
     @Prop({ type: Boolean, default: false })
     private auto!: boolean

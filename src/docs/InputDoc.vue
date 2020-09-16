@@ -65,7 +65,11 @@
             template(v-slot:description)
                 p 通过前置和后置的 slot 可以实现复合型的输入框.
             template(v-slot:code)
-                Block(:content="dome5" lang="VUE" :custom="['language-pug']")      
+                Block(:content="dome5" lang="VUE" :custom="['language-pug']")
+        div.api
+            Anchor(title="API" label="h2")
+            Anchor(title="Input props" label="h3")
+            Table(:column="columns" :data="data")
 </template>
 
 <script lang="ts">
@@ -110,6 +114,8 @@ export default class InputDoc extends Vue {
     private inputValue10: string = ''
 
     private inputValue11: string = ''
+
+    private inputValue12: string = ''
 
     private dome1: string =
 `<template lang="pug">
@@ -305,6 +311,83 @@ export default class InputDoc extends Vue {
     width 500px
 </style>
 `
+
+    private columns: Column[] = [
+        {
+            key: 'prop',
+            title: '属性',
+        },
+        {
+            key: 'description',
+            title: '说明',
+        },
+        {
+            key: 'type',
+            title: '类型',
+        },
+        {
+            key: 'default',
+            title: '默认值',
+        },
+    ]
+
+    private data: Row[] = [
+        {
+            prop: 'type',
+            description: '输入框类型, 可选值为 text、password、textarea、url、email、date、tel',
+            type: 'String',
+            default: 'text',
+        },
+        {
+            prop: 'value',
+            description: '绑定的值，可使用 v-model 双向绑定',
+            type: 'String | Number',
+            default: '',
+        },
+        {
+            prop: 'size',
+            description: '输入框尺寸, 可选值为small、default、large',
+            type: 'String',
+            default: 'default',
+        },
+        {
+            prop: 'placeholder',
+            description: '占位文本',
+            type: 'String',
+            default: '',
+        },
+        {
+            prop: 'clearable',
+            description: '是否显示清空按钮',
+            type: 'Boolean',
+            default: 'false',
+        },
+        {
+            prop: 'disabled',
+            description: '设置输入框为禁用状态',
+            type: 'Boolean',
+            default: 'false',
+        },
+        {
+            prop: 'readonly',
+            description: '设置输入框为只读',
+            type: 'Boolean',
+            default: 'false',
+        },
+        {
+            prop: 'max',
+            description: '最大输入长度',
+            type: 'Number',
+            default: '',
+        },
+        {
+            prop: 'auto',
+            description: '自适应内容高度, 仅在 textarea 类型下有效',
+            type: 'Boolean',
+            default: 'false',
+        },
+    ]
+
 }
 </script>
 
