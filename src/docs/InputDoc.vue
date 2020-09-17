@@ -70,6 +70,10 @@
             Anchor(title="API" label="h2")
             Anchor(title="Input props" label="h3")
             Table(:column="columns" :data="data")
+            Anchor(title="Input events" label="h3")
+            Table(:column="columns2" :data="data2")
+            Anchor(title="Input slot" label="h3")
+            Table(:column="columns3" :data="data3")
 </template>
 
 <script lang="ts">
@@ -385,6 +389,138 @@ export default class InputDoc extends Vue {
             description: '自适应内容高度, 仅在 textarea 类型下有效',
             type: 'Boolean',
             default: 'false',
+        },
+        {
+            prop: 'rows',
+            description: '文本域默认行数，仅在 textarea 类型下有效',
+            type: 'Number',
+            default: '2',
+        },
+        {
+            prop: 'spellcheck',
+            description: '原生的 spellcheck 属性',
+            type: 'Boolean',
+            default: 'false',
+        },
+        {
+            prop: 'autofocus',
+            description: '自动获取焦点',
+            type: 'Boolean',
+            default: 'false',
+        },
+        {
+            prop: 'autocomplete',
+            description: '原生的自动完成功能',
+            type: 'String',
+            default: 'off',
+        },
+        {
+            prop: 'wrap',
+            description: '原生的 wrap 属性, 可选值为 hard 和 soft, 仅在 textarea 下生效',
+            type: 'String',
+            default: 'soft',
+        },
+        {
+            prop: 'inputStyles',
+            description: 'input style',
+            type: 'CSSStyleDeclaration',
+            default: '{}',
+        },
+        {
+            prop: 'animationPlaceholder',
+            description: '是否显示动画 placeholder',
+            type: 'Boolean',
+            default: 'false',
+        },
+    ]
+
+    private columns2: Column[] = [
+        {
+            key: 'eventsName',
+            title: '事件名',
+        },
+        {
+            key: 'description',
+            title: '说明',
+        },
+        {
+            key: 'returnValue',
+            title: '返回值',
+        },
+    ]
+
+    private data2: Row[] = [
+        {
+            eventsName: 'on-change',
+            description: '数据改变时触发',
+            returnValue: 'event',
+        },
+        {
+            eventsName: 'on-clear',
+            description: '开启 clearable 时可用, 点击清空按钮时触发',
+            returnValue: 'event',
+        },
+        {
+            eventsName: 'on-enter',
+            description: '按下回车键时触发',
+            returnValue: '',
+        },
+        {
+            eventsName: 'on-keyup',
+            description: '原生的 keyup 事件',
+            returnValue: 'event',
+        },
+        {
+            eventsName: 'on-keypress',
+            description: '原生的 keypress 事件',
+            returnValue: 'event',
+        },
+        {
+            eventsName: 'on-keydown',
+            description: '原生的 on-keydown 事件',
+            returnValue: 'event',
+        },
+        {
+            eventsName: 'on-keyup',
+            description: '原生的 keyup 事件',
+            returnValue: 'event',
+        },
+        {
+            eventsName: 'on-focus',
+            description: '输入框聚焦时触发',
+            returnValue: '',
+        },
+        {
+            eventsName: 'on-blur',
+            description: '输入框失去焦点时触发',
+            returnValue: 'event',
+        },
+        {
+            eventsName: 'on-input-change',
+            description: '原生的 change 事件',
+            returnValue: 'event',
+        },
+    ]
+
+    private columns3: Column[] = [
+        {
+            key: 'name',
+            title: '名称',
+        },
+        {
+            key: 'description',
+            title: '说明',
+        },
+    ]
+
+    private data3: Row[] = [
+        {
+            name: 'prepend',
+            description: '前置内容, 仅在 text 类型下有效',
+        },
+        {
+            name: 'append',
+            description: '后置内容, 仅在 text 类型下有效',
         },
     ]
 

@@ -164,10 +164,10 @@ export interface UserFriends {
 export interface ExpressionParam {
     image?: string
     value: string
-    step?: string
+    step?: number
     width?: string
     height?: string
-    translateY?: number
+    transform?: string
     delay?: number
 }
 
