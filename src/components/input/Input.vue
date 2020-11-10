@@ -176,6 +176,10 @@ export default class Input extends Vue {
 
     private curAppendStyles: CSSStyleDeclaration | null = null
 
+    public getCurElement(): HTMLTextAreaElement | HTMLInputElement {
+        return this.type === 'textarea' ? this.$refs.textarea as HTMLTextAreaElement : this.$refs.input as HTMLInputElement
+    }
+
     private get wrapClasses(): Array<string | WrapClasses> {
         return [
             this.prefixCls,

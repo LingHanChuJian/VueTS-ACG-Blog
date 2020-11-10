@@ -81,3 +81,25 @@ export interface UserDiscuss {
 export interface UserAgentParser {
     [key: string]: string | string[]
 }
+
+// 输入框坐标
+export interface InputCoordinates {
+    top: number
+    left: number
+    height: number
+}
+
+// 粒子信息
+export interface Position {
+    x: number
+    y: number
+}
+
+export interface BasicParticleInformation extends Position {
+    color: string
+}
+
+export interface ParticleInformation extends BasicParticleInformation {
+    alpha: number
+    velocity: Position
+}

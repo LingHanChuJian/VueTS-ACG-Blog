@@ -78,7 +78,7 @@ const directives: DirectiveOptions = {
         if (isMove === true) {
             parentNode.appendChild(el)
         }
-        delete (el as HTMLElement & { transferData: TransferData}).transferData
+        delete (el as HTMLElement & { transferData?: TransferData}).transferData
     },
 }
 

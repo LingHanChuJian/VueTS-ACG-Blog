@@ -174,7 +174,7 @@ export interface ExpressionParam {
 export interface UserExpression {
     type: 'sticker' | 'emoticon' | 'emoji'
     template?: string
-    titile: string
+    title: string
     description?: string
     expression: ExpressionParam[]
 }

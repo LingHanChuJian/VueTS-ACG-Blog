@@ -25,7 +25,7 @@ export default class Menu extends Mixins(EmitterMixins) {
     private width!: number | string
 
     @Prop({ type: [Number, String] })
-    private activeName?: number | string
+    private activeName?: number | string = undefined
 
     @Prop({ type: Array, default() { return [] } })
     private openNames!: Array<number | string>

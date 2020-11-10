@@ -266,7 +266,7 @@ export const expression: UserExpression[] = [
     {
         type: 'sticker',
         template: 'f(x)=∫({0})sec²xdx',
-        titile: 'bilibili~',
+        title: 'bilibili~',
         description: '贴图',
         expression: [
             {
@@ -279,7 +279,7 @@ export const expression: UserExpression[] = [
             {
                 value: 'fadai',
                 step: 27,
-                transform: 'translateY(-500px)',
+                transform: 'translateY(-832px)',
                 delay: 1.08,
                 height: '864px',
             },
@@ -624,7 +624,7 @@ export const expression: UserExpression[] = [
     {
         type: 'emoticon',
         template: '`{0}`',
-        titile: '(✪ω✪)',
+        title: '(✪ω✪)',
         description: '颜文字',
         expression: [{ value: '(⌒▽⌒)' }, { value: '(￣▽￣)' }, { value: '(=・ω・=)' }, { value: '(｀・ω・´)' },
         { value: '(〜￣△￣)〜' }, { value: '(･∀･)' }, { value: '(°∀°)ﾉ' }, { value: '(￣3￣)' }, { value: '╮(￣▽￣)╭' },
@@ -640,12 +640,12 @@ export const expression: UserExpression[] = [
     {
         type: 'emoji',
         template: ':{0}:',
-        titile: 'Tieba',
+        title: 'Tieba',
         description: '表情符号',
         expression: [{ value: 'tongue' }, { value: 'theblackline' }, { value: 'tear' }, { value: 'surprised' },
         { value: 'surprised2' }, { value: 'spray' }, { value: 'spit' }, { value: 'smilingeyes' }, { value: 'shui' },
-        { value: 'shame' }, { value: 're' }, { value: 'rmb' }, { value: 'tongue' }, { value: 'reluctantly' }, { value: 'rbq' },
-        { value: 'niconiconit' }, { value: 'niconiconi' }, { value: 'niconiconi-t' }, { value: 'naive' }, { value: 'ku' },
+        { value: 'shame' }, { value: 'se' }, { value: 'rmb' }, { value: 'tongue' }, { value: 'reluctantly' }, { value: 'rbq' },
+        { value: 'niconiconit' }, { value: 'niconiconi' }, { value: 'niconiconi_t' }, { value: 'naive' }, { value: 'ku' },
         { value: 'huaji' }, { value: 'hu' }, { value: 'han' }, { value: 'haha' }, { value: 'good' }, { value: 'doubt' },
         { value: 'britan' }, { value: 'bbd' }, { value: 'awesome' }, { value: 'anger' }, { value: 'aa' }, { value: 'happy' },
         { value: 'grievance' }],

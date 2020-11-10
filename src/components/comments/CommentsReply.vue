@@ -8,15 +8,26 @@
                 Icon(type="code")
                 | &nbsp;Forbidden
             div(:class="[prefixCls + '-textarea']")
-                Input(v-model="comments" type="textarea" :rows="6" auto placeholder="你是我一生只会遇见一次的惊喜 ...")
+                Input(
+                    v-model="comments"
+                    ref="input"
+                    type="textarea"
+                    :rows="9"
+                    auto
+                    placeholder="你是我一生只会遇见一次的惊喜 ..."
+                    @on-change="onInputChange"
+                )
             div(:class="[prefixCls + '-expression']")
+                CommentExpression
 </template>
 
 <script lang="ts">
 import { Icon } from '@/components/icon'
 import { Input } from '@/components/input'
 import EmitterMixins from '@/components/mixins/emitter'
+import { activatePowerMode } from '@/utils/activatePowerMode'
 import CollapseTransition from '@/components/base/collapseTransition'
+import CommentExpression from '@/components/comments/CommentExpression.vue'
 import { Component, Prop, Inject, Mixins, Vue } from 'vue-property-decorator'
 
 @Component({
@@ -24,6 +35,7 @@ import { Component, Prop, Inject, Mixins, Vue } from 'vue-property-decorator'
         Icon,
         Input,
         CollapseTransition,
+        CommentExpression,
     },
 })
 export default class CommentsReply extends Mixins(EmitterMixins) {
@@ -49,6 +61,10 @@ export default class CommentsReply extends Mixins(EmitterMixins) {
         this.dispatch('Comments', 'on-reply', '')
     }
 
+    private onInputChange(): void {
+        activatePowerMode()
+    }
+
     private mounted() {
         this.$on('on-reply-show', (parent: number | string) => this.show(parent))
         this.opened = this.parent === ''
@@ -69,6 +85,9 @@ export default class CommentsReply extends Mixins(EmitterMixins) {
     color #454545
     display inline-block
     cursor pointer
+
+.comments-reply-textarea
+    min-height 180px
 
 .comments-reply-description
     margin-bottom 20px  
