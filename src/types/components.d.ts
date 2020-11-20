@@ -179,3 +179,8 @@ export interface UserExpression {
     expression: ExpressionParam[]
 }
 
+// Page
+export interface Page {
+    className: string
+    value: number | string
+}

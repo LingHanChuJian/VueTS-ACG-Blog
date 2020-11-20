@@ -7,12 +7,13 @@
                     div(:class="[prefixCls + '-title', expressionName === item.title ? (prefixCls + '-title-hover') : '']" @click="expressionTitleClick(item.title)") {{ item.title }}
                 template(v-for="item in expression")
                     div(v-show="isExpressionShow(item.title)" :class="[prefixCls + '-' + item.type, prefixCls + '-show']")
-                        div(v-for="mark, index in item.expression" :key="mark.value + index" @click="expressionMarkClick") {{ item.type === 'emoticon' ? mark.value : '' }}
+                        div(v-for="mark, index in item.expression" :key="mark.value + index" @click="expressionMarkClick(item.template, mark.value)") {{ item.type === 'emoticon' ? mark.value : '' }}
                             div(v-if="item.type !== 'emoticon'" :style="styles(item, index)")
 </template>
 
 <script lang="ts">
 import { expression } from '@/config'
+import { stringFormat } from '@/utils'
 import { Component, Vue } from 'vue-property-decorator'
 import CollapseTransition from '@/components/base/collapseTransition'
 import { CSSStyles, ExpressionParam, UserExpression } from '@/types/components'
@@ -65,8 +66,8 @@ export default class CommentExpression extends Vue {
         return this.expressionName === title
     }
 
-    private expressionMarkClick(): void {
-        console.log('expressionMarkClick')
+    private expressionMarkClick(template: string, value: string): void {
+        this.$emit('on-expression-mark-click', stringFormat(template, [value]))
     }
 }
 </script>

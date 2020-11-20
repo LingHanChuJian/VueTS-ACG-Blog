@@ -140,6 +140,7 @@ export default class IconDoc extends Vue {
         background-color #F5F5F5
         text-align center
         border 0
+        margin-bottom 10px
 .icons
     display flex
     flex-wrap wrap

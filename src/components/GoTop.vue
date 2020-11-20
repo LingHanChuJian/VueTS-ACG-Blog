@@ -20,13 +20,6 @@ export default class GoTop extends Mixins(ScrollMixins) {
 
     private isMove: boolean = false
 
-    private setScrollTop(): void {
-        const timer: number = setInterval(() => {
-            this.scrollTop = scrollTop()
-            scrollTop() <= 0 ? clearInterval(timer) : scrollBy(0, -50)
-        }, 10)
-    }
-
     private get wrapClasses(): Array<string | WrapClasses> {
         return [
             this.prefixCls,
@@ -40,6 +33,13 @@ export default class GoTop extends Mixins(ScrollMixins) {
         const result: number = Math.round((newValue > 50 ? newValue : 0) / (scrollHeight() - clientHeight()) * 100) / 100
         result >= 1 ? nprogress.set(.99) : nprogress.set(result)
         newValue > 50 ? this.isMove = true : this.isMove = false
+    }
+
+    private setScrollTop(): void {
+        const timer: number = setInterval(() => {
+            this.scrollTop = scrollTop()
+            scrollTop() <= 0 ? clearInterval(timer) : scrollBy(0, -50)
+        }, 10)
     }
 }
 </script>

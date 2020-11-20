@@ -12,13 +12,14 @@
                     v-model="comments"
                     ref="input"
                     type="textarea"
-                    :rows="9"
                     auto
+                    :rows="9"
                     placeholder="你是我一生只会遇见一次的惊喜 ..."
                     @on-change="onInputChange"
                 )
             div(:class="[prefixCls + '-expression']")
-                CommentExpression
+                CommentExpression(@on-expression-mark-click="onExpressionMarkClick")
+            div(:class="[prefixCls + '-submit']")
 </template>
 
 <script lang="ts">
@@ -65,6 +66,16 @@ export default class CommentsReply extends Mixins(EmitterMixins) {
         activatePowerMode()
     }
 
+    private onExpressionMarkClick(value: string): void {
+        const startPosition: number | null =  (this.$refs.input as Input).getCurElement().selectionStart
+        const endPosition: number | null = (this.$refs.input as Input).getCurElement().selectionEnd
+        if (typeof startPosition === 'number' && typeof endPosition === 'number') {
+            this.comments = this.comments.substring(0, startPosition) + value + this.comments.substring(endPosition, this.comments.length)
+        } else {
+            this.comments += value
+        }
+    }
+
     private mounted() {
         this.$on('on-reply-show', (parent: number | string) => this.show(parent))
         this.opened = this.parent === ''
@@ -88,6 +99,7 @@ export default class CommentsReply extends Mixins(EmitterMixins) {
 
 .comments-reply-textarea
     min-height 180px
+    margin-bottom 20px
 
 .comments-reply-description
     margin-bottom 20px  

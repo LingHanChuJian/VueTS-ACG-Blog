@@ -11,13 +11,14 @@
                         div(:class="[prefixCls + '-information-author']")
                             span(v-if="item.user.isAuthor" :class="[prefixCls + '-blogger']") 博主
                             span(v-if="item.user.mark" :class="[prefixCls + '-mark']") {{ item.user.mark }}
-                            span {{ item.user.userName }}
+                            a(v-if="item.user.site" :href="item.user.site" :class="[prefixCls + '-username']") {{ item.user.userName }}
+                            span(v-else :class="[prefixCls + '-username']") {{ item.user.userName }}
                         div(:class="[prefixCls + '-information-description']")
                             span(:class="[prefixCls + '-information-description-time']") 发布于 {{ item.create | diff }}
                             span(:class="[prefixCls + '-information-description-useragent']")
                                 | (
                                 img(:src="item.handleUserAgent.browserIcon")
-                                | {{ item.handleUserAgent.browserTitle }}
+                                | {{ item.handleUserAgent.browserTitle }} &nbsp;
                                 img(:src="item.handleUserAgent.osIcon")
                                 | {{ item.handleUserAgent.osTitle }}
                                 | )
@@ -100,6 +101,8 @@ export default class CommentsList extends Mixins(EmitterMixins) {
 
 .comments-list-information
     display flex
+    align-items center
+    margin-bottom 15px
 
 .comments-list-information-avatar
     margin-right 10px
@@ -125,15 +128,20 @@ export default class CommentsList extends Mixins(EmitterMixins) {
 .comments-list-blogger
 .comments-list-mark
     margin-right 3px
+    padding 2px
+    background-color $font-color-hover
     border 1px solid $font-color-hover
-    color $font-color-hover
+    color #FFFFFF
     font-size 14px
     vertical-align middle
     border-radius 3px
 
+.comments-list-username
+    vertical-align middle
+
 .comments-list-information-description
-    margin-top 5px
-    font-size 14px
+    margin-top 8px
+    font-size 13px
     color #515a6e
     span
         margin-right 5px
@@ -150,7 +158,6 @@ export default class CommentsList extends Mixins(EmitterMixins) {
 .comments-list-information-reply
     background-color $font-color-hover
     color #FFFFFF
-    display inline-table
     padding 3px
     text-transform uppercase
     cursor pointer
