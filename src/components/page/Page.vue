@@ -97,6 +97,12 @@ export default class Page extends Vue {
         this.currentPageSize = newValue
     }
 
+    private get items(): Array<number | string> {
+        if (this.totalVisible === 0) { return [] }
+
+        return []
+    }
+
     private range(from: number, to: number): number[] {
         const ranges: number[] =  []
 
@@ -108,11 +114,6 @@ export default class Page extends Vue {
         return ranges
     }
 
-    private items(): Array<number | string> {
-        if (this.totalVisible === 0) { return [] }
-
-        return []
-    }
 }
 </script>
 
