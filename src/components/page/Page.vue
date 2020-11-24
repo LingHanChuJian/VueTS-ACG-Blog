@@ -97,8 +97,20 @@ export default class Page extends Vue {
         this.currentPageSize = newValue
     }
 
+    private range(from: number, to: number): number[] {
+        const ranges: number[] =  []
+
+        from  = from > 0 ? from : 1
+        for (let i = from; i <= to; i++) {
+            ranges.push(i)
+        }
+
+        return ranges
+    }
+
     private items(): Array<number | string> {
-        if (this.totalVisible === 0) { return [1] }
+        if (this.totalVisible === 0) { return [] }
+
         return []
     }
 }
