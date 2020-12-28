@@ -47,6 +47,7 @@ import { Layout, Header, Drawer, Content, Footer } from '@/components/layout'
 import { Component, Vue } from 'vue-property-decorator'
 
 @Component({
+    name: 'Document',
     components: {
         Layout,
         Header,

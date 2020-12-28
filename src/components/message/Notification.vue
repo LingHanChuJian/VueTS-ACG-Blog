@@ -27,6 +27,7 @@ import { Component, Prop, Mixins, Vue } from 'vue-property-decorator'
 import { WrapClasses, MessageOptions, Render, CSSStyles } from '@/types/components'
 
 @Component({
+    name: 'Notification',
     components: {
         Message,
     },

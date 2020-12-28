@@ -21,6 +21,7 @@ import { WrapClasses } from '@/types/components'
 import { Component, Prop, Vue } from 'vue-property-decorator'
 
 @Component({
+    name: 'NavSearch',
     components: {
         Icon,
     },

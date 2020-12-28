@@ -8,7 +8,9 @@ import { addEvent, removeEvent } from '@/utils'
 import { WrapClasses } from '@/types/components'
 import { Component, Vue } from 'vue-property-decorator'
 
-@Component
+@Component({
+    name: 'Layout',
+})
 export default class Layout extends Vue {
     private hasFindDrawer: boolean = false
     private prefixCls: string = 'layout'

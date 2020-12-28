@@ -36,6 +36,7 @@ import { Layout, Header, Content, Footer, Drawer } from '@/components/layout'
 import { WrapClasses, MenuItemData, UserInformation } from '@/types/components'
 
 @Component({
+    name: 'Index',
     components: {
         Layout,
         Header,

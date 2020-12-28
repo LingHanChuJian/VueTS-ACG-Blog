@@ -32,6 +32,7 @@ import CommentExpression from '@/components/comments/CommentExpression.vue'
 import { Component, Prop, Inject, Mixins, Vue } from 'vue-property-decorator'
 
 @Component({
+    name: 'CommentsReply',
     components: {
         Icon,
         Input,

@@ -5,7 +5,9 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 
-@Component
+@Component({
+    name: 'Archives',
+})
 export default class Archives extends Vue {}
 </script>
 

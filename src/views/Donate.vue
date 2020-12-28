@@ -19,6 +19,7 @@ import { Component, Vue } from 'vue-property-decorator'
 import { WrapClasses, CSSStyles } from '@/types/components'
 
 @Component({
+    name: 'Donate',
     components: {
         Markdown,
     },

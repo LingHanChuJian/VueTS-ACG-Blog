@@ -87,6 +87,7 @@ import { Component, Vue } from 'vue-property-decorator'
 
 
 @Component({
+    name: 'InputDoc',
     components: {
         Icon,
         Input,

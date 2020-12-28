@@ -5,7 +5,9 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 
-@Component
+@Component({
+    name: 'Surprise',
+})
 export default class Surprise extends Vue {}
 </script>
 

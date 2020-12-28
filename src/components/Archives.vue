@@ -37,6 +37,7 @@ import { UserArchives } from '@/types/components'
 import { Component, Prop, Vue } from 'vue-property-decorator'
 
 @Component({
+    name: 'Archives',
     components: {
         Icon,
     },

@@ -40,6 +40,7 @@ import CommentsReply from '@/components/comments/CommentsReply.vue'
 import { Component, Prop, Mixins, Vue } from 'vue-property-decorator'
 
 @Component({
+    name: 'CommentsList',
     components: {
         Markdown,
         CommentsReply,

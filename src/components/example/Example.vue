@@ -27,6 +27,7 @@ import { Component, Prop, Mixins, Vue } from 'vue-property-decorator'
 import 'highlight.js/styles/atom-one-light.css'
 
 @Component({
+    name: 'Example',
     components: {
         Icon,
         CollapseTransition,

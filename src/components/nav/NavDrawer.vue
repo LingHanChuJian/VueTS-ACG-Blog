@@ -20,6 +20,7 @@ import Information from '@/components/nav/Information.vue'
 import { Component, Prop, Vue } from 'vue-property-decorator'
 
 @Component({
+    name: 'NavDrawer',
     components: {
         Menu,
         Nav,

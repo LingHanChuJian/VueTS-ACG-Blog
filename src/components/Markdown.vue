@@ -13,7 +13,9 @@ import { handleDPlayer, destroyDPlayer } from '@/utils/dplayer'
 import 'aplayer/dist/APlayer.min.css'
 import 'highlight.js/styles/atom-one-light.css'
 
-@Component
+@Component({
+    name: 'Markdown',
+})
 export default class Markdown extends Vue {
     @Prop({ type: String, default: ''})
     private content!: string

@@ -14,7 +14,9 @@ import { Component, Mixins, Watch, Vue } from 'vue-property-decorator'
  */
 nprogress.configure({ trickle: false, showSpinner: false, minimum: 0 })
 
-@Component
+@Component({
+    name: 'GoTop',
+})
 export default class GoTop extends Mixins(ScrollMixins) {
     private prefixCls: string = 'scroll'
 

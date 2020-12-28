@@ -135,6 +135,7 @@ import { Menu, MenuItem, SubMenu } from '@/components/menu'
 import { Component, Vue } from 'vue-property-decorator'
 
 @Component({
+    name: 'MenuDoc',
     components: {
         Table,
         Anchor,

@@ -7,7 +7,9 @@
 import { WrapClasses } from '@/types/components';
 import { Component, Vue } from 'vue-property-decorator'
 
-@Component
+@Component({
+    name: 'Footer',
+})
 export default class Footer extends Vue {
     private prefixCls: string = 'layout-footer'
 

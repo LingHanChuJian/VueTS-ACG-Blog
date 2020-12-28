@@ -25,6 +25,7 @@ import { Component, Prop, Mixins } from 'vue-property-decorator'
 import VideoPlayer from '@/components/acg-header/VideoPlayer.vue'
 
 @Component({
+    name: 'AcgHeader',
     components: {
         Icon,
         VideoPlayer,

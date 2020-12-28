@@ -5,7 +5,9 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 
-@Component
+@Component({
+    name: 'Live2d',
+})
 export default class Live2d extends Vue {
 
 }

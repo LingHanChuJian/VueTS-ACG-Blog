@@ -18,6 +18,7 @@ import { MenuIcon, WrapClasses } from '@/types/components'
 import { Component, Prop, Vue } from 'vue-property-decorator'
 
 @Component({
+    name: 'NavIcon',
     components: {
         Icon,
     },

@@ -15,6 +15,7 @@ import CommentsReply from '@/components/comments/CommentsReply.vue'
 import { Component, Prop, Provide, Mixins, Vue } from 'vue-property-decorator'
 
 @Component({
+    name: 'Comments',
     components: {
         CommentsList,
         CommentsReply,

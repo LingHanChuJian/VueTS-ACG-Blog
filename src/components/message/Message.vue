@@ -13,6 +13,7 @@ import { WrapClasses, Render, CSSStyles } from '@/types/components'
 import { Component, Prop, Vue } from 'vue-property-decorator'
 
 @Component({
+    name: 'Message',
     components: {
         Expand,
     },

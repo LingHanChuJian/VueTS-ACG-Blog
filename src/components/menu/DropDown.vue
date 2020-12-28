@@ -14,7 +14,9 @@ import { WrapClasses, CSSStyles } from '@/types/components'
 import { Component, Prop, Vue, Provide } from 'vue-property-decorator'
 import { createPopper, Options as PopperOptions, Placement, Instance as Popper } from '@popperjs/core'
 
-@Component
+@Component({
+    name: 'DropDown',
+})
 export default class DropDown extends Vue {
     @Prop({
         type: String,

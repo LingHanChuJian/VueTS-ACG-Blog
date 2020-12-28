@@ -7,7 +7,9 @@
 import AdaptiveMixins from '@/components/mixins/adaptive'
 import { Component, Mixins, Vue } from 'vue-property-decorator'
 
-@Component
+@Component({
+    name: 'ArticleHeader',
+})
 export default class ArticleHeader extends Mixins(AdaptiveMixins) {
 
 }

@@ -50,6 +50,7 @@ import CollapseTransition from '@/components/base/collapseTransition'
 import { Component, Mixins, Watch, Prop, Vue } from 'vue-property-decorator'
 
 @Component({
+    name: 'SubMenu',
     components: {
         Icon,
         CollapseTransition,

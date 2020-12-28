@@ -10,7 +10,9 @@ import EmitterMixins from '@/components/mixins/emitter'
 import { WrapClasses, CSSStyles } from '@/types/components'
 import { Component, Prop, Mixins, Watch, Vue } from 'vue-property-decorator'
 
-@Component
+@Component({
+    name: 'Menu',
+})
 export default class Menu extends Mixins(EmitterMixins) {
     @Prop({
         type: String,

@@ -34,6 +34,7 @@ import { MenuItem, SubMenu } from '@/components/menu'
 import { Component, Prop, Vue } from 'vue-property-decorator'
 
 @Component({
+    name: 'Nav',
     components: {
         MenuItem,
         SubMenu,

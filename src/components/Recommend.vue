@@ -17,7 +17,9 @@
 import { UserRecommend } from '@/types/components'
 import { Component, Prop, Vue } from 'vue-property-decorator'
 
-@Component
+@Component({
+    name: 'Recommend',
+})
 export default class Recommend extends Vue {
     @Prop({
         type: Array,

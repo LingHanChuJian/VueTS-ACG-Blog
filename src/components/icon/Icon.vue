@@ -8,7 +8,9 @@ import { oneOf } from '@/utils'
 import { WrapClasses, IconStyles } from '@/types/components'
 import { Component, Prop, Vue } from 'vue-property-decorator'
 
-@Component
+@Component({
+    name: 'Icon',
+})
 export default class Icon extends Vue {
     @Prop({ type: String })
     private type?: string

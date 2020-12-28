@@ -14,7 +14,9 @@ import AdaptiveMixins from '@/components/mixins/adaptive'
 import { CSSStyles, WrapClasses } from '@/types/components'
 import { Component, Prop, Mixins, Vue } from 'vue-property-decorator'
 
-@Component
+@Component({
+    name: 'Drawer',
+})
 export default class Drawer extends Mixins(AdaptiveMixins) {
     @Prop({ type: Boolean, default: false })
     private value!: boolean

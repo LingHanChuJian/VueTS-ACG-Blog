@@ -13,6 +13,7 @@ import { Row, Column, CSSStyles } from '@/types/components'
 import { Component, Prop, Vue } from 'vue-property-decorator'
 
 @Component({
+    name: 'Tbody',
     components: {
         Expand,
     },

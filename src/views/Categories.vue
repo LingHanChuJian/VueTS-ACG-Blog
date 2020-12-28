@@ -5,7 +5,9 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 
-@Component
+@Component({
+    name: 'Categories',
+})
 export default class Categories extends Vue {}
 </script>
 

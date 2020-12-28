@@ -8,7 +8,9 @@ import { WrapClasses } from '@/types/components'
 import AdaptiveMixins from '@/components/mixins/adaptive'
 import { Component, Mixins, Vue } from 'vue-property-decorator'
 
-@Component
+@Component({
+    name: 'Header',
+})
 export default class Header extends Mixins(AdaptiveMixins) {
     private prefixCls: string = 'layout-header'
 

@@ -47,7 +47,9 @@ const notice = (message: string | Render, duration: number = defaults.duration, 
     name ++
 }
 
-@Component
+@Component({
+    name: 'Notice',
+})
 class Notice extends Vue {
     public info(options: string | MessageOptions) {
         return this.message('info', options)

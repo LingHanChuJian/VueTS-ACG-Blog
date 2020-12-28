@@ -37,6 +37,7 @@ import { Component, Vue } from 'vue-property-decorator'
 import { UserComments, UserDonate } from '@/types/components'
 
 @Component({
+    name: 'Article',
     components: {
         Icon,
         Poptip,

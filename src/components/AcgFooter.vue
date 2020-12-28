@@ -15,6 +15,7 @@ import { Icon } from '@/components/icon'
 import { Component, Vue } from 'vue-property-decorator'
 
 @Component({
+    name: 'AcgFooter',
     components: {
         Icon,
     },

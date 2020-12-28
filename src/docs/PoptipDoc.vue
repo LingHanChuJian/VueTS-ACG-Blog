@@ -88,6 +88,7 @@ import { Example, Block } from '@/components/example'
 import { Component, Vue } from 'vue-property-decorator'
 
 @Component({
+    name: 'PoptipDoc',
     components: {
         Table,
         Anchor,

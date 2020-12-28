@@ -22,6 +22,7 @@ import Markdown from '@/components/Markdown.vue'
 import { Component, Vue } from 'vue-property-decorator'
 
 @Component({
+    name: 'Friends',
     components: {
         Markdown,
     },

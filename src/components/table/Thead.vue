@@ -9,7 +9,9 @@ import { oneOf } from '@/utils/assist'
 import { Column, CSSStyles } from '@/types/components'
 import { Component, Prop, Vue } from 'vue-property-decorator'
 
-@Component
+@Component({
+    name: 'Thead',
+})
 export default class Thead extends Vue {
     @Prop({
         type: Array,

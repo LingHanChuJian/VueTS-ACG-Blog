@@ -3,7 +3,9 @@ import { oneOf } from '@/utils'
 import VueRouter, { RawLocation } from 'vue-router'
 import { Component, Prop, Vue } from 'vue-property-decorator'
 
-@Component
+@Component({
+    name: 'LinkMixins',
+})
 export default class LinkMixins extends Vue {
     @Prop({ type: [Object, String] })
     public to?: RawLocation

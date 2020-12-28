@@ -18,6 +18,7 @@ import { UserInformation } from '@/types/components'
 import { Component, Prop, Vue } from 'vue-property-decorator'
 
 @Component({
+    name: 'Info',
     components: {
         NavIcon,
         Poptip,

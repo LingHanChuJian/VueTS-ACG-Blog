@@ -2,7 +2,9 @@ import { Render } from '@/types/components'
 import { CreateElement, RenderContext, VNode } from 'vue'
 import { Component, Prop, Vue } from 'vue-property-decorator'
 
-@Component
+@Component({
+    name: 'Expand',
+})
 export default class Expand extends Vue {
     @Prop({ type: Function })
     private inRender!: Render

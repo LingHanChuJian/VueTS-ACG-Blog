@@ -73,6 +73,7 @@ import { WrapClasses, CSSStyles } from '@/types/components'
 import { Component, Prop, Watch, Vue } from 'vue-property-decorator'
 
 @Component({
+    name: 'Input',
     components: {
         Icon,
     },

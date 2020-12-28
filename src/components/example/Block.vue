@@ -13,6 +13,7 @@ import { WrapClasses } from '@/types/components'
 import { Component, Prop, Mixins, Vue } from 'vue-property-decorator'
 
 @Component({
+    name: 'Block',
     components: {
         Icon,
     },

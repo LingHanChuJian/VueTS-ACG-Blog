@@ -12,7 +12,9 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 
-@Component
+@Component({
+    name: 'Logo',
+})
 export default class Logo extends Vue {}
 </script>
 

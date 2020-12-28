@@ -22,6 +22,7 @@ import scroll from '@/components/directives/scroll'
 import { Component, Mixins, Watch, Vue } from 'vue-property-decorator'
 
 @Component({
+    name: 'Home',
     components: {
         Icon,
         Recommend,

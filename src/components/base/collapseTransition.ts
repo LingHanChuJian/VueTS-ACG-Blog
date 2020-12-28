@@ -2,7 +2,9 @@ import { addClass, removeClass } from '@/utils'
 import { CreateElement, VNode } from 'vue'
 import { Component, Prop, Vue } from 'vue-property-decorator'
 
-@Component
+@Component({
+    name: 'CollapseTransition',
+})
 export default class CollapseTransition extends Vue {
     @Prop({ type: Boolean, default: false })
     private appear!: boolean

@@ -24,7 +24,9 @@ import { WrapClasses } from '@/types/components'
 import MenuMixins from '@/components/mixins/menu'
 import { Component, Mixins, Vue } from 'vue-property-decorator'
 
-@Component
+@Component({
+    name: 'MenuItem',
+})
 export default class MenuItem extends Mixins(MenuMixins) {
     private prefixCls: string = 'menu-item'
 

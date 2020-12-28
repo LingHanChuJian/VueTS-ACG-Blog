@@ -22,6 +22,7 @@ import { BotkitOptions, UserDiscuss, QuickReplies } from '@/types/utils'
 
 
 @Component({
+    name: 'Me',
     components: {
         Markdown,
     },

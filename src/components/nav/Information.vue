@@ -26,6 +26,7 @@ import { UserInformation, WrapClasses, CSSStyles } from '@/types/components'
 import { title, author, description, userInformation, randomImagesLink } from '@/config'
 
 @Component({
+    name: 'Information',
     components: {
         Icon,
         Info,

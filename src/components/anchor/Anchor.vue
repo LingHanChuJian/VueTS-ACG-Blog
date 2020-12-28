@@ -8,7 +8,9 @@
 import UUIDMixins from '@/components/mixins/uuid'
 import { Component, Prop, Mixins, Vue } from 'vue-property-decorator'
 
-@Component
+@Component({
+    name: 'Anchor',
+})
 export default class Anchor extends Mixins(UUIDMixins) {
     @Prop({ type: String, default: 'h1' })
     private label!: string

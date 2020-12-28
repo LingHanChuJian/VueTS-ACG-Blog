@@ -1,7 +1,9 @@
 import { Component, Vue } from 'vue-property-decorator'
 import { addEvent, removeEvent, scrollTop } from '@/utils'
 
-@Component
+@Component({
+    name: 'ScrollMixins',
+})
 export default class ScrollMixins extends Vue {
     public scrollTop: number = 0
 

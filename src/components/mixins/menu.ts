@@ -4,7 +4,9 @@ import EmitterMixins from '@/components/mixins/emitter'
 import { findComponentUpward, findComponentsUpward } from '@/utils'
 import { Component, Mixins, Prop, Vue } from 'vue-property-decorator'
 
-@Component
+@Component({
+    name: 'MenuMixins',
+})
 export default class MenuMixins extends Mixins(LinkMixins, EmitterMixins) {
     @Prop({ default: false, type: Boolean })
     public disabled!: boolean

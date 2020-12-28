@@ -46,6 +46,7 @@ import { WrapClasses, CSSStyles, PopperOffset } from '@/types/components'
 import { createPopper, Options as PopperOptions, Placement, Instance as Popper } from '@popperjs/core'
 
 @Component({
+    name: 'Poptip',
     directives: {
         clickOutside,
         transfer,

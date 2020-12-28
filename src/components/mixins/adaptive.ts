@@ -1,7 +1,9 @@
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import { addEvent, removeEvent, clientHeight, scrollHeight } from '@/utils'
 
-@Component
+@Component({
+    name: 'AdaptiveMixins',
+})
 export default class AdaptiveMixins extends Vue {
     public isMediaMatched: boolean = this.matchMedia()
 

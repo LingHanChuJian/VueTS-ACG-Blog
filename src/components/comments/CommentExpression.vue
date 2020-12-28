@@ -20,6 +20,7 @@ import { CSSStyles, ExpressionParam, UserExpression } from '@/types/components'
 
 
 @Component({
+    name: 'CommentExpression',
     components: {
         CollapseTransition,
     },

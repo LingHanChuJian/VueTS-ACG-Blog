@@ -18,6 +18,7 @@ import { Component, Mixins, Vue } from 'vue-property-decorator'
 
 
 @Component({
+    name: 'Error',
     components: {
         Layout,
         Content,

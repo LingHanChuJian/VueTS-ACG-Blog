@@ -69,6 +69,7 @@ import { WrapClasses, Column, Row } from '@/types/components'
 import { Layout, Header, Drawer, Content, Footer } from '@/components/layout'
 
 @Component({
+    name: 'LayoutDoc',
     components: {
         Layout,
         Header,
