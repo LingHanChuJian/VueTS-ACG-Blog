@@ -19,7 +19,10 @@
                 )
             div(:class="[prefixCls + '-expression']")
                 CommentExpression(@on-expression-mark-click="onExpressionMarkClick")
+            div(:class="[prefixCls + '-user-avatar']")
+                img(src="")
             div(:class="[prefixCls + '-submit']")
+                div
 </template>
 
 <script lang="ts">
@@ -103,5 +106,11 @@ export default class CommentsReply extends Mixins(EmitterMixins) {
     margin-bottom 20px
 
 .comments-reply-description
-    margin-bottom 20px  
+    margin-bottom 20px
+
+.comments-reply-user-avatar
+    margin 0 auto
+    width 64px
+    height 64px
+
 </style>
