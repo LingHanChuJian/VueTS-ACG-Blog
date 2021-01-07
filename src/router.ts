@@ -7,87 +7,87 @@ Vue.use(VueRouter)
 const routes: RouteConfig[] = [
   {
     path: '/',
-    component: () => import('@/views/Index.vue'),
+    component: () => import('@/views/client/Index.vue'),
     children: [
       {
         path: '/',
         name: 'home',
-        component: () => import('@/views/Home.vue'),
+        component: () => import('@/views/client/Home.vue'),
       },
       {
         path: '/s',
         name: 'search',
-        component: () => import('@/views/Search.vue'),
+        component: () => import('@/views/client/Search.vue'),
       },
       {
         path: '/archives',
         name: 'archives',
-        component: () => import('@/views/Archives.vue'),
+        component: () => import('@/views/client/Archives.vue'),
       },
       {
         path: '/article/:year/:month/:day/:subtitle',
         name: 'article',
-        component: () => import('@/views/Article.vue'),
+        component: () => import('@/views/client/Article.vue'),
       },
       {
         path: '/categories/:categories',
         name: 'categories',
-        component: () => import('@/views/Categories.vue'),
+        component: () => import('@/views/client/Categories.vue'),
       },
       {
         path: '/tags/:tag',
         name: 'tags',
-        component: () => import('@/views/Tag.vue'),
+        component: () => import('@/views/client/Tag.vue'),
       },
       {
         path: '/donate',
         name: 'donate',
-        component: () => import('@/views/Donate.vue'),
+        component: () => import('@/views/client/Donate.vue'),
       },
       {
         path: '/friends',
         name: 'friends',
-        component: () => import('@/views/Friends.vue'),
+        component: () => import('@/views/client/Friends.vue'),
       },
       {
         path: '/me',
         name: 'me',
-        component: () => import('@/views/Me.vue'),
+        component: () => import('@/views/client/Me.vue'),
       },
     ],
   },
   {
-    path: '/docs',
-    redirect: '/docs/layout',
+    path: '/docs/client',
+    redirect: '/docs/client/layout',
     component: () => import('@/docs/Index.vue'),
     children: [
       {
-        path: '/docs/layout',
+        path: '/docs/client/layout',
         name: 'layout',
         component: () => import('@/docs/LayoutDoc.vue'),
       },
       {
-        path: '/docs/menu',
+        path: '/docs/client/menu',
         name: 'menu',
         component: () => import('@/docs/MenuDoc.vue'),
       },
       {
-        path: '/docs/poptip',
+        path: '/docs/client/poptip',
         name: 'poptip',
         component: () => import('@/docs/PoptipDoc.vue'),
       },
       {
-        path: '/docs/icon',
+        path: '/docs/client/icon',
         name: 'icon',
         component: () => import('@/docs/IconDoc.vue'),
       },
       {
-        path: '/docs/message',
+        path: '/docs/client/message',
         name: 'message',
         component: () => import('@/docs/MessageDoc.vue'),
       },
       {
-        path: '/docs/input',
+        path: '/docs/client/input',
         name: 'input',
         component: () => import('@/docs/InputDoc.vue'),
       },

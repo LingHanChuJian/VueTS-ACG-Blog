@@ -111,7 +111,7 @@ export default class Friends extends Vue {
 
 .friends-link-avatar[lazy=loading]
 .friends-link-avatar[lazy=error]
-    background url(./../assets/images/none.jpg) no-repeat
+    background url(./../../assets/images/none.jpg) no-repeat
 
 .friends-link-info
     display inline-block
@@ -137,7 +137,7 @@ export default class Friends extends Vue {
     width 150px
     height 150px
     margin 0 auto
-    background url(./../assets/images/empty.png) no-repeat
+    background url(./../../assets/images/empty.png) no-repeat
     background-size 150px
 
 </style>

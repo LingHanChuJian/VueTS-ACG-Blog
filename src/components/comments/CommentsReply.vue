@@ -35,8 +35,8 @@
                 div(:class="[prefixCls + '-login']")
                     div(:class="[prefixCls + '-login-description']") 第三方登录
                     div(:class="[prefixCls + '-login-method']")
-                        div(v-for="item, index in loginMethod" :key="index")
-                            a(:href="item.href")
+                        //- div(v-for="item, index in loginMethod" :key="index")
+                        //-     a(:href="item.href")
                                 //- Icon(type="")
 </template>
 

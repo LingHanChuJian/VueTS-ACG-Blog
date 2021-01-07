@@ -110,7 +110,7 @@ export default class Donate extends Vue {
 .donate-github
     width 30px
     height 30px
-    background  url(./../assets/images/donate/github.svg) no-repeat center center
+    background  url(./../../assets/images/donate/github.svg) no-repeat center center
     background-size contain
     transform rotatez(15deg)
     display block
@@ -122,7 +122,7 @@ export default class Donate extends Vue {
     height 70px
     line-height 70px
     color #FFFFFF
-    background #FFD886 url(./../assets/images/donate/like.svg) no-repeat center 10px
+    background #FFD886 url(./../../assets/images/donate/like.svg) no-repeat center 10px
     background-size 20px
     border-radius 35px
     text-align center
@@ -157,7 +157,7 @@ export default class Donate extends Vue {
             opacity 1
         for name in "alipay" "wechat" "paypal" "bitcoin"
             &[data-name={name}]
-                background-image url('./../assets/images/donate/' + name + '.svg')
+                background-image url('./../../assets/images/donate/' + name + '.svg')
 
 .donate-image-container
     width 100%

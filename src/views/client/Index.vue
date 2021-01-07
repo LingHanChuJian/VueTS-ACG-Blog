@@ -131,7 +131,7 @@ toggle-header-navbar()
         right 0
         bottom 0
         background-attachment fixed
-        background url(./../assets/images/dot.png)
+        background url(./../../assets/images/dot.png)
         z-index 10
 
 .layout-opened:after
@@ -163,5 +163,5 @@ toggle-header-navbar()
         width 100%
         z-index 999
     .acg-header:before
-        background url(./../assets/images/grid.png)
+        background url(./../../assets/images/grid.png)
 </style>
