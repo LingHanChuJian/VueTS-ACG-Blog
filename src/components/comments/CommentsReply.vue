@@ -19,15 +19,31 @@
                 )
             div(:class="[prefixCls + '-expression']")
                 CommentExpression(@on-expression-mark-click="onExpressionMarkClick")
-            div(:class="[prefixCls + '-user-avatar']")
-                img(src="")
             div(:class="[prefixCls + '-submit']")
-                div
+                div(:class="[prefixCls + '-user']")
+                    div(:class="[prefixCls + '-user-avatar']")
+                        img(src="")
+                    div(:class="[prefixCls + '-user-name']")
+                        //- Poptip()
+                        //-     Input(v-model="" placeholder="昵称(必须 Name*)")
+                    div(:class="[prefixCls + '-user-email']")
+                    div(:class="[prefixCls + '-user-site']")
+                div(:class="[prefixCls + '-action']")
+                    div BiuBiuBiu~
+                    div 上传
+                    div 预览
+                div(:class="[prefixCls + '-login']")
+                    div(:class="[prefixCls + '-login-description']") 第三方登录
+                    div(:class="[prefixCls + '-login-method']")
+                        div(v-for="item, index in loginMethod" :key="index")
+                            a(:href="item.href")
+                                //- Icon(type="")
 </template>
 
 <script lang="ts">
 import { Icon } from '@/components/icon'
 import { Input } from '@/components/input'
+import { Poptip } from '@/components/poptip'
 import EmitterMixins from '@/components/mixins/emitter'
 import { activatePowerMode } from '@/utils/activatePowerMode'
 import CollapseTransition from '@/components/base/collapseTransition'
@@ -39,6 +55,7 @@ import { Component, Prop, Inject, Mixins, Vue } from 'vue-property-decorator'
     components: {
         Icon,
         Input,
+        Poptip,
         CollapseTransition,
         CommentExpression,
     },
@@ -107,6 +124,9 @@ export default class CommentsReply extends Mixins(EmitterMixins) {
 
 .comments-reply-description
     margin-bottom 20px
+
+.comments-reply-user
+    display flex
 
 .comments-reply-user-avatar
     margin 0 auto
