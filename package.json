@@ -35,7 +35,7 @@
     "@vue/cli-service": "^4.0.0",
     "babel-plugin-import": "^1.12.2",
     "lint-staged": "^9.4.2",
-    "pug": "^2.0.4",
+    "pug": "^3.0.1",
     "pug-plain-loader": "^1.0.0",
     "stylus": "^0.54.7",
     "stylus-loader": "^3.0.2",
